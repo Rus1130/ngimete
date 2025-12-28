@@ -50,12 +50,17 @@
         gap: 5px;
     }
 
+    #nav-inner {
+        font-size: 15px;
+    }
+
     input[type="checkbox"]:focus, #input:focus, button:focus {
         outline: none;
     }
 
     body {
         overflow-y: hidden;
+        font-family: "Arial";
     }
 
     /* Dropdown container */
@@ -106,9 +111,13 @@
         <div id="corner">
             <button id="popout">Popout Dictionary</button>
         </div>
-        <div>
-            <span>Search:</span>
-            <textarea id="input"></textarea><br>
+        <div id="nav-inner">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: -16px;">
+                <span>Search:</span>
+                <textarea id="input"></textarea>
+            </div>
+
+            <br>
             <span class="dialect-span">Dialect:</span>
             <input type="checkbox" id="dialect-standard" name="dialect" value="Standard" checked> <span class="dialect-span">Standard</span>
             <input type="checkbox" id="dialect-aatsilwi" name="dialect" value="A'atsilwi" checked> <span class="dialect-span">A'atsilwi</span>
