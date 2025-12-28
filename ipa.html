@@ -6,6 +6,10 @@
         outline: none;
     }
 
+    #input {
+        min-height: 74px;
+    }
+
     #out {
         margin-bottom: 4px;
     }
@@ -33,24 +37,52 @@
 
     <textarea id="out" style="font-family: monospace; margin-top: 10px;" readonly placeholder="output" spellcheck="false"></textarea>
 
-    <button id="both" style="padding: 10px;">copy both</button>
+    <button id="all" style="padding: 10px;">copy all</button>
+    <button id="script-ortho" style="padding: 10px;">copy script + ortho</button>
+    <button id="ortho-ipa" style="padding: 10px;">copy ortho + IPA</button>
+    <button id="script-ipa" style="padding: 10px;">copy script + IPA</button>
+    <br><br>
     <button id="ortho" style="padding: 10px;">copy ortho</button>
     <button id="ipa" style="padding: 10px;">copy IPA</button>
+    <button id="script" style="padding: 10px;">copy script</button>
     <label for="alternate-mode">
         <input type="checkbox" id="alternate-mode" checked>
         Alternate lines
     </label>
+    <label for="script-type">
+        <input type="checkbox" id="script-type" checked>
+        Use merged script
+    </label>
 </body>
 <script type="module">
-import { Writer } from './lib.js';
+import { Writer, ConlangContent } from './lib.js';
 
 const input = document.getElementById("input");
 const output = document.getElementById("out");
 
-const bothButton = document.getElementById("both");
+// const allButton = document.getElementById("all");
+// const orthoButton = document.getElementById("ortho");
+// const ipaButton = document.getElementById("ipa");
+// const orthoIPAButton = document.getElementById("ortho-ipa");
+// const scriptButton = document.getElementById("script");
+const alternateModeCheckbox = document.getElementById("alternate-mode");
+const scriptTypeCheckbox = document.getElementById("script-type");
+
+const allButton = document.getElementById("all");
 const orthoButton = document.getElementById("ortho");
 const ipaButton = document.getElementById("ipa");
-const alternateModeCheckbox = document.getElementById("alternate-mode");
+const scriptButton = document.getElementById("script");
+const orthoIPAButton = document.getElementById("ortho-ipa");
+const scriptOrthoButton = document.getElementById("script-ortho");
+const scriptIPAButton = document.getElementById("script-ipa");
+
+
+// ᨓ
+
+//input.textContent = "tíi"
+input.textContent = "wanddāketiyaniəte";
+//input.textContent = "babe ngawu mbawë ngingi túwus á'á tsi'i nggala gyelu kyesi ndawi mbaba ngguso tsa'an ábao pifwe tuha welebing fetsimwa fesúa witsunggá'o fwí kewes fwígiwes tembbe"
+updateOutput();
 
 function setOutputText(text) {
     output.value = text;
@@ -62,7 +94,7 @@ function setOutputText(text) {
 
 function setInputHeight(){
     input.style.height = "auto";
-    input.style.height = input.scrollHeight + "px";
+    input.style.height = Math.max(input.scrollHeight, 74)  + "px";
 }
 
 function updateOutput() {
@@ -72,40 +104,35 @@ function updateOutput() {
         return;
     }
 
-    const w = new Writer(value);
-    let text = w.both(alternateModeCheckbox.checked);
+    const cc = new ConlangContent(value);
     
-    setOutputText(text);
+    setOutputText(cc.toString(scriptTypeCheckbox.checked ? 1 : 0, alternateModeCheckbox.checked, ["ortho", "script", "ipa"]));
 }
 
 input.addEventListener("input", setInputHeight);
 input.addEventListener("input", updateOutput);
+
 alternateModeCheckbox.addEventListener("change", updateOutput);
+scriptTypeCheckbox.addEventListener("change", updateOutput);
 
-bothButton.addEventListener("click", () => {
-    const value = input.value;
-    if (!value) return;
+function handleButton(button, categories){
+    const ogText = button.innerText;
+    button.addEventListener("click", () => {
+        const value = input.value;
+        if (!value) return;
 
-    navigator.clipboard.writeText(new Writer(value).both(alternateModeCheckbox.checked));
-    bothButton.innerText = "copied!";
-    setTimeout(() => bothButton.innerText = "copy both", 2000);
-});
+        const cc = new ConlangContent(value);
+        navigator.clipboard.writeText(cc.toString(1, alternateModeCheckbox.checked, categories));
+        button.innerText = "copied!";
+        setTimeout(() => button.innerText = ogText, 2000);
+    });
+}
 
-orthoButton.addEventListener("click", () => {
-    const value = input.value;
-    if (!value) return;
-
-    navigator.clipboard.writeText(new Writer(value).ortho());
-    orthoButton.innerText = "copied!";
-    setTimeout(() => orthoButton.innerText = "copy ortho", 2000);
-});
-
-ipaButton.addEventListener("click", () => {
-    const value = input.value;
-    if (!value) return;
-
-    navigator.clipboard.writeText(new Writer(value).ipa());
-    ipaButton.innerText = "copied!";
-    setTimeout(() => ipaButton.innerText = "copy IPA", 2000);
-});
+handleButton(allButton, ["ortho", "script", "ipa"]);
+handleButton(scriptOrthoButton, ["ortho", "script"]);
+handleButton(orthoIPAButton, ["ortho", "ipa"]);
+handleButton(scriptIPAButton, ["script", "ipa"]);
+handleButton(orthoButton, ["ortho"]);
+handleButton(ipaButton, ["ipa"]);
+handleButton(scriptButton, ["script"]);
 </script>

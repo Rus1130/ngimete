@@ -437,6 +437,8 @@ const ORTHO_RULES = [
     { re: /gy|ky/g, to: "c" },
     { re: /ts/g, to: "S" }, // t͡s
     { re: /y/g, to: "j" },
+    { re: /\?/g, to: "." },
+    { re: /\!/g, to: "." },
 
     // prenasalization
     { re: /nd/g, to: "D" }, // ⁿd
@@ -480,6 +482,7 @@ const remap = [
     { re: /S/g, to: "t͡s" },
     { re: /M/g, to: "m.b" },
     { re: /N/g, to: "n.d" },
+    { re: /\.\./g, to: "" },
 ]
 
 const GROUPS = {
@@ -608,9 +611,304 @@ function ipa(input) {
     return result;
 }
 
+function renderGlyph(character) {
+    if(character.raw) return character.base;
+
+    if(character.multi){
+        return character.parts.map(part => renderGlyph(part)).join("");
+    }
+
+    let base = character.base;
+    if(character.left)   base += mods.left;
+    if(character.top)    base += mods.top;
+    if(character.special)base += mods.special;
+    if(character.bottom) base += mods.bottom;
+    if(character.right)  base += mods.right;
+    return base;
+}
+
+function findMergeTarget(pipeline) {
+    for (let i = pipeline.length - 1; i >= 0; i--) {
+        const g = pipeline[i];
+        if (g.raw) return null;
+        if (!g.vowel) return { glyph: g, index: i };
+    }
+    return null;
+}
+
+const mods = {
+    left: "ᨙ",
+    top: "ᨗ",
+    bottom: "ᨘ",
+    right: "ᨚ",
+    special: "ᨛ",
+}
+
+/**
+ * 
+ * @param {*} s 
+ * @param {number} type 0 = normal; 1 = merged; 2 = abugidized
+ * @returns 
+ */
+function script(s, type = 0){
+    const old_s = String(s);
+
+    s = 
+        s.replaceAll("ā", "aᨐ")
+        .replaceAll("c", "ᨐ")
+        .replaceAll("ə", "ᨐ")
+        .replaceAll("z", "ᨐ");
+
+    const script_map = {
+        p: { base: "ᨃ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
+        b: { base: "ᨃ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false },
+        t: { base: "ᨈ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
+        d: { base: "ᨊ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
+        C: { base: "ᨇ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
+        k: { base: "ᨍ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
+        g: { base: "ᨍ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false },
+        Q: { base: "ᨀ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
+        B: { base: "ᨃ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false },
+        D: { base: "ᨈ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false },
+        G: { base: "ᨍ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false },
+        m: { base: "ᨅ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
+        n: { base: "ᨄ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
+        N: { base: "ᨋ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false },
+        f: { base: "ᨂ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
+        v: { base: "ᨂ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false },
+        s: { base: "ᨆ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
+        h: { base: "ᨀ", top: false, bottom: true, left: false, right: false, special: false, vowel: false },
+        T: { base: "ᨉ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
+        w: { base: "ᨏ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false },
+        y: { base: "ᨒ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false },
+        l: { base: "ᨓ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false },
+        i: { base: "ᨔ", top: true,  bottom: false, left: false, right: false, special: false, vowel: true  },
+        ü: { base: "ᨔ", top: true, bottom: false,  left: false, right: false, special: true, vowel: true  },
+        í: { base: "ᨖ", top: true, bottom: false,  left: false, right: false, special: false, vowel: true  },
+        u: { base: "ᨔ", top: true,  bottom: false, left: false, right: true, special: false, vowel: true  },
+        ú: { base: "ᨖ", top: true,  bottom: false, left: false, right: true, special: false, vowel: true  },
+        e: { base: "ᨔ", top: false,  bottom: false,  left: true, right: false, special: false, vowel: true  },
+        é: { base: "ᨖ", top: false,  bottom: false,  left: true, right: false, special: false, vowel: true  },
+        ë: { base: "ᨔ", top: false, bottom: false,  left: false, right: false, special: true, vowel: true  },
+        o: { base: "ᨔ", top: false,  bottom: false, left: false, right: true, special: false, vowel: true  },
+        ó: { base: "ᨖ", top: false,  bottom: false, left: false, right: true, special: false, vowel: true  },
+        a: { base: "ᨔ", top: false,  bottom: false, left: false, right: false, special: false, vowel: true  },
+        á: { base: "ᨖ", top: false,  bottom: false, left: false, right: false, special: false, vowel: true  },
+        ä: { base: "ᨔ", top: false, bottom: true,  left: false, right: false, special: false, vowel: true  },
+        är: { base: "ᨖ", top: false, bottom: true,  left: false, right: false, special: false, vowel: true  },
+        X: { multi: true, parts: [
+            { base: "ᨅ", top: false, bottom: false, left: false, right: false, special: false, vowel: false }, // m
+            { base: "ᨃ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false } // b
+        ] },
+        Y: { multi: true, parts: [
+            { base: "ᨄ", top: false, bottom: false, left: false, right: false, special: false, vowel: false }, // n
+            { base: "ᨊ", top: false, bottom: false, left: false, right: false, special: false, vowel: false } // d
+        ] },
+    }
+
+    const script_replace_list = {
+        "mbb": "X",
+        "ndd": "Y",
+        "mb": "B",
+        "nd": "D",
+        "ngg": "G",
+        "ng": "N",
+        "ts": "T",
+        "gy": "C",
+        "ky": "C",
+        "'": "Q",
+        ",": " ᨞",
+        ".": " ᨟",
+        "?": " ᨟",
+        "!": " ᨟",
+    }
+
+    for(const [key, value] of Object.entries(script_replace_list)){
+        s = s.replaceAll(key, value)
+    }
+
+
+    let rendered = ""
+
+    if(type == 0){
+        for(let i = 0; i < s.length; i++){
+            let char = s[i];
+            const renderable = script_map[char];
+            if(renderable != undefined){
+                rendered += renderGlyph(renderable);
+            } else {
+                rendered += char;
+            }
+        }
+    }
+
+    if (type == 1) {
+        let renderPipeline = [];
+
+        for (let i = 0; i < s.length; i++) {
+            const char = s[i];
+            const curr = script_map[char];
+
+            if(i == 0){
+                renderPipeline.push(curr ?? {raw: true, base: char});
+                continue;
+            }
+
+            if(curr == undefined){
+                renderPipeline.push({raw: true, base: char});
+                continue;
+            }
+
+            if(renderPipeline[renderPipeline.length - 1]?.raw){
+                renderPipeline.push(curr);
+                continue;
+            }
+
+            if (curr.special) {
+                // skip merging, render normally
+                renderPipeline.push(curr);
+                continue;
+            }
+
+            if(curr.base == "ᨑ"){
+                // skip merging, render normally
+                renderPipeline.push(curr);
+                continue;
+            }
+
+            const currHasDiacritics =
+                curr.top || curr.bottom || curr.left || curr.right || curr.special;
+
+            if(curr.vowel && currHasDiacritics){
+                // attempt to merge with previous
+                const target = findMergeTarget(renderPipeline);
+
+                if (!target) {
+                    renderPipeline.push(curr);
+                    continue;
+                }
+
+                const { glyph: prev, index } = target;
+
+                const slotBlocked =
+                    (curr.top && prev.top) ||
+                    (curr.bottom && prev.bottom) ||
+                    (curr.left && prev.left) ||
+                    (curr.right && prev.right) ||
+                    (curr.special && prev.special);
+
+                if(!slotBlocked){
+
+                    const vowelBaseIsᨖ = curr.base.startsWith("ᨖ");
+
+                    if(prev.multi){
+                        // merge onto last part
+                        const lastIndex = prev.parts.length - 1;
+                        const lastPart = prev.parts[lastIndex];
+
+                        prev.parts[lastIndex] = {
+                            ...lastPart,
+                            top: lastPart.top || curr.top,
+                            bottom: lastPart.bottom || curr.bottom,
+                            left: lastPart.left || curr.left,
+                            right: lastPart.right || curr.right,
+                            special: lastPart.special || curr.special,
+                            vowel: false
+                        };
+
+                        renderPipeline[index] = prev;
+
+                    } else {
+                        // normal merge
+                        renderPipeline[index] = {
+                            base: prev.base,
+                            top: prev.top || curr.top,
+                            bottom: prev.bottom || curr.bottom,
+                            left: prev.left || curr.left,
+                            right: prev.right || curr.right,
+                            special: prev.special || curr.special,
+                            vowel: false,
+                        };
+                    }
+
+                    if(vowelBaseIsᨖ){
+                        renderPipeline.push({
+                            raw: true,
+                            base: "ᨑ",
+                        });
+                    }
+
+
+                    continue;
+                }
+            }
+
+            // normal render
+            renderPipeline.push(curr);
+        }
+
+        rendered = renderPipeline.map(renderGlyph).join("");
+    }
+
+    if (type == 2) {
+        let abugidaOutput = "";
+
+        // split by space or .
+        const cleaned = ipa(old_s)
+            .replace(/[\[\]\|]/g, "")      // remove [, ], |
+            .trim()
+            .split(/[.\s]+/)               // split by any space or period
+            .filter(Boolean)               // remove empty segments
+
+        console.log(cleaned)
+    }
+
+
+    return rendered.replace(/ ᨟$/g, "")
+}
+
+export class ConlangContent {
+    constructor(s) {
+        s = s.trim().normalize("NFC").split("\n");
+
+        this.ipa = s.map(ipa).map(line => line.replaceAll("[]", ""));
+        this.ortho = s.map(ortho)
+        this.script_sep = s.map(line => script(ortho(line), 0));
+        this.script_mer = s.map(line => script(ortho(line), 1));
+    }
+
+    /**
+     * 
+     * @param {Number} scriptType - 0 = separate, 1 = condensed
+     * @param {Boolean} alternateMode - if true, outputs in alternating lines per word
+     * @param {String[]} includedCategories  - categories to include: "ortho", "script", "ipa"
+     * @returns 
+     */
+    toString(scriptType = 0, alternateMode = false, includedCategories = ["ortho", "script", "ipa"]) {
+        let string = "";
+
+        // Helper to check if a category is included
+        const include = (cat) => includedCategories.includes(cat);
+
+        if (alternateMode) {
+            for (let i = 0; i < this.ipa.length; i++) {
+                if (include("ortho")) string += this.ortho[i] + "\n";
+                if (include("script")) string += (scriptType === 0 ? this.script_sep[i] : this.script_mer[i]) + "\n";
+                if (include("ipa")) string += this.ipa[i] + "\n";
+            }
+        } else {
+            if (include("ortho")) string += this.ortho.join("\n") + "\n";
+            if (include("script")) string += (scriptType === 0 ? this.script_sep.join("\n") : this.script_mer.join("\n")) + "\n";
+            if (include("ipa")) string += this.ipa.join("\n").replaceAll("[]", "\n");
+        }
+
+        return string.trim().replaceAll("\n\n\n", "\n\n");
+    }
+}
+
 export class Writer {
     constructor(text){
-        this.text = text.trim();
+        this.text = text.trim().normalize("NFC");
     }
 
     ipa(){
@@ -619,6 +917,22 @@ export class Writer {
 
     ortho(){
         return ortho(this.text)
+    }
+
+    // ᨈ ᨔᨙ ᨃᨙ ᨃᨘ ᨔᨙ
+    // t  e mb b e
+
+    /**
+     * 
+     * @param {Number} type 0 = separate, 1 = condensed
+     * @returns 
+     */
+    script(type = 0){
+        return script(this.ortho(), type)
+    }
+
+    all(alternateMode = false){
+        return this.both(alternateMode)
     }
 
     both(alternateMode = false){
