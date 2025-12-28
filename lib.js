@@ -587,7 +587,7 @@ function script(s, type = 0){
         C: { base: "ᨇ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         k: { base: "ᨍ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         g: { base: "ᨍ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false },
-        Q: { base: "ᨀ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
+        Z: { base: "ᨀ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         B: { base: "ᨃ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false },
         D: { base: "ᨈ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false },
         G: { base: "ᨍ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false },
@@ -615,7 +615,7 @@ function script(s, type = 0){
         a: { base: "ᨔ", top: false,  bottom: false, left: false, right: false, special: false, vowel: true  },
         á: { base: "ᨖ", top: false,  bottom: false, left: false, right: false, special: false, vowel: true  },
         ä: { base: "ᨔ", top: false, bottom: true,  left: false, right: false, special: false, vowel: true  },
-        är: { base: "ᨖ", top: false, bottom: true,  left: false, right: false, special: false, vowel: true  },
+        Q: { base: "ᨖ", top: false, bottom: true,  left: false, right: false, special: false, vowel: true  },
         X: { multi: true, parts: [
             { base: "ᨅ", top: false, bottom: false, left: false, right: false, special: false, vowel: false }, // m
             { base: "ᨃ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false } // b
@@ -636,7 +636,8 @@ function script(s, type = 0){
         "ts": "S",
         "gy": "C",
         "ky": "C",
-        "'": "Q",
+        "är": "Q",
+        "'": "Z",
         ",": " ᨞",
         ".": " ᨟",
         "?": " ᨟",
