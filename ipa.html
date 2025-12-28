@@ -56,6 +56,11 @@
 </body>
 <script type="module">
 import { Writer, ConlangContent } from './lib.js';
+import { dict } from './dictionary.js';
+
+// sleep for 100 ms
+
+await new Promise(r => setTimeout(r, 100));
 
 const input = document.getElementById("input");
 const output = document.getElementById("out");
@@ -77,10 +82,11 @@ const scriptOrthoButton = document.getElementById("script-ortho");
 const scriptIPAButton = document.getElementById("script-ipa");
 
 
-// ᨓ
+const random = dict.randomWord(["Connecting Letters", "Vowel Sounds", "Consonant Sounds", "Grammar"], true)
 
-//input.textContent = "tíi"
-input.textContent = "wanddāketiyaniəte";
+console.log(random.key)
+
+input.textContent = random.value["Standard"]
 //input.textContent = "babe ngawu mbawë ngingi túwus á'á tsi'i nggala gyelu kyesi ndawi mbaba ngguso tsa'an ábao pifwe tuha welebing fetsimwa fesúa witsunggá'o fwí kewes fwígiwes tembbe"
 updateOutput();
 

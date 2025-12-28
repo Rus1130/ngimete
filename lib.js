@@ -74,6 +74,33 @@ export class Dictionary {
         }
     }
 
+    randomWord(category, excludeMode = false) {
+        let availableCategories = this.practiceOrder;
+
+        if (category !== undefined) {
+            if (!Array.isArray(category)) category = [category];
+
+            if (excludeMode) {
+                // exclude the given categories
+                availableCategories = availableCategories.filter(c => !category.includes(c));
+            } else {
+                // include only the given categories
+                availableCategories = availableCategories.filter(c => category.includes(c));
+            }
+        }
+
+        if (availableCategories.length === 0) return null;
+
+        // pick a random category from the filtered list
+        const chosenCategory = availableCategories[Math.floor(Math.random() * availableCategories.length)];
+        const wordsInCategory = this.dict[chosenCategory];
+
+        if (!wordsInCategory || wordsInCategory.length === 0) return null;
+
+        const randomIndex = Math.floor(Math.random() * wordsInCategory.length);
+        return wordsInCategory[randomIndex];
+    }
+
     /**
      * 
      * @param {string} searchTerm the english term to search by
@@ -299,126 +326,6 @@ function ortho(s){
     return s;
 }
 
-// function ipa(s){
-//     s = ortho(s);
-
-//     console.log(s)
-
-//     const r = [
-//         [   
-//             // replace combining vowels with their combined counterparts
-//             { pattern: "á", value: "á" },
-//             { pattern: "é", value: "é" },
-//             { pattern: "í", value: "í" },
-//             { pattern: "ó", value: "ó" },
-//             { pattern: "ú", value: "ú" },
-//             { pattern: "ä", value: "ä" },
-//             { pattern: "ë", value: "ë" },
-//             { pattern: "ü", value: "ü" },
-
-//             { pattern: "ngg", value: "ᵑg" },
-//             { pattern: "mbb", value: "m.b" },
-//             { pattern: "ndd", value: "n.d" },
-//             { pattern: ".", value: " ||"},
-//             { pattern: ",", value: " |"}
-//         ],
-//         [
-//             // delimiters 
-//             { pattern: "ā", value: "a‿"},
-//             { pattern: "c", value: "‿"},
-//             { pattern: "ə", value: "‿"},
-//             { pattern: "z", value: "‿"},
-
-//             // consonants
-//             { pattern: 'ng', value: "ŋ" },
-//             { pattern: 'y', value: "j" },
-//             { pattern: "gy", value: "c"},
-//             { pattern: "ky", value: "c"},
-//             { pattern: "'", value: "ʔ" },
-//             { pattern: "nd", value: "ⁿd" },
-//             { pattern: "mb", value: "ᵐb" },
-//             { pattern: "ts", value: "t͡s" },
-
-//             // vowels
-//             { pattern: 'a', value: "a." },
-//             { pattern: 'e', value: "e." },
-//             { pattern: 'i', value: "i." },
-//             { pattern: 'o', value: "o." },
-//             { pattern: 'u', value: "u." },
-//             { pattern: 'á', value: "aː." },
-//             { pattern: 'é', value: "eː." },
-//             { pattern: 'í', value: "iː." },
-//             { pattern: 'ó', value: "oː." },
-//             { pattern: 'ú', value: "uː." },
-//             { pattern: 'är', value: "ɑː." },
-//             { pattern: 'ä', value: "ɑ." },
-//             { pattern: 'ë', value: "ə." },
-//             { pattern: 'ü', value: "y." },
-//         ],
-//         [
-//             { pattern: ". ", value: " "},
-//             { pattern: "a.o", value: "ao̯"},
-//             { pattern: "e.o", value: "eo̯"},
-//         ]
-//     ]
-
-//     let result = s;
-//     const map = m => Object.fromEntries(m.map(({ pattern, value }) => [pattern, value]))
-
-//     for(let i = 0; i < r.length; i++){
-//         result = result.replace(new RegExp(Object.keys(map(r[i])).join("|"), "g"), match => map(r[i])[match] || match)
-//     }
-
-//     result = result.split(" ")
-//     result.forEach((index, i) => {
-//         if(result[i][result[i].length - 1] == ".") {
-//             result[i] = result[i].substring(0, result[i].length - 1)
-//         }
-//     });
-
-//     const V = "aeiouːɑəy";
-//     const C = "bdfghklmnpstvwjcŋʔ";
-
-//     result.forEach((index, i) => {            
-//         // fix delimited syllable boundaries 
-//         result[i] = index.replaceAll(new RegExp(`([${C+V}]ː?)(\.)([${C}])(‿)`, "g"), "$1$3$4")   
-
-//         // fix non-delimited syllable boundaries
-//         result[i] = result[i].replaceAll(new RegExp(`([${C+V}]ː?)(\.)([${C}])$`, "g"), "$1$3") 
-
-//         // fix nasal syllable boundaries le.ŋki -> leŋ.ki
-//         result[i] = result[i].replaceAll(new RegExp(`(\.)([mnŋ])([${C}])`, "g"), "$2.$3")
-
-//         // fix w/l syllable boundaries
-//         result[i] = result[i].replaceAll(new RegExp(`(\.)([wl])([${C}])`, "g"), "$2.$3")
-//         result[i] = result[i].replaceAll(new RegExp(`(\.)([wl])$`, "g"), "$2")
-
-//         // fix s syllable boundaries
-//         result[i] = result[i].replaceAll(new RegExp(`([${V}])\.s$`, "g"), "$1s.")
-//         result[i] = result[i].replaceAll(new RegExp(`([${V}]).s‿`, "g"), "$1s‿")
-
-//         // fix .m.b and .n.d
-//         result[i] = result[i].replaceAll(".m.b", "m.b")
-//         result[i] = result[i].replaceAll(".n.d", "n.d")
-
-//         // fix velar prenasalized syllable boundaries
-//         //result[i] = result[i].replaceAll(new RegExp(`\.ŋg`, "g"), "ᵑg\.");
-//     })
-
-//     result = result.join(" ")
-
-//     result = result
-//     .replaceAll("n", "n̪")
-//     .replaceAll("g", "ɡ")
-//     .replaceAll("./","/")
-//     .replaceAll(".​", "")
-//     .replaceAll(". ", " ")
-//     .replaceAll("‿", ".")
-//     .replaceAll(/\.$/g, "")
-
-//     return "[" + result + "]";
-// }
-
 function normalize(str) {
     return str.normalize("NFC");
 }
@@ -577,6 +484,7 @@ function ipa(input) {
         .join(" ");
     
     s = s
+        .replaceAll(/Si.l/g, "Sil")
         .replaceAll(/([mnŋ])\.([aeiouɑəyAEIOUQ])/g, ".$1$2")
         .replaceAll(/(\.?)f\.w/g, "$1fw")
         .replaceAll(/\.([MN])/g, "$1")
@@ -627,15 +535,24 @@ function renderGlyph(character) {
     return base;
 }
 
-function findMergeTarget(pipeline) {
-    for (let i = pipeline.length - 1; i >= 0; i--) {
-        const g = pipeline[i];
-        if (g.raw) return null;
-        if (!g.vowel) return { glyph: g, index: i };
-    }
-    return null;
-}
+function findMergeTarget(renderPipeline) {
+    // iterate backwards from the end
+    for (let i = renderPipeline.length - 1; i >= 0; i--) {
+        const glyph = renderPipeline[i];
 
+        if (!glyph || glyph.raw) continue; // skip raw text
+        if (glyph.merged) continue;        // already merged
+
+        if (glyph.multi) {
+            // check last part of multi glyph
+            const lastPart = glyph.parts[glyph.parts.length - 1];
+            if (!lastPart.merged) return { glyph, index: i };
+        } else {
+            return { glyph, index: i };
+        }
+    }
+    return null; // no valid merge target
+}
 const mods = {
     left: "ᨙ",
     top: "ᨗ",
@@ -678,7 +595,7 @@ function script(s, type = 0){
         v: { base: "ᨂ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false },
         s: { base: "ᨆ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         h: { base: "ᨀ", top: false, bottom: true, left: false, right: false, special: false, vowel: false },
-        T: { base: "ᨉ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
+        S: { base: "ᨉ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         w: { base: "ᨏ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false },
         y: { base: "ᨒ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false },
         l: { base: "ᨓ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false },
@@ -713,7 +630,7 @@ function script(s, type = 0){
         "nd": "D",
         "ngg": "G",
         "ng": "N",
-        "ts": "T",
+        "ts": "S",
         "gy": "C",
         "ky": "C",
         "'": "Q",
@@ -749,29 +666,24 @@ function script(s, type = 0){
             const char = s[i];
             const curr = script_map[char];
 
-            if(i == 0){
-                renderPipeline.push(curr ?? {raw: true, base: char});
+            if (i == 0) {
+                renderPipeline.push(curr ?? { raw: true, base: char });
                 continue;
             }
 
-            if(curr == undefined){
-                renderPipeline.push({raw: true, base: char});
+            if (!curr) {
+                renderPipeline.push({ raw: true, base: char });
                 continue;
             }
 
-            if(renderPipeline[renderPipeline.length - 1]?.raw){
+            if(curr.merged == undefined) curr.merged = false;
+
+            if (renderPipeline[renderPipeline.length - 1]?.raw) {
                 renderPipeline.push(curr);
                 continue;
             }
 
-            if (curr.special) {
-                // skip merging, render normally
-                renderPipeline.push(curr);
-                continue;
-            }
-
-            if(curr.base == "ᨑ"){
-                // skip merging, render normally
+            if (curr.special || curr.base == "ᨑ") {
                 renderPipeline.push(curr);
                 continue;
             }
@@ -779,8 +691,7 @@ function script(s, type = 0){
             const currHasDiacritics =
                 curr.top || curr.bottom || curr.left || curr.right || curr.special;
 
-            if(curr.vowel && currHasDiacritics){
-                // attempt to merge with previous
+            if (curr.vowel && currHasDiacritics) {
                 const target = findMergeTarget(renderPipeline);
 
                 if (!target) {
@@ -790,6 +701,12 @@ function script(s, type = 0){
 
                 const { glyph: prev, index } = target;
 
+                // skip if already merged
+                if (prev.merged) {
+                    renderPipeline.push(curr);
+                    continue;
+                }
+
                 const slotBlocked =
                     (curr.top && prev.top) ||
                     (curr.bottom && prev.bottom) ||
@@ -797,12 +714,10 @@ function script(s, type = 0){
                     (curr.right && prev.right) ||
                     (curr.special && prev.special);
 
-                if(!slotBlocked){
-
+                if (!slotBlocked) {
                     const vowelBaseIsᨖ = curr.base.startsWith("ᨖ");
 
-                    if(prev.multi){
-                        // merge onto last part
+                    if (prev.multi) {
                         const lastIndex = prev.parts.length - 1;
                         const lastPart = prev.parts[lastIndex];
 
@@ -813,13 +728,12 @@ function script(s, type = 0){
                             left: lastPart.left || curr.left,
                             right: lastPart.right || curr.right,
                             special: lastPart.special || curr.special,
-                            vowel: false
+                            vowel: false,
+                            merged: true, // mark as merged
                         };
 
                         renderPipeline[index] = prev;
-
                     } else {
-                        // normal merge
                         renderPipeline[index] = {
                             base: prev.base,
                             top: prev.top || curr.top,
@@ -828,22 +742,18 @@ function script(s, type = 0){
                             right: prev.right || curr.right,
                             special: prev.special || curr.special,
                             vowel: false,
+                            merged: true, // mark as merged
                         };
                     }
 
-                    if(vowelBaseIsᨖ){
-                        renderPipeline.push({
-                            raw: true,
-                            base: "ᨑ",
-                        });
+                    if (vowelBaseIsᨖ) {
+                        renderPipeline.push({ raw: true, base: "ᨑ" });
                     }
-
 
                     continue;
                 }
             }
 
-            // normal render
             renderPipeline.push(curr);
         }
 
