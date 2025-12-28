@@ -444,6 +444,7 @@ const IPA_FIXES = [
     { re: /g/g, to: "ɡ" },
     { re: /a\.o/g, to: "ao̯" },
     { re: /e\.o/g, to: "eo̯" },
+    { re: /o\.a/g, to: "oa̯" },
 ];
 
 function compileTemplate(tpl, groups) {
@@ -486,7 +487,7 @@ function ipa(input) {
     s = s
         .replaceAll(/Si.l/g, "Sil")
         .replaceAll(/([mnŋ])\.([aeiouɑəyAEIOUQ])/g, ".$1$2")
-        .replaceAll(/(\.?)f\.w/g, "$1fw")
+        .replaceAll(/(\.?)([fpb])\.w/g, "$1$2w")
         .replaceAll(/\.([MN])/g, "$1")
         .replaceAll(
         /([bdfghklmnpstvwjcŋʔMNSBDG])([aeiouɑəyAEIOUQ])\.s(?=[^aeiouɑəyAEIOUQ]|$)/g,
@@ -514,6 +515,8 @@ function ipa(input) {
         .replaceAll(" | ]", "]")
         .replaceAll(" ||  ", " || ")
         .replaceAll(" |  ", " | ")
+        .replaceAll("(.", "(")
+        .replaceAll(".)", ")")
 
 
     return result;
