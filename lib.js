@@ -538,24 +538,84 @@ function renderGlyph(character) {
     return base;
 }
 
+// function findMergeTarget(renderPipeline) {
+//     // iterate backwards from the end
+//     for (let i = renderPipeline.length - 1; i >= 0; i--) {
+//         const glyph = renderPipeline[i];
+
+//         if (!glyph || glyph.raw) continue; // skip raw text
+//         if (glyph.merged) continue;        // already merged
+
+//         if (glyph.multi) {
+//             // check last part of multi glyph
+//             const lastPart = glyph.parts[glyph.parts.length - 1];
+//             if (!lastPart.merged) return { glyph, index: i };
+//         } else {
+//             return { glyph, index: i };
+//         }
+//     }
+//     return null; // no valid merge target
+// }
+
 function findMergeTarget(renderPipeline) {
-    // iterate backwards from the end
-    for (let i = renderPipeline.length - 1; i >= 0; i--) {
-        const glyph = renderPipeline[i];
+    const i = renderPipeline.length - 1;
+    if (i < 0) return null;
 
-        if (!glyph || glyph.raw) continue; // skip raw text
-        if (glyph.merged) continue;        // already merged
+    const glyph = renderPipeline[i];
 
-        if (glyph.multi) {
-            // check last part of multi glyph
-            const lastPart = glyph.parts[glyph.parts.length - 1];
-            if (!lastPart.merged) return { glyph, index: i };
-        } else {
-            return { glyph, index: i };
-        }
+    if (!glyph || glyph.raw) return null;
+    if (glyph.merged) return null;
+
+    if (glyph.multi) {
+        const lastPart = glyph.parts[glyph.parts.length - 1];
+        if (!lastPart.merged) return { glyph, index: i };
+        return null;
     }
-    return null; // no valid merge target
+
+    return { glyph, index: i };
 }
+
+
+// function findMergeTarget(pipeline) {
+//     // look backwards for a glyph that:
+//     // - is not raw
+//     // - is not already merged
+//     // - is not a multi-glyph (treat multi as atomic)
+//     for (let i = pipeline.length - 1; i >= 0; i--) {
+//         const glyph = pipeline[i];
+//         if (!glyph.raw && !glyph.merged && !glyph.multi) return { glyph, index: i };
+//         if (glyph.raw) break; // stop at any raw char (space, punctuation)
+//     }
+//     return null;
+// }
+
+// function findMergeTarget(pipeline) {
+//     if (pipeline.length === 0) return null;
+
+//     const lastGlyph = pipeline[pipeline.length - 1];
+
+//     // If the last glyph is raw (space/punctuation), nothing to merge
+//     if (lastGlyph.raw) return null;
+
+//     // // If the last glyph is multi, merge only into its last part
+//     if (lastGlyph.multi) {
+//         const lastIndex = lastGlyph.parts.length - 1;
+//         const lastPart = lastGlyph.parts[lastIndex];
+//         if (!lastPart.merged) {
+//             return { glyph: lastGlyph, index: pipeline.length - 1  };
+//         } else {
+//             return null; // already merged, don't merge again
+//         }
+//     }
+
+//     // // Last glyph is normal, not yet merged
+//     // if (!lastGlyph.merged) {
+//     //     return { glyph: lastGlyph, index: pipeline.length - 1 };
+//     // }
+
+//     return null; // last glyph already merged, nothing to do
+// }
+
 const mods = {
     left: "ᨙ",
     top: "ᨗ",
@@ -588,9 +648,41 @@ function script(s, type = 0){
         k: { base: "ᨍ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         g: { base: "ᨍ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false },
         "\uE00B": { base: "ᨀ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
-        "\uE003": { base: "ᨃ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false },
-        "\uE004": { base: "ᨈ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false },
-        "\uE005": { base: "ᨍ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false },
+
+        // top-bottom
+        // "\uE003": { base: "ᨃ", top: true, bottom: true,  left: false, right: false, special: false, vowel: false }, // mb
+        // "\uE004": { base: "ᨈ", top: true, bottom: true,  left: false, right: false, special: false, vowel: false }, // nd
+        // "\uE005": { base: "ᨍ", top: true, bottom: true,  left: false, right: false, special: false, vowel: false }, // ngg
+
+        // special
+        // "\uE003": { base: "ᨃ", top: false, bottom: false,  left: false, right: false, special: true, vowel: false }, // mb
+        // "\uE004": { base: "ᨈ", top: false, bottom: false,  left: false, right: false, special: true, vowel: false }, // nd
+        // "\uE005": { base: "ᨍ", top: false, bottom: false,  left: false, right: false, special: true, vowel: false }, // ngg
+
+        // og
+        // "\uE003": { base: "ᨃ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false }, // mb
+        // "\uE004": { base: "ᨈ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false }, // nd
+        // "\uE005": { base: "ᨍ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false }, // ngg
+
+        // left + bottom
+        // "\uE003": { base: "ᨃ", top: false, bottom: true,  left: true, right: false, special: false, vowel: false }, // mb
+        // "\uE004": { base: "ᨈ", top: false, bottom: true,  left: true, right: false, special: false, vowel: false }, // nd
+        // "\uE005": { base: "ᨍ", top: false, bottom: true,  left: true, right: false, special: false, vowel: false }, // ngg
+
+        // super special
+        "\uE003": { multi: true, parts: [
+            { raw: true, base: "ᨌ" },
+            { base: "ᨃ", top: false, bottom: false,  left: false, right: false, special: true, vowel: false }, // mb
+        ] },
+        "\uE004": { multi: true, parts: [
+            { raw: true, base: "ᨌ" },
+            { base: "ᨈ", top: false, bottom: false,  left: false, right: false, special: true, vowel: false }, // nd
+        ] },
+        "\uE005": { multi: true, parts: [
+            { raw: true, base: "ᨌ" },
+            { base: "ᨍ", top: false, bottom: false, left: false, right: false, special: true, vowel: false }, // ngg
+        ] },
+
         m: { base: "ᨅ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         n: { base: "ᨄ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         "\uE006": { base: "ᨋ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false },
@@ -627,8 +719,8 @@ function script(s, type = 0){
     }
 
     const script_replace_list = {
-        "mbb": "\uE001", // X
-        "ndd": "\uE002", // Y
+        "mbb": "\uE002", // X
+        "ndd": "\uE001", // Y
         "mb": "\uE003", // B
         "nd": "\uE004", // D
         "ngg": "\uE005", // G
@@ -666,76 +758,49 @@ function script(s, type = 0){
     if (type == 1) {
         let renderPipeline = [];
 
+        // Helper to deep copy glyphs
+        const copy = (g) => g?.multi ? { ...g, parts: g.parts.map(p => ({ ...p })) } : { ...g };
+
         for (let i = 0; i < s.length; i++) {
             const char = s[i];
             const curr = script_map[char];
 
-            if (i == 0) {
-                renderPipeline.push(curr ?? { raw: true, base: char });
+            // Handle first character or non-existent mapping
+            if (i == 0 || !curr) {
+                renderPipeline.push(curr ? copy(curr) : { raw: true, base: char });
                 continue;
             }
 
-            if (!curr) {
-                renderPipeline.push({ raw: true, base: char });
+            if (curr.merged == undefined) curr.merged = false;
+
+            // Push if previous is raw, multi, or special cases
+            if (renderPipeline[renderPipeline.length - 1]?.raw || curr.multi || curr.special || 
+                curr.base == "ᨑ" || curr.base == "ᨌ") {
+                renderPipeline.push(curr.multi ? copy(curr) : { ...curr });
                 continue;
             }
 
-            if(curr.merged == undefined) curr.merged = false;
-
-            if (renderPipeline[renderPipeline.length - 1]?.raw) {
-                renderPipeline.push(curr);
-                continue;
-            }
-
-            if (curr.special) {
-                renderPipeline.push(curr);
-                continue;
-            }
-
-            if (curr.base == "ᨑ") {
-                renderPipeline.push(curr);
-                continue;
-            }
-
-            const currHasDiacritics =
-                curr.top || curr.bottom || curr.left || curr.right || curr.special;
+            // Try to merge vowels with diacritics
+            const currHasDiacritics = curr.top || curr.bottom || curr.left || curr.right || curr.special;
 
             if (curr.vowel && currHasDiacritics) {
                 const target = findMergeTarget(renderPipeline);
 
-                if (!target) {
-                    renderPipeline.push(curr);
+                if (!target || target.glyph.merged) {
+                    renderPipeline.push({ ...curr });
                     continue;
                 }
 
                 const { glyph: prev, index } = target;
-
-                //skip if already merged
-                if (prev.merged) {
-                    renderPipeline.push(curr);
-                    continue;
-                }
-
-                // if(prev.vowel && curr.vowel){
-                //     renderPipeline.push(curr);
-                //     continue;
-                // }
-
-                const slotBlocked =
-                    (curr.top && prev.top) ||
-                    (curr.bottom && prev.bottom) ||
-                    (curr.left && prev.left) ||
-                    (curr.right && prev.right) ||
-                    (curr.special && prev.special);
+                const slotBlocked = (curr.top && prev.top) || (curr.bottom && prev.bottom) ||
+                                    (curr.left && prev.left) || (curr.right && prev.right) ||
+                                    (curr.special && prev.special);
 
                 if (!slotBlocked) {
-                    const vowelBaseIsᨖ = curr.base.startsWith("ᨖ");
-
                     if (prev.multi) {
-                        const lastIndex = prev.parts.length - 1;
-                        const lastPart = prev.parts[lastIndex];
-
-                        prev.parts[lastIndex] = {
+                        const lastIdx = prev.parts.length - 1;
+                        const lastPart = prev.parts[lastIdx];
+                        prev.parts[lastIdx] = {
                             ...lastPart,
                             top: lastPart.top || curr.top,
                             bottom: lastPart.bottom || curr.bottom,
@@ -743,10 +808,8 @@ function script(s, type = 0){
                             right: lastPart.right || curr.right,
                             special: lastPart.special || curr.special,
                             vowel: false,
-                            merged: true, // mark as merged
+                            merged: true,
                         };
-
-                        renderPipeline[index] = prev;
                     } else {
                         renderPipeline[index] = {
                             base: prev.base,
@@ -756,23 +819,134 @@ function script(s, type = 0){
                             right: prev.right || curr.right,
                             special: prev.special || curr.special,
                             vowel: false,
-                            merged: true, // mark as merged
+                            merged: true,
                         };
                     }
 
-                    if (vowelBaseIsᨖ) {
-                        renderPipeline.push({ raw: true, base: "ᨑ" });
+                    if (curr.base.startsWith("ᨖ")) {
+                        renderPipeline.push({ raw: true, base: "ᨖ" });
                     }
-
                     continue;
                 }
             }
 
-            renderPipeline.push(curr);
+            renderPipeline.push({ ...curr });
         }
 
         rendered = renderPipeline.map(renderGlyph).join("");
     }
+
+    // if (type == 1) {
+    //     let renderPipeline = [];
+
+    //     for (let i = 0; i < s.length; i++) {
+    //         const char = s[i];
+    //         const curr = script_map[char];
+
+    //         if (i == 0) {
+    //             renderPipeline.push(curr ?? { raw: true, base: char });
+    //             continue;
+    //         }
+
+    //         if (!curr) {
+    //             renderPipeline.push({ raw: true, base: char });
+    //             continue;
+    //         }
+
+    //         if(curr.merged == undefined) curr.merged = false;
+
+    //         if (renderPipeline[renderPipeline.length - 1]?.raw) {
+    //             renderPipeline.push(copy(curr));
+    //             continue;
+    //         }
+
+    //         if(curr.multi){
+    //             renderPipeline.push(curr.parts);
+    //             continue;
+    //         }
+
+    //         if (curr.special) {
+    //             renderPipeline.push(curr);
+    //             continue;
+    //         }
+
+    //         if (curr.base == "ᨑ" || curr.base == "ᨌ") {
+    //             renderPipeline.push(curr);
+    //             continue;
+    //         }
+
+    //         const currHasDiacritics =
+    //             curr.top || curr.bottom || curr.left || curr.right || curr.special;
+
+    //         if (curr.vowel && currHasDiacritics) {
+    //             const target = findMergeTarget(renderPipeline);
+
+    //             if (!target) {
+    //                 renderPipeline.push(curr);
+    //                 continue;
+    //             }
+
+    //             const { glyph: prev, index } = target;
+
+    //             //skip if already merged
+    //             if (prev.merged) {
+    //                 renderPipeline.push(curr);
+    //                 continue;
+    //             }
+
+    //             const slotBlocked =
+    //                 (curr.top && prev.top) ||
+    //                 (curr.bottom && prev.bottom) ||
+    //                 (curr.left && prev.left) ||
+    //                 (curr.right && prev.right) ||
+    //                 (curr.special && prev.special);
+
+    //             if (!slotBlocked) {
+    //                 const vowelBaseIsᨖ = curr.base.startsWith("ᨖ");
+
+    //                 if (prev.multi) {
+    //                     const lastIndex = prev.parts.length - 1;
+    //                     const lastPart = prev.parts[lastIndex];
+
+    //                     prev.parts[lastIndex] = {
+    //                         ...lastPart,
+    //                         top: lastPart.top || curr.top,
+    //                         bottom: lastPart.bottom || curr.bottom,
+    //                         left: lastPart.left || curr.left,
+    //                         right: lastPart.right || curr.right,
+    //                         special: lastPart.special || curr.special,
+    //                         vowel: false,
+    //                         merged: true, // mark as merged
+    //                     };
+
+    //                     renderPipeline[index] = prev;
+    //                 } else {
+    //                     renderPipeline[index] = {
+    //                         base: prev.base,
+    //                         top: prev.top || curr.top,
+    //                         bottom: prev.bottom || curr.bottom,
+    //                         left: prev.left || curr.left,
+    //                         right: prev.right || curr.right,
+    //                         special: prev.special || curr.special,
+    //                         vowel: false,
+    //                         merged: true, // mark as merged
+    //                     };
+    //                 }
+
+    //                 if (vowelBaseIsᨖ) {
+    //                     renderPipeline.push({ raw: true, base: "ᨑ" });
+    //                 }
+
+                    
+    //                 continue;
+    //             }
+    //         }
+
+    //         renderPipeline.push(curr);
+    //     }
+
+    //     rendered = renderPipeline.map(renderGlyph).join("");
+    // }
 
     if (type == 2) {
         let abugidaOutput = "";
