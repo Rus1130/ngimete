@@ -47,7 +47,7 @@ noa tsi'i	poisonous berry(s)	Irregular Plural Nouns
 ewu	health/blood	Nouns
 ná	hunger	Nouns
 alu	sky/air	Nouns
-tapu	turtle (shell)/hide	Nouns
+tapu	turtle (shell/hide)	Nouns
 kaha tsi'an te	wood mover	Nouns
 gala tapu yá	deer skin	Nouns
 mbúse	sap	Nouns
@@ -78,7 +78,7 @@ papap	sexual intercourse	Nouns
 iela	back	Nouns about Bones, Limbs, Body Parts, and Death
 gyelu	waist	Nouns about Bones, Limbs, Body Parts, and Death
 nona	human/person	Nouns
-tíke	animal	Nouns
+tíke	animal(s)	Irregular Nouns
 keleni	body	Nouns about Bones, Limbs, Body Parts, and Death
 lata'a	part, piece	Nouns
 kaoleni	skeleton	Nouns about Bones, Limbs, Body Parts, and Death
@@ -347,7 +347,7 @@ süm'an	to need/require	Abstracted Verbs
 giya 	building 	Nouns
 welebing	misunderstanding, mistranslation, mishap	Nouns
 lohi	to change	Verbs
-na witsunde'o kola/na witsundde'oso besi	go forage yourself rocks" (leave me alone)	Phrases
+na witsunde'o kola/na witsundde'oso besi	"go forage yourself rocks" (leave me alone)	Phrases
 nahá	to retrieve	Verbs
 naha	to put on, to adorn	Verbs
 miwa	to be able to	Verbs
@@ -553,7 +553,7 @@ eya/eyu	red (fresh blood)	Adjectives
 engoya	dark red (dried blood)	Adjectives
 géya/génta	brown (rot)	Adjectives
 saga	light brown (debarked tree)	Adjectives
-wisi'a/wisiyu	green (leaf)	Adjectives
+wisiya/wisiyu	green (leaf)	Adjectives
 ngaya/nggaya	light blue (rain)	Adjectives
 mepüya/mepüfu	sky blue (lake blue)	Adjectives
 súsë	dark blue (ocean)	Adjectives
@@ -680,3 +680,23 @@ hena	cutting knife, food knife	Nouns
 gugu	neck	Nouns about Bones, Limbs, Body Parts, and Death
 kingi	to hit on an anvil to shape	Verbs
 ngátoyos	"execution by ngingi", where a criminal is non-lethally crucified low to the ground, wounded so blood is spilled, and left to the ngingi	Verbs
+heoba	hand-crafted axe	Nouns
+ipalas	taboo, taboo action	Nouns
+sáne	to give way (for something to come), to yield (to something)	Verbs
+sáneyo	to rise (for a perceived greater good)	Reflexive Verbs
+fefe	to pet (an animal)	Verbs
+ungkala	heavy to the point where it requires more than one person	Adjectives
+síhata	the marriage game	Nouns
+animono	raccoon	Nouns
+gega	crocodile	Nouns
+sakisaki / titikyugyi	squirrel	Nouns
+bengkeng	goose	Nouns
+lugubi / lutubi	boar	Nouns
+gimbbi	large animals: crocodile, deer, boar, sharks	Nouns
+salumala	oyster	Nouns
+hükaka	the action of doing something taboo	Verbs
+tulatsa	to suspect	Verbs
+wandda'an	to wag (a tail)	Abstracted Verbs
+melëtsa	board game	Nouns
+tsahäs	the northern lands, resting place of kehibi'i	Religious Terms
+ndálohí	the passage of time	Nouns
