@@ -799,24 +799,25 @@ export class ConlangContent {
      * @returns 
      */
     toString(scriptType = 0, alternateMode = false, includedCategories = ["ortho", "script", "ipa"]) {
-        let string = "";
+        let lines = [];
 
         // Helper to check if a category is included
         const include = (cat) => includedCategories.includes(cat);
 
         if (alternateMode) {
             for (let i = 0; i < this.ipa.length; i++) {
-                if (include("ortho")) string += this.ortho[i] + "\n";
-                if (include("script")) string += (scriptType === 0 ? this.script_sep[i] : this.script_mer[i]) + "\n";
-                if (include("ipa")) string += this.ipa[i] + "\n";
+                if (include("ortho")) lines.push(this.ortho[i]);
+                if (include("script")) lines.push(scriptType === 0 ? this.script_sep[i] : this.script_mer[i]);
+                if (include("ipa")) lines.push(this.ipa[i].replaceAll("[]", ""));
+                lines.push(""); // Add a blank line between entries
             }
         } else {
-            if (include("ortho")) string += this.ortho.join("\n") + "\n";
-            if (include("script")) string += (scriptType === 0 ? this.script_sep.join("\n") : this.script_mer.join("\n")) + "\n";
-            if (include("ipa")) string += this.ipa.join("\n").replaceAll("[]", "\n");
+            if (include("ortho")) lines.push(this.ortho.join("\n"));
+            if (include("script")) lines.push((scriptType === 0 ? this.script_sep : this.script_mer).join("\n"));
+            if (include("ipa")) lines.push(this.ipa.map(line => line.replaceAll("[]", "")).join("\n"));
         }
 
-        return string.trim().replaceAll("\n\n\n", "\n\n");
+        return lines.join("\n").trim();
     }
 }
 
