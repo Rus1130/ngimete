@@ -824,7 +824,7 @@ function script(s, type = 0){
                     }
 
                     if (curr.base.startsWith("ᨖ")) {
-                        renderPipeline.push({ raw: true, base: "ᨖ" });
+                        renderPipeline.push({ raw: true, base: "ᨑ" });
                     }
                     continue;
                 }
