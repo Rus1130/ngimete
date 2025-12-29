@@ -687,7 +687,12 @@ function script(s, type = 0){
                 continue;
             }
 
-            if (curr.special || curr.base == "ᨑ") {
+            if (curr.special) {
+                renderPipeline.push(curr);
+                continue;
+            }
+
+            if (curr.base == "ᨑ") {
                 renderPipeline.push(curr);
                 continue;
             }
@@ -705,11 +710,16 @@ function script(s, type = 0){
 
                 const { glyph: prev, index } = target;
 
-                // skip if already merged
+                //skip if already merged
                 if (prev.merged) {
                     renderPipeline.push(curr);
                     continue;
                 }
+
+                // if(prev.vowel && curr.vowel){
+                //     renderPipeline.push(curr);
+                //     continue;
+                // }
 
                 const slotBlocked =
                     (curr.top && prev.top) ||
