@@ -487,7 +487,7 @@ function ipa(input) {
     s = s
         .replaceAll(/Si.l/g, "Sil")
         .replaceAll(/([mnŋ])\.([aeiouɑəyAEIOUQ])/g, ".$1$2")
-        .replaceAll(/(\.?)([fpb])\.w/g, "$1$2w")
+        .replaceAll(/(\.?)([fpbt])\.w/g, "$1$2w")
         .replaceAll(/\.([MN])/g, "$1")
         .replaceAll(
         /([bdfghklmnpstvwjcŋʔMNSBDG])([aeiouɑəyAEIOUQ])\.s(?=[^aeiouɑəyAEIOUQ]|$)/g,
