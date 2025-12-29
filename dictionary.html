@@ -258,6 +258,7 @@ function generateTable(results) {
         <tr style="position: sticky; top: 0px; background-color: white; user-select: none;">
             <td style="width: 50px; font-weight: bold;">#</td>
             <th>Word</th>
+            <th>Script</th>
             <th>Definition</th>
             ${hasCategory ? "<th>Category</th>" : ""}
         </tr>
@@ -269,16 +270,36 @@ function generateTable(results) {
     }
 
     results.forEach((result, i) => {
-        const value = [...new Set(Object.values(result.value))].join(" / ")
+        const definition = result.key
             .replaceAll(">", "&gt;")
             .replaceAll("<", "&lt;");
+
+        const term = [...new Set(Object.values(result.value))].join(" / ")
+            .replaceAll(">", "&gt;")
+            .replaceAll("<", "&lt;");
+
+        const checkedDialects = Array.from(dialectCheckboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.value);
+
+        const scripts = Object.values(result.script)
+            .filter((_, index) => {
+                if (index === 0 && checkedDialects.includes("Standard")) return true;
+                if (index === 1 && checkedDialects.includes("A'atsilwi")) return true;
+                return false;
+            })
+            .map((c, i) => c.toString(1 - i, undefined, ["script"]));
+
+        const scriptCell = [...new Set(scripts)].join(" / ");
+        
         const categoryCell = hasCategory ? `<td>${result.category}</td>` : "";
 
         table += `
             <tr>
                 <td>${i + 1}.</td>
-                <td>${result.key}</td>
-                <td>${value}</td>
+                <td>${definition}</td>
+                <td>${term}</td>
+                <td>${scriptCell}</td>
                 ${categoryCell}
             </tr>
         `;

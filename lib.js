@@ -584,21 +584,21 @@ function script(s, type = 0){
         b: { base: "ᨃ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false },
         t: { base: "ᨈ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         d: { base: "ᨊ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
-        C: { base: "ᨇ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
+        "\uE008": { base: "ᨇ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         k: { base: "ᨍ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         g: { base: "ᨍ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false },
-        Z: { base: "ᨀ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
-        B: { base: "ᨃ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false },
-        D: { base: "ᨈ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false },
-        G: { base: "ᨍ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false },
+        "\uE00B": { base: "ᨀ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
+        "\uE003": { base: "ᨃ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false },
+        "\uE004": { base: "ᨈ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false },
+        "\uE005": { base: "ᨍ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false },
         m: { base: "ᨅ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         n: { base: "ᨄ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
-        N: { base: "ᨋ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false },
+        "\uE006": { base: "ᨋ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false },
         f: { base: "ᨂ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         v: { base: "ᨂ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false },
         s: { base: "ᨆ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         h: { base: "ᨀ", top: false, bottom: true, left: false, right: false, special: false, vowel: false },
-        S: { base: "ᨉ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
+        "\uE007": { base: "ᨉ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         w: { base: "ᨏ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false },
         y: { base: "ᨒ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false },
         l: { base: "ᨓ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false },
@@ -615,29 +615,29 @@ function script(s, type = 0){
         a: { base: "ᨔ", top: false,  bottom: false, left: false, right: false, special: false, vowel: true  },
         á: { base: "ᨖ", top: false,  bottom: false, left: false, right: false, special: false, vowel: true  },
         ä: { base: "ᨔ", top: false, bottom: true,  left: false, right: false, special: false, vowel: true  },
-        Q: { base: "ᨖ", top: false, bottom: true,  left: false, right: false, special: false, vowel: true  },
-        X: { multi: true, parts: [
+        "\uE00A": { base: "ᨖ", top: false, bottom: true,  left: false, right: false, special: false, vowel: true  },
+        "\uE002": { multi: true, parts: [
             { base: "ᨅ", top: false, bottom: false, left: false, right: false, special: false, vowel: false }, // m
             { base: "ᨃ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false } // b
         ] },
-        Y: { multi: true, parts: [
+        "\uE001": { multi: true, parts: [
             { base: "ᨄ", top: false, bottom: false, left: false, right: false, special: false, vowel: false }, // n
             { base: "ᨊ", top: false, bottom: false, left: false, right: false, special: false, vowel: false } // d
         ] },
     }
 
     const script_replace_list = {
-        "mbb": "X",
-        "ndd": "Y",
-        "mb": "B",
-        "nd": "D",
-        "ngg": "G",
-        "ng": "N",
-        "ts": "S",
-        "gy": "C",
-        "ky": "C",
-        "är": "Q",
-        "'": "Z",
+        "mbb": "\uE001", // X
+        "ndd": "\uE002", // Y
+        "mb": "\uE003", // B
+        "nd": "\uE004", // D
+        "ngg": "\uE005", // G
+        "ng": "\uE006", // N
+        "ts": "\uE007", // S
+        "gy": "\uE008", // C
+        "ky": "\uE008", // C
+        "är": "\uE00A", // Q
+        "'": "\uE00B", // Z
         ",": " ᨞",
         ".": " ᨟",
         "?": " ᨟",
@@ -867,6 +867,7 @@ export class Word {
     constructor(key, value) {
         this.key = key;
         this.value = {};
+        this.script = {};
         this.category = undefined;
 
         if(Word.dialects == undefined){
@@ -876,17 +877,18 @@ export class Word {
 
         if(arguments.length - 1 < Word.dialects.length){
             this.value[Word.dialects[0]] = value;
+            this.script[Word.dialects[0]] = new ConlangContent(value);
         } else {
             for(let i = 1; i < arguments.length; i++){
                 this.value[Word.dialects[i-1]] = arguments[i];
+                this.script[Word.dialects[i-1]] = new ConlangContent(arguments[i]);
             }
         }
 
         // for each dialect that isnt the standard one
         Word.dialects.forEach(dialect => {
-            if((this.value[dialect] == undefined)){
-                this.value[dialect] = this.value["Standard"];
-            }
+            if((this.value[dialect] == undefined)) this.value[dialect] = this.value["Standard"];
+            if((this.script[dialect] == undefined)) this.script[dialect] = new ConlangContent(this.value[dialect]);
         });
     }
 
