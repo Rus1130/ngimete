@@ -400,15 +400,15 @@ const GROUPS = {
 };
 
 const SYLLABLES = [
-    "214",
+    "14",
     "(2)1(3)",
+    "(2)14",
     "(2)1",
 ];
 
 function syllabifyWord(word, groups, templates) {
     const compiled = templates
         .map(t => compileTemplate(t, groups))
-        .sort((a, b) => b.source.length - a.source.length);
 
     let out = [];
     let i = 0;
@@ -485,7 +485,7 @@ function ipa(input) {
         .join(" ");
     
     s = s
-        .replaceAll(/Si.l/g, "Sil")
+        .replaceAll(/([Ss])i\.l/g, "$1il")
         .replaceAll(/([mnŋ])\.([aeiouɑəyAEIOUQ])/g, ".$1$2")
         .replaceAll(/(\.?)([fpbt])\.w/g, "$1$2w")
         .replaceAll(/\.([MN])/g, "$1")
@@ -834,6 +834,9 @@ function script(s, type = 0){
         }
 
         rendered = renderPipeline.map(renderGlyph).join("");
+
+
+        // if ᨌ isnt at the start of the string, or after a space, remove it
     }
 
     // if (type == 1) {
@@ -962,6 +965,7 @@ function script(s, type = 0){
     }
 
 
+    rendered = rendered.replace(/([^ ])ᨌ/g, "$1");
     return rendered.replace(/ ᨟$/g, "")
 }
 
