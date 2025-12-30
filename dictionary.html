@@ -192,9 +192,9 @@ async function generateCategoryCheckboxes() {
         checkbox.value = category;
         checkbox.id = id;
         
-        if(["Consonant Sounds", "Vowel Sounds", "Connecting Letters", "Grammar", "Tenses"].includes(category)) {
-            checkbox.checked = true;
-        }
+        // if(["Consonant Sounds", "Vowel Sounds", "Connecting Letters", "Grammar", "Tenses"].includes(category)) {
+        //     checkbox.checked = true;
+        // }
 
         const label = document.createElement("label");
         label.htmlFor = id;
@@ -251,6 +251,63 @@ function getExcludedCategories(letterChecked) {
     return categories;
 }
 
+/*
+i	y	 iː	u	uː	  e	  eː	 ə	o	oː	a	aː	 ɑ	ɑː
+ᨔᨗ	 ᨔᨗᨛ	ᨖᨗ	ᨔᨗᨚ	 ᨖᨗᨚ	ᨔᨙ	ᨖᨙ   	ᨔᨛ	ᨔᨚ	ᨖᨚ	ᨔ	ᨖ	ᨔᨘ	ᨖᨘ
+
+*/
+
+const scriptConsonantVowelFix = {
+    p: "ᨃ",
+    b: "ᨃᨘ",
+    t: "ᨈ",
+    d: "ᨊ",
+    "gy or ky": "ᨇ",
+    k: "ᨍ",
+    g: "ᨍᨘ",
+    "'": "ᨀ",
+    mb: "ᨌᨃᨛ",
+    nd: "ᨌᨈᨛ",
+    ngg: "ᨌᨍᨛ",
+    m: "ᨅ",
+    n: "ᨄ",
+    ng: "ᨋ",
+    f: "ᨂ",
+    v: "ᨂᨘ",
+    s: "ᨆ",
+    h: "ᨀᨘ",
+    ts: "ᨉ",
+    w: "ᨏ",
+    y: "ᨒ",
+    l: "ᨓ",
+    mbb: "ᨅᨃᨘ",
+    ndd: "ᨄᨈᨘ",
+    i: "ᨔᨗ",
+    ü: "ᨔᨗᨛ",
+    í: "ᨖᨗ",
+    u: "ᨔᨗᨚ",
+    ú: "ᨖᨗᨚ",
+    e: "ᨔᨙ",
+    é: "ᨖᨙ",
+    ë: "ᨔᨛ",
+    o: "ᨔᨚ",
+    ó: "ᨖᨚ",
+    a: "ᨔ",
+    á: "ᨖ",
+    ä: "ᨔᨘ",
+    är: "ᨖᨘ"
+}
+
+const scriptConnectingLetterFix = {
+    "letter group V": "N/A",
+    "letter group C": "N/A",
+    "letter group C1": "N/A",
+    "letter group A": "N/A",
+    "letter group D": "N/A",
+    "letter group P": "N/A",
+    "ā": "ᨔᨐ",
+}
+
 function generateTable(results) {
     const hasCategory = !removeCategoryColumn;
 
@@ -290,9 +347,17 @@ function generateTable(results) {
             })
             .map((c, i) => c.toString(1 - i, undefined, ["script"]));
 
-        const scriptCell = [...new Set(scripts)].join(" / ");
+        let scriptCell = [...new Set(scripts)].join(" / ");
         
         const categoryCell = hasCategory ? `<td>${result.category}</td>` : "";
+
+        if(result.category == "Consonant Sounds" || result.category == "Vowel Sounds") {
+            scriptCell = scriptConsonantVowelFix[result.key]
+        }
+
+        if(result.category == "Connecting Letters") {
+            scriptCell = scriptConnectingLetterFix[result.key]
+        }
 
         table += `
             <tr>

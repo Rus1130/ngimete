@@ -1,0 +1,64 @@
+<body>
+
+</body>
+<script>
+    const G = {
+    V: ["a","e","i","o","u","á","é","í","ó","ú","ä","ë","ü"],
+    C: ["b","d","f","g","h","k","l","m","n","p","s","t","v","w","y","r"],
+    C1: ["m","n","s","v","w","r"],
+    A: ["b","d","f","h","k","l","t"],
+    D: ["g","p","y"],
+    P: ["o","i","u"]
+};
+
+// Expand group names → array of letters
+function group(name) {
+    if (Array.isArray(name)) {
+        return name.flatMap(g => G[g]);
+    }
+    return G[name];
+}
+
+// --- CONNECTOR RULES ---
+const CONNECT = {
+    "ā": {
+        onset: () => ["a"],
+        coda: () => group("C")
+    },
+    "ə": {
+        onset: () => [...group("P"), ...group("C")],
+        coda: () => group("C")
+    },
+    "c": {
+        onset: () => group("V"),
+        coda: () => [...group("V"), ...group("D")]
+    },
+    "z": {
+        onset: () => group("V"),
+        coda: () => [...group("C1"), ...group("A")]
+    }
+};
+
+// --- GENERATOR ---
+function generateCombinations() {
+    const results = [];
+
+    for (const connector of Object.keys(CONNECT)) {
+        const rule = CONNECT[connector];
+        const onsets = rule.onset();
+        const codas = rule.coda();
+
+        for (const onset of onsets) {
+            for (const coda of codas) {
+                results.push(onset + connector + coda);
+            }
+        }
+    }
+
+    return results;
+}
+
+const allCombos = generateCombinations();
+document.write(allCombos.join("<br>"));
+console.log("Total:", allCombos.length);
+</script>
