@@ -192,9 +192,7 @@ async function generateCategoryCheckboxes() {
         checkbox.value = category;
         checkbox.id = id;
         
-        // if(["Consonant Sounds", "Vowel Sounds", "Connecting Letters", "Grammar", "Tenses"].includes(category)) {
-        //     checkbox.checked = true;
-        // }
+        if(["Consonant Sounds", "Vowel Sounds", "Connecting Letters", "Grammar", "Tenses"].includes(category)) checkbox.checked = true;
 
         const label = document.createElement("label");
         label.htmlFor = id;
@@ -251,12 +249,6 @@ function getExcludedCategories(letterChecked) {
     return categories;
 }
 
-/*
-i	y	 iː	u	uː	  e	  eː	 ə	o	oː	a	aː	 ɑ	ɑː
-ᨔᨗ	 ᨔᨗᨛ	ᨖᨗ	ᨔᨗᨚ	 ᨖᨗᨚ	ᨔᨙ	ᨖᨙ   	ᨔᨛ	ᨔᨚ	ᨖᨚ	ᨔ	ᨖ	ᨔᨘ	ᨖᨘ
-
-*/
-
 const scriptConsonantVowelFix = {
     p: "ᨃ",
     b: "ᨃᨘ",
@@ -305,7 +297,10 @@ const scriptConnectingLetterFix = {
     "letter group A": "N/A",
     "letter group D": "N/A",
     "letter group P": "N/A",
-    "ā": "ᨔᨐ",
+    "ā": "ᨔᨎ",
+    "ə": "ᨎ",
+    "c": "ᨎ",
+    "z": "ᨎ"
 }
 
 function generateTable(results) {

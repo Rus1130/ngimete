@@ -624,6 +624,7 @@ const mods = {
     special: "ᨛ",
 }
 
+
 /**
  * 
  * @param {*} s 
@@ -634,10 +635,10 @@ function script(s, type = 0){
     const old_s = String(s);
 
     s = 
-        s.replaceAll("ā", "aᨐ")
-        .replaceAll("c", "ᨐ")
-        .replaceAll("ə", "ᨐ")
-        .replaceAll("z", "ᨐ");
+        s.replaceAll("ā", "ᨔᨎ")
+        .replaceAll("c", "ᨎ")
+        .replaceAll("ə", "ᨎ")
+        .replaceAll("z", "ᨎ");
 
     const script_map = {
         p: { base: "ᨃ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
@@ -775,7 +776,7 @@ function script(s, type = 0){
 
             // Push if previous is raw, multi, or special cases
             if (renderPipeline[renderPipeline.length - 1]?.raw || curr.multi || curr.special || 
-                curr.base == "ᨑ" || curr.base == "ᨌ") {
+                curr.base == "ᨑ" || curr.base == "ᨌ" ) {
                 renderPipeline.push(curr.multi ? copy(curr) : { ...curr });
                 continue;
             }
@@ -790,6 +791,12 @@ function script(s, type = 0){
                     renderPipeline.push({ ...curr });
                     continue;
                 }
+
+                // if(curr.vowel && target.glyph.vowel){
+                //     renderPipeline.push({ ...curr });
+                //     continue;
+                // }
+
 
                 const { glyph: prev, index } = target;
                 const slotBlocked = (curr.top && prev.top) || (curr.bottom && prev.bottom) ||
@@ -834,122 +841,7 @@ function script(s, type = 0){
         }
 
         rendered = renderPipeline.map(renderGlyph).join("");
-
-
-        // if ᨌ isnt at the start of the string, or after a space, remove it
     }
-
-    // if (type == 1) {
-    //     let renderPipeline = [];
-
-    //     for (let i = 0; i < s.length; i++) {
-    //         const char = s[i];
-    //         const curr = script_map[char];
-
-    //         if (i == 0) {
-    //             renderPipeline.push(curr ?? { raw: true, base: char });
-    //             continue;
-    //         }
-
-    //         if (!curr) {
-    //             renderPipeline.push({ raw: true, base: char });
-    //             continue;
-    //         }
-
-    //         if(curr.merged == undefined) curr.merged = false;
-
-    //         if (renderPipeline[renderPipeline.length - 1]?.raw) {
-    //             renderPipeline.push(copy(curr));
-    //             continue;
-    //         }
-
-    //         if(curr.multi){
-    //             renderPipeline.push(curr.parts);
-    //             continue;
-    //         }
-
-    //         if (curr.special) {
-    //             renderPipeline.push(curr);
-    //             continue;
-    //         }
-
-    //         if (curr.base == "ᨑ" || curr.base == "ᨌ") {
-    //             renderPipeline.push(curr);
-    //             continue;
-    //         }
-
-    //         const currHasDiacritics =
-    //             curr.top || curr.bottom || curr.left || curr.right || curr.special;
-
-    //         if (curr.vowel && currHasDiacritics) {
-    //             const target = findMergeTarget(renderPipeline);
-
-    //             if (!target) {
-    //                 renderPipeline.push(curr);
-    //                 continue;
-    //             }
-
-    //             const { glyph: prev, index } = target;
-
-    //             //skip if already merged
-    //             if (prev.merged) {
-    //                 renderPipeline.push(curr);
-    //                 continue;
-    //             }
-
-    //             const slotBlocked =
-    //                 (curr.top && prev.top) ||
-    //                 (curr.bottom && prev.bottom) ||
-    //                 (curr.left && prev.left) ||
-    //                 (curr.right && prev.right) ||
-    //                 (curr.special && prev.special);
-
-    //             if (!slotBlocked) {
-    //                 const vowelBaseIsᨖ = curr.base.startsWith("ᨖ");
-
-    //                 if (prev.multi) {
-    //                     const lastIndex = prev.parts.length - 1;
-    //                     const lastPart = prev.parts[lastIndex];
-
-    //                     prev.parts[lastIndex] = {
-    //                         ...lastPart,
-    //                         top: lastPart.top || curr.top,
-    //                         bottom: lastPart.bottom || curr.bottom,
-    //                         left: lastPart.left || curr.left,
-    //                         right: lastPart.right || curr.right,
-    //                         special: lastPart.special || curr.special,
-    //                         vowel: false,
-    //                         merged: true, // mark as merged
-    //                     };
-
-    //                     renderPipeline[index] = prev;
-    //                 } else {
-    //                     renderPipeline[index] = {
-    //                         base: prev.base,
-    //                         top: prev.top || curr.top,
-    //                         bottom: prev.bottom || curr.bottom,
-    //                         left: prev.left || curr.left,
-    //                         right: prev.right || curr.right,
-    //                         special: prev.special || curr.special,
-    //                         vowel: false,
-    //                         merged: true, // mark as merged
-    //                     };
-    //                 }
-
-    //                 if (vowelBaseIsᨖ) {
-    //                     renderPipeline.push({ raw: true, base: "ᨑ" });
-    //                 }
-
-                    
-    //                 continue;
-    //             }
-    //         }
-
-    //         renderPipeline.push(curr);
-    //     }
-
-    //     rendered = renderPipeline.map(renderGlyph).join("");
-    // }
 
     if (type == 2) {
         let abugidaOutput = "";
