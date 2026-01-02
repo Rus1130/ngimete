@@ -722,7 +722,6 @@ function script(s, type = 0){
         ] },
 
         // punctuation
-        " ": { raw: true, base: "&ensp;" },
         "(": { raw: true, base: "（" },
         ")": { raw: true, base: "）" },
     }
@@ -866,6 +865,7 @@ function script(s, type = 0){
 
 
     rendered = rendered.replace(/([^ ])ᨌ/g, "$1");
+    rendered = rendered.replace(/ /g, "&ensp;");
     return rendered.replace(/ ᨟$/g, "")
 }
 
