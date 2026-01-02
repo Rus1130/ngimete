@@ -77,22 +77,23 @@
             </div>
         </div><br>
 
-        <label for="minimal-pair-type">Minimal Pair Type:</label>
-        <select id="minimal-pair-type" style="margin-bottom: 10px;">
+        <label for="homophone-type" title="yeeessss I KNOWWW homophone is technically always 'phonetic' SCREW YOU!!!!!">Homophone Type:</label>
+        <select id="homophone-type" title="yeeessss I KNOWWW homophone is technically always 'phonetic' SCREW YOU!!!!!" style="margin-bottom: 10px;">
             <option value="orthographic" selected>Orthographic</option>
             <option value="phonetic">Phonetic</option>
         </select><br>
-        <label for="homophone-type" title="yeeessss I KNOWWW homophone is technically always 'phonetic' SCREW YOU!!!!!">Homophone Type:</label>
-        <select id="homophone-type" title="yeeessss I KNOWWW homophone is technically always 'phonetic' SCREW YOU!!!!!" style="margin-bottom: 10px;">
+
+        <label for="minimal-pair-type">Minimal Pair Type:</label>
+        <select id="minimal-pair-type" style="margin-bottom: 10px;">
             <option value="orthographic" selected>Orthographic</option>
             <option value="phonetic">Phonetic</option>
         </select>
     </div>
     <br>
     <button id="begin" style="margin-bottom: -20px;">Begin</button>
-    <h1 id="top-heading">Homophones:</h1>
+    <h1 id="homophone-heading" class="hidden">Homophones:</h1>
     <div id="homophone-results"></div>
-    <h1>Minimal Pairs:</h1>
+    <h1 id="minimal-pair-heading" class="hidden">Minimal Pairs:</h1>
     <div id="minimal-pair-results"></div>
 </body>
 <script type="module" defer>
@@ -112,6 +113,9 @@
     const minimalPairTypeSelect = document.getElementById("minimal-pair-type");
     const homophoneTypeSelect = document.getElementById("homophone-type");
 
+    const homophoneHeading = document.getElementById("homophone-heading");
+    const minimalPairHeading = document.getElementById("minimal-pair-heading");
+
     minimalPairDistanceInput.addEventListener("input", () => {
         minimalPairDistanceValue.textContent = minimalPairDistanceInput.value;
     });
@@ -120,9 +124,29 @@
     const homophoneDivs = new Map();
     const minimalPairDivs = new Map();
 
+    const longVowelFixes = {
+        "aː": "A",
+        "eː": "E",
+        "iː": "I",
+        "oː": "O",
+        "uː": "U",
+        "ɑː": "Q",
+    }
+
     function isHomophone(word1, word2, dialect, type){
         if(type == "orthographic") return word1.value[dialect] === word2.value[dialect];
-        else if(type == "phonetic") return word1.script[dialect].ipa.join("") === word2.script[dialect].ipa.join("");
+        else if(type == "phonetic") {
+            let w1 = word1.script[dialect].ipa.join("");
+            let w2 = word2.script[dialect].ipa.join("");
+
+            // Normalize long vowels for homophone check
+            for(const [longVowel, replacement] of Object.entries(longVowelFixes)){
+                w1 = w1.replaceAll(longVowel, replacement);
+                w2 = w2.replaceAll(longVowel, replacement);
+            }
+
+            return w1 === w2;
+        }
         else throw new Error("Invalid type for isHomophone");
     }
 
@@ -136,6 +160,13 @@
         } else if(type == "phonetic") {
             val1 = word1.script[dialect].ipa.join("");
             val2 = word2.script[dialect].ipa.join("");
+
+            // Replace long vowels with single-character representations for comparison
+            for(const [longVowel, replacement] of Object.entries(longVowelFixes)){
+                val1 = val1.replaceAll(longVowel, replacement);
+                val2 = val2.replaceAll(longVowel, replacement);
+            }
+
         } else {
             throw new Error("Invalid type for isNearHomophone");
         }
@@ -256,7 +287,6 @@
         }
     }
 
-
     async function findPairs(words) {
         const homophones = new Map();
         const nearHomophones = new Map();
@@ -280,7 +310,11 @@
 
                 // --- HOMOPHONE CHECK ---
                 if (isHomophone(w1, w2, dialect, homophoneType)) {
-                    const key = w1.value[dialect];
+                    let key = [...new Set([w1.value[dialect], w2.value[dialect]])].join(", ");
+
+                    if(homophoneType == "phonetic"){
+                        key += ` - ${w1.script[dialect].ipa.join("")}`;
+                    }
 
                     if (key.trim() !== "" && w2.value[dialect].trim() !== "") {
                         if (!homophones.has(key)) homophones.set(key, new Set());
@@ -293,7 +327,11 @@
 
                 // --- NEAR HOMOPHONE (MINIMAL PAIR) CHECK ---
                 if (isNearHomophone(w1, w2, dialect, minimalPairType)) {
-                    const key = `${w1.value[dialect]} ~ ${w2.value[dialect]}`;
+                    let key = `${w1.value[dialect]} ~ ${w2.value[dialect]}`
+                    
+                    if(minimalPairType == "phonetic"){
+                        key += `; ${w1.script[dialect].ipa.join("")} ~ ${w2.script[dialect].ipa.join("")}`;
+                    }
 
                     if (w1.value[dialect].trim() !== "" && w2.value[dialect].trim() !== "") {
                         if (!nearHomophones.has(key)) nearHomophones.set(key, new Set());
@@ -431,7 +469,10 @@
 
             document.getElementById("chosen-settings").classList.remove("hidden");
 
-            document.getElementById("top-heading").style.marginTop = "-20px";
+            homophoneHeading.style.marginTop = "-20px";
+
+            homophoneHeading.classList.remove("hidden");
+            minimalPairHeading.classList.remove("hidden");
 
             // Pass the excluded categories to allWords
             const allWords = dict.allWords(defaultExcludedCategories);
