@@ -370,9 +370,6 @@
             // get the included categories
             const includedCategories = structuredClone(getIncludedCategories());
 
-            console.log("Included categories:", includedCategories);
-            console.log("Excluded categories:", defaultExcludedCategories);
-
             // Pass the excluded categories to allWords
             const allWords = dict.allWords(defaultExcludedCategories);
 
