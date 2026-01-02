@@ -494,7 +494,7 @@ kokena	to grow (plants)	Verbs
 opu'uken	to breed (animals)	Verbs	
 kolo	to be certain, sure	Verbs	
 ndayó'an	to break something	Abstracted Verbs	
-ngi	someone/somebody	Nouns	
+ngi	person	Nouns	
 gengi	no one/nobody	Nouns	
 yukya	quiet	Adjectives	
 pin/bin	to notice/acknowledge	Verbs	
@@ -684,7 +684,7 @@ sáneyo	to rise (for a perceived greater good)	Reflexive Verbs
 fefe	to pet (an animal)	Verbs	
 ungkala	heavy to the point where it requires more than one person	Adjectives	
 síhata	the marriage game	Nouns	
-animono	raccoon	Nouns	
+animono/anímono	raccoon	Nouns	
 gega	crocodile	Nouns	
 sakisaki / titikyugyi	squirrel	Nouns	
 bengkeng	goose	Nouns	
@@ -724,7 +724,9 @@ foye te/	cat, "little one"	Nouns
 novi	to stare down at (something), to observe after passing	Verbs	
 noviso	to reflect upon one's outer appearance	Reflexive Verbs	
 novi'an	to unwillingly look at the aftermath of something	Abstracted Verbs	
-mbigasá/tongku	the sound of a tree hitting the ground	Onomatopoeia	
+/tongku	the sound of a tree hitting the ground	Onomatopoeia	
+tongku/	the sound of a thin, hollow, perhaps dead, or otherwise not-very-dense tree hitting the ground	Onomatopoeia	
+mbinddun/	the sound of a thick, dense tree hitting the ground	Onomatopoeia	
 /tongkilongku	the sound of logs rumbling as they hit and roll on the ground, swimming away from you as you give chase	Onomatopoeia	
 kihikifufu/kihivihufu	the sound of grass rustling when rabbits run away	Onomatopoeia	
 ngíhi'hi'hi'ha'ha'há/ngéhihihaha'há	the sound of ngingi	Onomatopoeia	
@@ -737,3 +739,15 @@ tumpe	a step (you take with your feet)	Verbs
 yule	to press down the fingers	Verbs	
 yuleyo	to grip	Reflexive Verbs	
 yuleyu'an	to be forced to play a musical instrument	Abstracted Verbs	
+mewu	someone/somebody	Nouns	
+kusákasá/	the sound of the leaves of a falling tree shaking	Onomatopoeia	
+gagu	fool	Nouns	
+féyu	to toggle a lever or switch, to lock (a door)	Verbs	
+towa	to jump	Verbs	
+lowi ya	low (of elevation)	Adjectives	
+tiwi ya	high (of elevation)	Adjectives	
+tongku ya/	low (of pitch)	Adjectives	
+sene ya	high (of pitch)	Adjectives	
+lowiyo/lowiso	to crouch, to lower your body down to the ground	Reflexive Verbs	
+hümä	to mumble	Verbs	
+apesene	to sing	Verbs	
