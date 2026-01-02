@@ -246,7 +246,10 @@ dict.addWord("Demonstratives",
     new Word("that over there (place)", "nu'i"),
 )
 
-dict.bulkAddFromUrl(`/words.txt`, "\n", "\t", "/");
+const test = false;
+
+if (test) dict.bulkAddFromUrl(`/words.txt`, "\n", "\t", "/");
+else dict.bulkAddFromUrl(`https://rus1130.github.io/ngimete/words.txt`, "\n", "\t", "/");
 
 function ortho(s){
     const V = ["a", "e", "i", "o", "u", "á", "é", "í", "ó", "ú", "ä", "ë", "ü"]
