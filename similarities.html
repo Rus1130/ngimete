@@ -130,8 +130,9 @@
         return true;
     }
 
-
-    const dialect = dialectSelect.checked ? "A'atsilwi" : "Standard";
+    function getDialect(){
+        return dialectSelect.checked ? "A'atsilwi" : "Standard";
+    }
 
     function addOrUpdateHomophoneSet(key, set){
         // Check if div already exists
@@ -220,6 +221,8 @@
         const totalComparisons = (words.length * (words.length - 1)) / 2;
         let comparisonsDone = 0;
         let outerComparisonsDone = 0;
+
+        const dialect = getDialect();
 
         for (let i = 0; i < words.length; i++) {
             for (let j = i + 1; j < words.length; j++) {
