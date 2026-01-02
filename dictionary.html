@@ -102,6 +102,12 @@
         margin-right: 4px;
         transform: scale(0.85);
     }
+
+    .dialect-specifier {
+        font-size: 10px;
+        vertical-align: super;
+        cursor: help;
+    }
 </style>
 <head>
     <script src="dictionary.js" type="module"></script>
@@ -321,12 +327,29 @@ function generateTable(results) {
         return table;
     }
 
-    results.forEach((result, i) => {
+    const noDefIdentifier = "`";
+
+    for (let i = 0; i < results.length; i++) {
+        const result = results[i];
+
         const definition = result.key
             .replaceAll(">", "&gt;")
             .replaceAll("<", "&lt;");
 
-        const term = [...new Set(Object.values(result.value))].join(" / ")
+        // old
+        // let preTerm = [...new Set(Object.values(result.value))];
+
+        // new
+        let preTerm = new Set(Object.values(result.value));
+        preTerm = [...preTerm].filter(s => s !== noDefIdentifier);
+
+        // †
+        // ‡
+
+        const standardIdentifier = "†";
+        const aatsilwiIdentifier = "‡";
+
+        const term = preTerm.join(" / ")
             .replaceAll(">", "&gt;")
             .replaceAll("<", "&lt;");
 
@@ -334,36 +357,60 @@ function generateTable(results) {
             .filter(cb => cb.checked)
             .map(cb => cb.value);
 
-        const scripts = Object.values(result.script)
-            .filter((_, index) => {
-                if (index === 0 && checkedDialects.includes("Standard")) return true;
-                if (index === 1 && checkedDialects.includes("A'atsilwi")) return true;
-                return false;
-            })
-            .map((c, i) => c.toString(1 - i, undefined, ["script"]));
+        let scripts = [];
 
-        let scriptCell = [...new Set(scripts)].join(" / ");
-        
-        const categoryCell = hasCategory ? `<td>${result.category}</td>` : "";
-
-        if(result.category == "Consonant Sounds" || result.category == "Vowel Sounds") {
-            scriptCell = scriptConsonantVowelFix[result.key]
+        if (checkedDialects.includes("Standard")) {
+            scripts.push(result.script["Standard"].toString(1, undefined, ["script"]));
         }
 
-        if(result.category == "Connecting Letters") {
-            scriptCell = scriptConnectingLetterFix[result.key]
+        if (checkedDialects.includes("A'atsilwi")) {
+            scripts.push(result.script["A'atsilwi"].toString(0, undefined, ["script"]));
+        }
+
+        // new
+        let scriptCell = new Set(scripts);
+        scriptCell = [...scriptCell].filter(s => s !== noDefIdentifier).join(" / ");
+
+        // old
+        // const scriptCell = [...new Set(scripts)].join(" / ");
+
+        // this now works properly in a for loop
+        if (term === "" && scriptCell === "") {
+            continue;
+        }
+
+        const categoryCell = hasCategory ? `<td>${result.category}</td>` : "";
+
+        if (result.category === "Consonant Sounds" || result.category === "Vowel Sounds") {
+            scriptCell = scriptConsonantVowelFix[result.key];
+        }
+
+        if (result.category === "Connecting Letters") {
+            scriptCell = scriptConnectingLetterFix[result.key];
+        }
+
+        let postFix = "";
+        let specificity = '';
+
+        // new
+        if (result.value["Standard"] === noDefIdentifier && result.value["A'atsilwi"] !== noDefIdentifier) {
+            postFix = aatsilwiIdentifier;
+            specificity = "A&apos;atsilwi only";
+        } else if (result.value["Standard"] !== noDefIdentifier && result.value["A'atsilwi"] === noDefIdentifier) {
+            postFix = standardIdentifier;
+            specificity = "Standard only";
         }
 
         table += `
             <tr>
                 <td>${i + 1}.</td>
-                <td>${definition}</td>
+                <td>${definition}${postFix.length > 0 ? `<span class='dialect-specifier' title='${specificity}'>${postFix}</span>` : ""}</td>
                 <td>${term}</td>
                 <td>${scriptCell}</td>
                 ${categoryCell}
             </tr>
         `;
-    });
+    }
 
     return table;
 }

@@ -1,4 +1,3 @@
-word	english translation	Category	Script
 ngawu/nggawu	water, rain	Nouns	
 bawë/mbawë	bird(s)	Nouns	
 ngingi	monkey(s)/cannibal(s)	Cannibals and Mutants	
@@ -352,7 +351,7 @@ na witsunde'o kola/na witsundde'oso besi	"go forage yourself rocks" (leave me al
 nahá	to retrieve	Verbs	
 naha	to put on, to adorn	Verbs	
 miwa	to be able to	Verbs	
-müta	to stop, to halt	Verbs	
+müta	to stop, to halt, to prevent (something) before it happens	Verbs	
 ngolo	to follow	Verbs	
 nggolo	(usually nominal) water current	Nouns	
 nggave	to deconstruct, to deassemble	Verbs	
@@ -407,8 +406,8 @@ bátsi'an	to intrude	Abstracted Verbs
 malá	remainder, leftover	Nouns	
 gayana	between	Miscellaneous	
 sebesikya	rule	Nouns	
-kekéne	long (of length)	Adjectives	
-sawasa	short (of length)	Adjectives	
+kekéne/kokone	long (of horizontal length)	Adjectives	
+sawasa	short (of horizontal length)	Adjectives	
 witsuyo	to have	Reflexive Verbs	
 tsefeseyo	to suffer	Reflexive Verbs	
 witsunde'oso/witsundde'oso	to tidy one's appearance	Reflexive Verbs	
@@ -491,7 +490,7 @@ teye	a short person	Nouns
 ngopo'an	to act/serve as/take the role of	Abstracted Verbs	
 mele	to utilize, to use	Verbs	
 tanta	to clear (an area), to raze	Verbs	
-fufó	to extinguish (a fire)	Verbs	bl
+fufó	to extinguish (a fire)	Verbs	
 yensa	to get/obtain	Verbs	
 benise	to nurture (someone)	Verbs	
 kokena	to grow (plants)	Verbs	
@@ -595,7 +594,7 @@ nggáhetí	enemy(ies)	Irregular Plural Nouns
 yima	ok (all good)	Miscellaneous	
 kahāme	forest	Nouns	
 tike	peaceful	Adjectives	
-sá	hushing sound	Phrases	
+sá	hushing sound	Onomatopoeia	
 soma	to fear	Verbs	
 kílu	rough (surface), rigid	Adjectives	
 ndásanayo	to propose (an idea)	Verbs	
@@ -706,4 +705,38 @@ nana/naná	bye bye, see you	Phrases
 gupi	worm(s)	Irregular Plural Nouns	
 gupimëte	a'atsilwi script (worm writing)	Nouns	
 kehimëte	main ngimëte script (mountain script)	Nouns	
+kepwámëte	a'atsilwi version of the main ngimëte script (low mountain script)	Nouns	
 mëte	any spoken communication/language, type(s) of native ngimëte orthography	Nouns	
+sowa	to inhabit, to live (somewhere)	Verbs	
+ndá	through, between somewhere	Miscellaneous	
+migu	to ask, to inquire, to question	Verbs	
+pawana	belonging to a past, recent, time	Adjectives	
+kone'e	during (temporal preposition)	Miscellaneous	
+mowa	wealthy, rich	Adjectives	
+vese te/vefe te	a job	Nouns	
+nutu	unwanted	Adjectives	
+bekive	to forgive	Verbs	
+dayo te	a mistake caused by the subject	Nouns	
+da müta yo dayo te pá	interjection to get somebody's attention (lit. HON prevent my mistake (before it happens) HON); highly formal	Phrases	
+da sáne pá	interjection before getting past someone (lit. HON yield HON)l; highly formal	Phrases	
+kavu	to guard, to passively defend (from attack)	Verbs	
+kavu te	dog, "the one who guards"	Nouns	
+foye/fo'i	small (of size)	Adjectives	
+foye te/`	cat, "little one"	Nouns	
+`/novi te	cat, "one who stares down upon you"	Nouns	
+novi	to stare down at (something), to observe after passing	Verbs	
+noviso	to reflect upon one's outer appearance	Reflexive Verbs	
+novi'an	to unwillingly look at the aftermath of something	Abstracted Verbs	
+mbigasá/tongku	the sound of a tree hitting the ground	Onomatopoeia	
+`/tongkilongku	the sound of logs rumbling as they hit and roll on the ground, swimming away from you as you give chase	Onomatopoeia	
+kihikifufu/kihivihufu	the sound of grass rustling when rabbits run away	Onomatopoeia	
+ngíhi'hi'hi'ha'ha'há/ngéhihihaha'há	the sound of ngingi	Onomatopoeia	
+tumpilumpu	the sound of going up a flight of stairs	Onomatopoeia	
+tumpu	the sound of taking a step	Onomatopoeia	
+vuvu/`	the sound of walking on loose dirt	Onomatopoeia	
+kuluku/kiluku	the sound of ngingi effigies rattling (in the wind)	Onomatopoeia	
+yuleyu	to play an instrument	Verbs	
+tumpe	a step (you take with your feet)	Verbs	
+yule	to press down the fingers	Verbs	
+yuleyo	to grip	Reflexive Verbs	
+yuleyu'an	to be forced to play a musical instrument	Abstracted Verbs	

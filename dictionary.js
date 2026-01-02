@@ -21,7 +21,8 @@ let setNames = [
     "Interrogatives",
     "Cannibals and Mutants",
     "Religious Terms",
-    "Phrases"
+    "Phrases",
+    "Onomatopoeia"
 ];
 
 const dict = new Dictionary(...setNames);
@@ -245,7 +246,7 @@ dict.addWord("Demonstratives",
     new Word("that over there (place)", "nu'i"),
 )
 
-dict.bulkAddFromUrl(`https://rus1130.github.io/ngimete/words.txt`, "\n", "\t", "/");
+dict.bulkAddFromUrl(`/words.txt`, "\n", "\t", "/");
 
 function ortho(s){
     const V = ["a", "e", "i", "o", "u", "á", "é", "í", "ó", "ú", "ä", "ë", "ü"]
