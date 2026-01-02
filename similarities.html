@@ -2,12 +2,72 @@
     ol {
         margin-top: 0;
     }
+
+    input[type="checkbox"]:focus, #input:focus, button:focus {
+        outline: none;
+    }
+
+    
+    .hidden {
+        display: none;
+    }
+
+    button {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 3px 8px;
+        cursor: pointer;
+        font-size: 14px;
+        margin: 10px 0;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+        font-size: 12px;
+    }
+
+    /* Dropdown content */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: white;
+        min-width: 200px;
+        max-height: 150px;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+        z-index: 1;
+        padding: 5px;
+    }
+
+    /* Show dropdown on button click */
+    .dropdown.show .dropdown-content {
+        display: block;
+        user-select: none;
+    }
+
+    /* Style checkboxes */
+    .dropdown-content input[type="checkbox"] {
+        margin-right: 4px;
+        transform: scale(0.85);
+    }
 </style>
 <head>
-
+    <meta property="og:title" content="ngimëte Similarities">
+    <meta property="og:description" content="Find homophones and minimal pairs">
+    <meta property="og:url" content="https://rus1130.github.io/projects/ngimete/similarities">
 </head>
 <body>
-    <div id="loading"></div>
+    <div id="loading" class="hidden"></div>
+    <div id="dropdown-wrapper" style="display: inline-block;">
+        <label for="exclude-categories-dropdown">Include Categories:</label>
+        <div id="exclude-categories-dropdown" class="dropdown">
+            <button type="button" class="dropbtn" id="exclude-categories-button">Select Categories ▼</button>
+            <div class="dropdown-content" id="exclude-categories">
+            </div>
+        </div>
+    </div>
+    <button id="begin">Begin</button>
     <h1>Homophones:</h1>
     <div id="homophone-results"></div>
     <h1>Minimal Pairs:</h1>
@@ -19,6 +79,8 @@
     const loadingDiv = document.getElementById("loading");
     const homophoneResults = document.getElementById("homophone-results");
     const minimalPairResults = document.getElementById("minimal-pair-results");
+    const beginButton = document.getElementById("begin");
+    const dropdownWrapper = document.getElementById("dropdown-wrapper");
 
     // Keep track of rendered divs by key
     const homophoneDivs = new Map();
@@ -204,12 +266,124 @@
             outerComparisonsDone++;
         }
 
-        loadingDiv.textContent = `Completed! Found ${homophones.size} homophone sets. Total comparisons: ${totalComparisons}.`;
+        loadingDiv.textContent = `Completed! Found ${homophones.size} homophone sets. Total comparisons: ${totalComparisons}. Reload the page to run again.`;
     }
 
     dict.waitForDictLoad().then(async () => {
-        const words = dict.allWords(["Consonant Sounds", "Vowel Sounds", "Connecting Letters", "Tenses", "Phrases", "Grammar"])
-        await findPairs(words);
+        async function generateCategoryCheckboxes() {
+            const container = document.getElementById("exclude-categories");
+            container.innerHTML = "";
+
+            const categories = dict.practiceOrder
+
+            categories.forEach(category => {
+                if(!defaultExcludedCategories.includes(category)) {
+                    const id = `exclude-${category.replace(/\s+/g, "-")}`;
+
+                    const checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.name = "exclude-category";
+                    checkbox.value = category;
+                    checkbox.id = id;
+                    checkbox.checked = true;
+
+                    const label = document.createElement("label");
+                    label.htmlFor = id;
+                    label.textContent = category;
+
+                    const wrapper = document.createElement("div");
+                    wrapper.appendChild(checkbox);
+                    wrapper.appendChild(label);
+
+                    container.appendChild(wrapper);
+
+                    // Shift+Click behavior: check all other checkboxes
+                    checkbox.addEventListener("click", (e) => {
+                        // get how many checkboxes are checked
+                        updateCheckedBoxText();
+
+                        if (e.shiftKey) {
+                            const allCheckboxes = container.querySelectorAll('input[name="exclude-category"]');
+                            allCheckboxes.forEach(cb => {
+                                if (cb !== checkbox) cb.checked = false;
+                            });
+                            e.target.checked = true;
+                            updateCheckedBoxText();
+                        }
+                    });
+                }
+            });
+        }
+
+        function updateCheckedBoxText(){
+            const container = document.getElementById("exclude-categories");
+            const checkedBoxes = container.querySelectorAll('input[name="exclude-category"]:checked').length;
+
+            if(checkedBoxes === 0) excludeCategoriesButton.innerText = "Select Categories ▼";
+            else excludeCategoriesButton.innerText = `${checkedBoxes} Categor${checkedBoxes == 1 ? "y" : "ies"} Included ▼`;
+        }
+
+        function getIncludedCategories() {
+            const categories = [];
+
+            // Included categories from URL
+            if (excludedCategoriesParam) {
+                categories.push(...excludedCategoriesParam.split("$"));
+            }
+
+            // Included categories from nav checkboxes
+            const checkedBoxes = document.querySelectorAll('input[name="exclude-category"]:checked');
+            checkedBoxes.forEach(cb => categories.push(cb.value));
+
+            return categories;
+        }
+
+        
+        const dropdown = document.getElementById("exclude-categories-button");
+
+        const excludeCategoriesButton = document.getElementById("exclude-categories-button");
+        const defaultExcludedCategories = ["Consonant Sounds", "Vowel Sounds", "Connecting Letters", "Tenses", "Phrases", "Grammar"];
+        const urlParams = new URLSearchParams(window.location.search);
+        const excludedCategoriesParam = urlParams.get("excludeCategories");
+
+        const container = document.getElementById("exclude-categories-dropdown");
+
+        await generateCategoryCheckboxes();
+        updateCheckedBoxText();
+
+        dropdown.addEventListener("click", () => {
+            container.classList.toggle("show");
+        });
+
+        window.addEventListener("click", (e) => {
+            if (!container.contains(e.target)) {
+                container.classList.remove("show");
+            }
+        });
+
+
+        beginButton.addEventListener("click", async () => {
+            beginButton.remove();
+            loadingDiv.classList.remove("hidden");
+
+
+            // get the included categories
+            const includedCategories = structuredClone(getIncludedCategories());
+
+            console.log("Included categories:", includedCategories);
+            console.log("Excluded categories:", defaultExcludedCategories);
+
+            // Pass the excluded categories to allWords
+            const allWords = dict.allWords(defaultExcludedCategories);
+
+            const words = allWords.filter(word => includedCategories.includes(word.category));
+
+            console.log("Total words:", words.length);
+
+            dropdownWrapper.remove();
+            
+            await findPairs(words);
+        });
     })
 
 </script>
