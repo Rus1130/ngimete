@@ -266,7 +266,7 @@
             outerComparisonsDone++;
         }
 
-        loadingDiv.textContent = `Completed! Found ${homophones.size} homophone sets. Total comparisons: ${totalComparisons}. Reload the page to run again.`;
+        loadingDiv.innerHTML = `Completed! Found <b>${homophones.size}</b> homophone sets and <b>${nearHomophones.size}</b> minimal pairs. Total comparisons: ${totalComparisons}. Reload the page to run again.`;
     }
 
     dict.waitForDictLoad().then(async () => {
