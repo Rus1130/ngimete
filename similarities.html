@@ -3,7 +3,7 @@
         margin-top: 0;
     }
 
-    input[type="checkbox"]:focus, #input:focus, button:focus, input:focus {
+    input[type="checkbox"]:focus, #input:focus, button:focus, input:focus, select:focus {
         outline: none;
     }
 
@@ -58,6 +58,7 @@
     <meta property="og:url" content="https://rus1130.github.io/projects/ngimete/similarities">
 </head>
 <body>
+    <div id="chosen-settings" class="hidden"></div>
     <div id="loading" class="hidden"></div>
     <div id="dropdown-wrapper" style="display: inline-block; margin-bottom: -10px;">
 
@@ -74,11 +75,22 @@
             <button type="button" class="dropbtn" id="exclude-categories-button">Select Categories ▼</button>
             <div class="dropdown-content" id="exclude-categories">
             </div>
-        </div>
+        </div><br>
+
+        <label for="minimal-pair-type">Minimal Pair Type:</label>
+        <select id="minimal-pair-type" style="margin-bottom: 10px;">
+            <option value="orthographic" selected>Orthographic</option>
+            <option value="phonetic">Phonetic</option>
+        </select><br>
+        <label for="homophone-type" title="yeeessss I KNOWWW homophone is technically always 'phonetic' SCREW YOU!!!!!">Homophone Type:</label>
+        <select id="homophone-type" title="yeeessss I KNOWWW homophone is technically always 'phonetic' SCREW YOU!!!!!" style="margin-bottom: 10px;">
+            <option value="orthographic" selected>Orthographic</option>
+            <option value="phonetic">Phonetic</option>
+        </select>
     </div>
     <br>
-    <button id="begin">Begin</button>
-    <h1>Homophones:</h1>
+    <button id="begin" style="margin-bottom: -20px;">Begin</button>
+    <h1 id="top-heading">Homophones:</h1>
     <div id="homophone-results"></div>
     <h1>Minimal Pairs:</h1>
     <div id="minimal-pair-results"></div>
@@ -97,6 +109,9 @@
     const minimalPairDistanceInput = document.getElementById("minimal-pair-distance");
     const minimalPairDistanceValue = document.getElementById("minimal-pair-distance-value");
 
+    const minimalPairTypeSelect = document.getElementById("minimal-pair-type");
+    const homophoneTypeSelect = document.getElementById("homophone-type");
+
     minimalPairDistanceInput.addEventListener("input", () => {
         minimalPairDistanceValue.textContent = minimalPairDistanceInput.value;
     });
@@ -105,13 +120,25 @@
     const homophoneDivs = new Map();
     const minimalPairDivs = new Map();
 
-    function isHomophone(word1, word2, dialect){
-        return word1.value[dialect] === word2.value[dialect];
+    function isHomophone(word1, word2, dialect, type){
+        if(type == "orthographic") return word1.value[dialect] === word2.value[dialect];
+        else if(type == "phonetic") return word1.script[dialect].ipa.join("") === word2.script[dialect].ipa.join("");
+        else throw new Error("Invalid type for isHomophone");
     }
 
-    function isNearHomophone(word1, word2, dialect){
-        const val1 = word1.value[dialect];
-        const val2 = word2.value[dialect];
+    function isNearHomophone(word1, word2, dialect, type){
+        let val1;
+        let val2;
+
+        if(type == "orthographic") {
+            val1 = word1.value[dialect];
+            val2 = word2.value[dialect];
+        } else if(type == "phonetic") {
+            val1 = word1.script[dialect].ipa.join("");
+            val2 = word2.script[dialect].ipa.join("");
+        } else {
+            throw new Error("Invalid type for isNearHomophone");
+        }
 
         if(Math.abs(val1.length - val2.length) > parseInt(minimalPairDistanceInput.value)){
             return false;
@@ -235,67 +262,63 @@
         const nearHomophones = new Map();
 
         const resultsContainer = document.getElementById("results");
-        const chunkSize = 250; // number of comparisons per chunk
+        const chunkSize = 250; // comparisons per yield
 
         const totalComparisons = (words.length * (words.length - 1)) / 2;
         let comparisonsDone = 0;
-        let outerComparisonsDone = 0;
 
         const dialect = getDialect();
 
         for (let i = 0; i < words.length; i++) {
             for (let j = i + 1; j < words.length; j++) {
 
-                // --- DO YOUR CHECK HERE ---
                 const w1 = words[i];
                 const w2 = words[j];
 
-                if (isHomophone(w1, w2, dialect)) {
+                const homophoneType = homophoneTypeSelect.value;
+                const minimalPairType = minimalPairTypeSelect.value;
+
+                // --- HOMOPHONE CHECK ---
+                if (isHomophone(w1, w2, dialect, homophoneType)) {
                     const key = w1.value[dialect];
 
-                    if(key.trim() === "" || w2.value[dialect].trim() === "") continue;
+                    if (key.trim() !== "" && w2.value[dialect].trim() !== "") {
+                        if (!homophones.has(key)) homophones.set(key, new Set());
+                        homophones.get(key).add(w1.key);
+                        homophones.get(key).add(w2.key);
 
-                    if (!homophones.has(key)) {
-                        homophones.set(key, new Set());
+                        addOrUpdateHomophoneSet(key, homophones.get(key));
                     }
-
-                    homophones.get(key).add(w1.key);
-                    homophones.get(key).add(w2.key);
-
-                    // Update the rendered div with the current set
-                    addOrUpdateHomophoneSet(key, homophones.get(key));
                 }
 
-                if (isNearHomophone(w1, w2, dialect)) {
+                // --- NEAR HOMOPHONE (MINIMAL PAIR) CHECK ---
+                if (isNearHomophone(w1, w2, dialect, minimalPairType)) {
                     const key = `${w1.value[dialect]} ~ ${w2.value[dialect]}`;
 
-                    // if either of them are empty strings, skip
-                    if(w1.value[dialect].trim() === "" ||  w2.value[dialect].trim() === "") continue;
+                    if (w1.value[dialect].trim() !== "" && w2.value[dialect].trim() !== "") {
+                        if (!nearHomophones.has(key)) nearHomophones.set(key, new Set());
+                        nearHomophones.get(key).add(w1.key);
+                        nearHomophones.get(key).add(w2.key);
 
-                    if (!nearHomophones.has(key)) {
-                        nearHomophones.set(key, new Set());
+                        addOrUpdateMinimalPairSet(key, nearHomophones.get(key));
                     }
-
-                    nearHomophones.get(key).add(w1.key);
-                    nearHomophones.get(key).add(w2.key);
-
-                    // Update the rendered div with the current set
-                    addOrUpdateMinimalPairSet(key, nearHomophones.get(key));
                 }
 
-                loadingDiv.textContent =
+                comparisonsDone++;
+
+                // --- YIELD EVERY N COMPARISONS TO PREVENT DOM FREEZING ---
+                if (comparisonsDone % chunkSize === 0) {
+                    loadingDiv.textContent =
                         `Progress: ${((comparisonsDone / totalComparisons) * 100).toFixed(2)}%`;
 
-                // // Yield control every N iterations
-                if ((j % chunkSize) === 0) {
+                    // Actually yield to the browser event loop
                     await new Promise(resolve => setTimeout(resolve, 0));
                 }
-                comparisonsDone++;
             }
-            outerComparisonsDone++;
         }
 
-        loadingDiv.innerHTML = `Completed! Found <b>${homophones.size}</b> homophone set${homophones.size == 1 ? "" : "s"} and <b>${nearHomophones.size}</b> minimal pair${nearHomophones.size == 1 ? "" : "s"}. Total comparisons: ${totalComparisons}. Reload the page to run again.`;
+        loadingDiv.innerHTML =
+            `Completed! Found <b>${homophones.size}</b> homophone set${homophones.size === 1 ? "" : "s"} and <b>${nearHomophones.size}</b> minimal pair${nearHomophones.size === 1 ? "" : "s"}. Total comparisons: ${totalComparisons}. Reload the page to run again.`;
     }
 
     dict.waitForDictLoad().then(async () => {
@@ -355,11 +378,6 @@
         function getIncludedCategories() {
             const categories = [];
 
-            // Included categories from URL
-            if (excludedCategoriesParam) {
-                categories.push(...excludedCategoriesParam.split("$"));
-            }
-
             // Included categories from nav checkboxes
             const checkedBoxes = document.querySelectorAll('input[name="exclude-category"]:checked');
             checkedBoxes.forEach(cb => categories.push(cb.value));
@@ -372,8 +390,6 @@
 
         const excludeCategoriesButton = document.getElementById("exclude-categories-button");
         const defaultExcludedCategories = ["Consonant Sounds", "Vowel Sounds", "Connecting Letters", "Tenses", "Phrases", "Grammar"];
-        const urlParams = new URLSearchParams(window.location.search);
-        const excludedCategoriesParam = urlParams.get("excludeCategories");
 
         const container = document.getElementById("exclude-categories-dropdown");
 
@@ -396,9 +412,26 @@
             loadingDiv.classList.remove("hidden");
             document.getElementById("REMOVE-ME").remove();
 
-
-            // get the included categories
+             // get the included categories
             const includedCategories = structuredClone(getIncludedCategories());
+
+            // get all available categories (excluding defaults)
+            const allAvailableCategories = dict.practiceOrder.filter(cat => !defaultExcludedCategories.includes(cat));
+            
+            // get the excluded categories
+            const excludedCategories = allAvailableCategories.filter(cat => !includedCategories.includes(cat));
+
+            document.getElementById("chosen-settings").innerHTML =
+                `<b>Dialect:</b> ${getDialect()}<br>
+                 <b>Max Minimal Pair Distance:</b> ${minimalPairDistanceInput.value}<br>
+                 <b>Minimal Pair Type:</b> ${minimalPairTypeSelect.value}<br>
+                 <b>Homophone Type:</b> ${homophoneTypeSelect.value}<br>
+                 <b>Excluded Categories:</b> ${excludedCategories.length > 0 ? excludedCategories.join(", ") : "None"}`;
+
+
+            document.getElementById("chosen-settings").classList.remove("hidden");
+
+            document.getElementById("top-heading").style.marginTop = "-20px";
 
             // Pass the excluded categories to allWords
             const allWords = dict.allWords(defaultExcludedCategories);
