@@ -53,7 +53,10 @@ export class Dictionary {
             });
 
             this.dictLoadedFromLink = true;
-        } catch (error) {}
+        } catch (error) {
+            this.dictLoadedFromLink = null;
+            console.error("Error loading dictionary from URL:", error);
+        }
     }
 
     setPracticeOrder(args) {
