@@ -295,7 +295,7 @@
             outerComparisonsDone++;
         }
 
-        loadingDiv.innerHTML = `Completed! Found <b>${homophones.size}</b> homophone sets and <b>${nearHomophones.size}</b> minimal pairs. Total comparisons: ${totalComparisons}. Reload the page to run again.`;
+        loadingDiv.innerHTML = `Completed! Found <b>${homophones.size}</b> homophone set${homophones.size == 1 ? "" : "s"} and <b>${nearHomophones.size}</b> minimal pair${nearHomophones.size == 1 ? "" : "s"}. Total comparisons: ${totalComparisons}. Reload the page to run again.`;
     }
 
     dict.waitForDictLoad().then(async () => {
