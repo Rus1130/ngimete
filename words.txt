@@ -78,7 +78,7 @@ papap	sexual intercourse	Nouns
 iela	back	Nouns about Bones, Limbs, Body Parts, and Death	
 gyelu	waist	Nouns about Bones, Limbs, Body Parts, and Death	
 nona	human/person	Nouns	
-tíke	animal(s)	Irregular Nouns	
+tíke	animal(s)	Irregular Plural Nouns	
 keleni	body	Nouns about Bones, Limbs, Body Parts, and Death	
 lata'a	part, piece	Nouns	
 kaoleni	skeleton	Nouns about Bones, Limbs, Body Parts, and Death	
