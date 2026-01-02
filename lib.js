@@ -413,13 +413,12 @@ const GROUPS = {
     "1": "aeiouɑəyAEIOUQ", // V
     "2": "bdfghklmnpstvwjcŋʔMNSBDG", // C
     "3": "mnŋ", // N
-    "4": "s", // S
-    "5": "S",
+    "4": "S", // Ss
     "7": "l",
 };
 
 const SYLLABLES = [
-    "517",
+    "417(?![aeiouɑəyAEIOUQ])",
     "14",
     "(2)1(3)",
     "(2)14",
@@ -469,22 +468,40 @@ const IPA_FIXES = [
 
 function compileTemplate(tpl, groups) {
     let re = "^";
+    let i = 0;
 
-    for (let i = 0; i < tpl.length; i++) {
+    while (i < tpl.length) {
         const ch = tpl[i];
 
-        if (groups[ch]) {
+        // Check for lookahead patterns
+        if (ch === '(' && tpl[i + 1] === '?') {
+            // Find the closing paren
+            let depth = 1;
+            let j = i + 1;
+            while (j < tpl.length && depth > 0) {
+                j++;
+                if (tpl[j] === '(') depth++;
+                if (tpl[j] === ')') depth--;
+            }
+            // Copy the entire lookahead as-is
+            re += tpl.slice(i, j + 1);
+            i = j + 1;
+        } else if (groups[ch]) {
             re += `[${groups[ch]}]`;
+            i++;
         } else if (ch === "(") {
             re += "(?:";
+            i++;
         } else if (ch === ")") {
             re += ")?";
+            i++;
+        } else {
+            i++;
         }
     }
 
     return new RegExp(re);
 }
-
 
 function ipa(input) {
     let s = normalize(ortho(input));
