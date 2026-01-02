@@ -722,18 +722,18 @@ da sáne pá	interjection before getting past someone (lit. HON yield HON)l; hig
 kavu	to guard, to passively defend (from attack)	Verbs	
 kavu te	dog, "the one who guards"	Nouns	
 foye/fo'i	small (of size)	Adjectives	
-foye te/`	cat, "little one"	Nouns	
-`/novi te	cat, "one who stares down upon you"	Nouns	
+foye te/	cat, "little one"	Nouns	
+/novi te	cat, "one who stares down upon you"	Nouns	
 novi	to stare down at (something), to observe after passing	Verbs	
 noviso	to reflect upon one's outer appearance	Reflexive Verbs	
 novi'an	to unwillingly look at the aftermath of something	Abstracted Verbs	
 mbigasá/tongku	the sound of a tree hitting the ground	Onomatopoeia	
-`/tongkilongku	the sound of logs rumbling as they hit and roll on the ground, swimming away from you as you give chase	Onomatopoeia	
+/tongkilongku	the sound of logs rumbling as they hit and roll on the ground, swimming away from you as you give chase	Onomatopoeia	
 kihikifufu/kihivihufu	the sound of grass rustling when rabbits run away	Onomatopoeia	
 ngíhi'hi'hi'ha'ha'há/ngéhihihaha'há	the sound of ngingi	Onomatopoeia	
 tumpilumpu	the sound of going up a flight of stairs	Onomatopoeia	
 tumpu	the sound of taking a step	Onomatopoeia	
-vuvu/`	the sound of walking on loose dirt	Onomatopoeia	
+vuvu/	the sound of walking on loose dirt	Onomatopoeia	
 kuluku/kiluku	the sound of ngingi effigies rattling (in the wind)	Onomatopoeia	
 yuleyu	to play an instrument	Verbs	
 tumpe	a step (you take with your feet)	Verbs	

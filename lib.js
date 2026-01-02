@@ -717,6 +717,11 @@ function script(s, type = 0){
             { base: "ᨄ", top: false, bottom: false, left: false, right: false, special: false, vowel: false }, // n
             { base: "ᨊ", top: false, bottom: false, left: false, right: false, special: false, vowel: false } // d
         ] },
+
+        // punctuation
+        " ": { raw: true, base: "&ensp;" },
+        "(": { raw: true, base: "（" },
+        ")": { raw: true, base: "）" },
     }
 
     const script_replace_list = {

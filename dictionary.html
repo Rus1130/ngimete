@@ -180,6 +180,8 @@ function getSelectedDialects() {
         .map(d => d.value);
 }
 
+const defaultExcludedCategories = ["Consonant Sounds", "Vowel Sounds", "Connecting Letters", "Grammar", "Tenses"];
+
 // Generate category checkboxes dynamically from dictionary
 async function generateCategoryCheckboxes() {
     await dict.waitForDictLoad();
@@ -198,7 +200,7 @@ async function generateCategoryCheckboxes() {
         checkbox.value = category;
         checkbox.id = id;
         
-        if(["Consonant Sounds", "Vowel Sounds", "Connecting Letters", "Grammar", "Tenses"].includes(category)) checkbox.checked = true;
+        if(defaultExcludedCategories.includes(category)) checkbox.checked = true;
 
         const label = document.createElement("label");
         label.htmlFor = id;
@@ -327,7 +329,7 @@ function generateTable(results) {
         return table;
     }
 
-    const noDefIdentifier = "`";
+    const noDefIdentifier = "";
 
     for (let i = 0; i < results.length; i++) {
         const result = results[i];
