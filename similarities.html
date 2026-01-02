@@ -1,0 +1,215 @@
+<style>
+    ol {
+        margin-top: 0;
+    }
+</style>
+<head>
+
+</head>
+<body>
+    <div id="loading"></div>
+    <h1>Homophones:</h1>
+    <div id="homophone-results"></div>
+    <h1>Minimal Pairs:</h1>
+    <div id="minimal-pair-results"></div>
+</body>
+<script type="module" defer>
+    import { dict } from './dictionary.js';
+
+    const loadingDiv = document.getElementById("loading");
+    const homophoneResults = document.getElementById("homophone-results");
+    const minimalPairResults = document.getElementById("minimal-pair-results");
+
+    // Keep track of rendered divs by key
+    const homophoneDivs = new Map();
+    const minimalPairDivs = new Map();
+
+    function isHomophone(word1, word2, dialect){
+        return word1.value[dialect] === word2.value[dialect];
+    }
+
+    function isNearHomophone(word1, word2, dialect){
+        const val1 = word1.value[dialect];
+        const val2 = word2.value[dialect];
+
+        if(Math.abs(val1.length - val2.length) > 1){
+            return false;
+        }
+
+        let differences = 0;
+        let i = 0;
+        let j = 0;
+
+        while(i < val1.length && j < val2.length){
+            if(val1[i] !== val2[j]){
+                differences++;
+                if(differences > 1){
+                    return false;
+                }
+
+                if(val1.length > val2.length){
+                    i++;
+                } else if(val1.length < val2.length){
+                    j++;
+                } else {
+                    i++;
+                    j++;
+                }
+            } else {
+                i++;
+                j++;
+            }
+        }
+
+        return true;
+    }
+
+
+    const dialect = "A'atsilwi";
+
+    function addOrUpdateHomophoneSet(key, set){
+        // Check if div already exists
+        if(homophoneDivs.has(key)){
+            // Update existing div
+            const div = homophoneDivs.get(key);
+            const ol = div.querySelector("ol");
+            
+            // Clear and repopulate the list
+            ol.innerHTML = "";
+            set.forEach((wordKey) => {
+                const li = document.createElement("li");
+                li.textContent = wordKey;
+                ol.appendChild(li);
+            });
+        } else {
+            // Create new div
+            const div = document.createElement("div");
+
+            const keySpan = document.createElement("span");
+            keySpan.style.fontWeight = "bold";
+            keySpan.textContent = key;
+            div.appendChild(keySpan);
+
+            const ol = document.createElement("ol");
+            set.forEach((wordKey) => {
+                const li = document.createElement("li");
+                li.textContent = wordKey;
+                ol.appendChild(li);
+            });
+
+            div.appendChild(ol);
+            homophoneResults.appendChild(div);
+            
+            // Store reference to the div
+            homophoneDivs.set(key, div);
+        }
+    }
+
+    function addOrUpdateMinimalPairSet(key, set){
+        // Check if div already exists
+        if(minimalPairDivs.has(key)){
+            // Update existing div
+            const div = minimalPairDivs.get(key);
+            const ol = div.querySelector("ol");
+            
+            // Clear and repopulate the list
+            ol.innerHTML = "";
+            set.forEach((wordKey) => {
+                const li = document.createElement("li");
+                li.textContent = wordKey;
+                ol.appendChild(li);
+            });
+        } else {
+            // Create new div
+            const div = document.createElement("div");
+
+            const keySpan = document.createElement("span");
+            keySpan.style.fontWeight = "bold";
+            keySpan.textContent = key;
+            div.appendChild(keySpan);
+
+            const ol = document.createElement("ol");
+            set.forEach((wordKey) => {
+                const li = document.createElement("li");
+                li.textContent = wordKey;
+                ol.appendChild(li);
+            });
+
+            div.appendChild(ol);
+            minimalPairResults.appendChild(div);
+            
+            // Store reference to the div
+            minimalPairDivs.set(key, div);
+        }
+    }
+
+
+    async function findPairs(words) {
+        const homophones = new Map();
+        const nearHomophones = new Map();
+
+        const resultsContainer = document.getElementById("results");
+        const chunkSize = 200; // number of comparisons per chunk
+
+        const totalComparisons = (words.length * (words.length - 1)) / 2;
+        let comparisonsDone = 0;
+        let outerComparisonsDone = 0;
+
+        for (let i = 0; i < words.length; i++) {
+            for (let j = i + 1; j < words.length; j++) {
+
+                // --- DO YOUR CHECK HERE ---
+                const w1 = words[i];
+                const w2 = words[j];
+
+                if (isHomophone(w1, w2, dialect)) {
+                    const key = w1.value[dialect];
+
+                    if(key.trim() === "") continue;
+
+                    if (!homophones.has(key)) {
+                        homophones.set(key, new Set());
+                    }
+
+                    homophones.get(key).add(w1.key);
+                    homophones.get(key).add(w2.key);
+
+                    // Update the rendered div with the current set
+                    addOrUpdateHomophoneSet(key, homophones.get(key));
+                }
+
+                if (isNearHomophone(w1, w2, dialect)) {
+                    const key = `${w1.value[dialect]} ~ ${w2.value[dialect]}`;
+
+                    if (!nearHomophones.has(key)) {
+                        nearHomophones.set(key, new Set());
+                    }
+
+                    nearHomophones.get(key).add(w1.key);
+                    nearHomophones.get(key).add(w2.key);
+
+                    // Update the rendered div with the current set
+                    addOrUpdateMinimalPairSet(key, nearHomophones.get(key));
+                }
+
+                loadingDiv.textContent =
+                        `Progress: ${((comparisonsDone / totalComparisons) * 100).toFixed(2)}%`;
+
+                // // Yield control every N iterations
+                if ((j % chunkSize) === 0) {
+                    await new Promise(resolve => setTimeout(resolve, 0));
+                }
+                comparisonsDone++;
+            }
+            outerComparisonsDone++;
+        }
+
+        loadingDiv.textContent = `Completed! Found ${homophones.size} homophone sets. Total comparisons: ${totalComparisons}.`;
+    }
+
+    dict.waitForDictLoad().then(async () => {
+        const words = dict.allWords(["Consonant Sounds", "Vowel Sounds", "Connecting Letters", "Tenses", "Phrases", "Grammar"])
+        await findPairs(words);
+    })
+
+</script>

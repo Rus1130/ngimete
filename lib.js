@@ -214,6 +214,20 @@ export class Dictionary {
         return new WordSearchResult(searchTerm, results, excludedCategories);
     }
 
+    allWords(excludedCategories = []) {
+        let results = [];
+        for(let i = 0; i < this.practiceOrder.length; i++){
+            let cat = this.practiceOrder[i];
+            if(excludedCategories.includes(cat)) continue;
+            this.dict[cat].forEach(word => {
+                let word_ = new Word(word.key, ...Object.values(word.value));
+                word_.category = cat;
+                results.push(word_);
+            })
+        }
+        return results;
+    }
+
     /**
      * 
      * @param {string} location the location to open the dictionary to. 

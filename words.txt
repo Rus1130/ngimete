@@ -89,8 +89,6 @@ nditi	eye	Nouns about Bones, Limbs, Body Parts, and Death
 wá	mouth	Nouns about Bones, Limbs, Body Parts, and Death	
 hihi	nose	Nouns about Bones, Limbs, Body Parts, and Death	
 payepë	yesterday	Nouns	
-ilu	there	Nouns	
-lulu'i	here	Nouns	
 ábe	breast(s) (chest)	Irregular Plural Nouns	
 fusabó	valley	Nouns	
 gemëte	nonsense, unintelligible	Nouns	
@@ -167,7 +165,6 @@ mi	ok/neutral yes	Miscellaneous
 gogowa	wrong	Miscellaneous	
 owilowa	correct	Miscellaneous	
 katálo	hello/hi	Miscellaneous	
-ilo/ano	that	Miscellaneous	
 sülu/sëlu	(i) got it! (killed/caught something)	Miscellaneous	
 gegela	zero	Numerals	
 gela	one, any number except 2	Numerals	
@@ -718,7 +715,7 @@ nutu	unwanted	Adjectives
 bekive	to forgive	Verbs	
 dayo te	a mistake caused by the subject	Nouns	
 da müta yo dayo te pá	interjection to get somebody's attention (lit. HON prevent my mistake (before it happens) HON); highly formal	Phrases	
-da sáne pá	interjection before getting past someone (lit. HON yield HON)l; highly formal	Phrases	
+da sáne pá	interjection before getting past someone (lit. HON yield HON); highly formal	Phrases	
 kavu	to guard, to passively defend (from attack)	Verbs	
 kavu te	dog, "the one who guards"	Nouns	
 foye/fo'i	small (of size)	Adjectives	
