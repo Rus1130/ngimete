@@ -60,6 +60,8 @@
 <body>
     <div id="loading" class="hidden"></div>
     <div id="dropdown-wrapper" style="display: inline-block;">
+        <label for="dialect-select">A'atsilwi dialect:</label>
+        <input type="checkbox" id="dialect-select">
         <label for="exclude-categories-dropdown">Include Categories:</label>
         <div id="exclude-categories-dropdown" class="dropdown">
             <button type="button" class="dropbtn" id="exclude-categories-button">Select Categories ▼</button>
@@ -82,6 +84,8 @@
     const beginButton = document.getElementById("begin");
     const dropdownWrapper = document.getElementById("dropdown-wrapper");
 
+    const dialectSelect = document.getElementById("dialect-select");
+
     // Keep track of rendered divs by key
     const homophoneDivs = new Map();
     const minimalPairDivs = new Map();
@@ -94,7 +98,7 @@
         const val1 = word1.value[dialect];
         const val2 = word2.value[dialect];
 
-        if(Math.abs(val1.length - val2.length) > 1){
+        if(Math.abs(val1.length - val2.length) > 0){
             return false;
         }
 
@@ -127,7 +131,7 @@
     }
 
 
-    const dialect = "A'atsilwi";
+    const dialect = dialectSelect.checked ? "A'atsilwi" : "Standard";
 
     function addOrUpdateHomophoneSet(key, set){
         // Check if div already exists
