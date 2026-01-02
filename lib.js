@@ -414,9 +414,12 @@ const GROUPS = {
     "2": "bdfghklmnpstvwjcŋʔMNSBDG", // C
     "3": "mnŋ", // N
     "4": "s", // S
+    "5": "S",
+    "7": "l",
 };
 
 const SYLLABLES = [
+    "517",
     "14",
     "(2)1(3)",
     "(2)14",
@@ -502,7 +505,7 @@ function ipa(input) {
         .join(" ");
     
     s = s
-        .replaceAll(/([Ss])i\.l/g, "$1il")
+        //.replaceAll(/([Ss])i\.l/g, "$1il")
         .replaceAll(/([mnŋ])\.([aeiouɑəyAEIOUQ])/g, ".$1$2")
         .replaceAll(/(\.?)([fpbt])\.w/g, "$1$2w")
         .replaceAll(/\.([MN])/g, "$1")
