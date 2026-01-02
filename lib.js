@@ -879,7 +879,7 @@ function script(s, type = 0){
 
 
     rendered = rendered.replace(/([^ ])ᨌ/g, "$1");
-    rendered = rendered.replace(/ /g, "&ensp;");
+    rendered = rendered.replace(/ /g, "\u2002"); // en space
     return rendered.replace(/ ᨟$/g, "")
 }
 
