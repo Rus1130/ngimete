@@ -3,7 +3,7 @@
         margin-top: 0;
     }
 
-    input[type="checkbox"]:focus, #input:focus, button:focus {
+    input[type="checkbox"]:focus, #input:focus, button:focus, input:focus {
         outline: none;
     }
 
@@ -59,9 +59,16 @@
 </head>
 <body>
     <div id="loading" class="hidden"></div>
-    <div id="dropdown-wrapper" style="display: inline-block;">
+    <div id="dropdown-wrapper" style="display: inline-block; margin-bottom: -10px;">
+
         <label for="dialect-select">A'atsilwi dialect:</label>
         <input type="checkbox" id="dialect-select">
+
+        <label for="minimal-pair-distance" title="Maximum number of differing letters between two words to be considered a minimal pair.">Max Minimal Pair Distance:</label>
+        <input type="range" id="minimal-pair-distance" min="0" max="8" value="0" title="Maximum number of differing letters between two words to be considered a minimal pair.">
+        <span id="minimal-pair-distance-value" title="Maximum number of differing letters between two words to be considered a minimal pair.">0</span>
+        <br id="REMOVE-ME">
+
         <label for="exclude-categories-dropdown">Include Categories:</label>
         <div id="exclude-categories-dropdown" class="dropdown">
             <button type="button" class="dropbtn" id="exclude-categories-button">Select Categories ▼</button>
@@ -69,6 +76,7 @@
             </div>
         </div>
     </div>
+    <br>
     <button id="begin">Begin</button>
     <h1>Homophones:</h1>
     <div id="homophone-results"></div>
@@ -86,6 +94,13 @@
 
     const dialectSelect = document.getElementById("dialect-select");
 
+    const minimalPairDistanceInput = document.getElementById("minimal-pair-distance");
+    const minimalPairDistanceValue = document.getElementById("minimal-pair-distance-value");
+
+    minimalPairDistanceInput.addEventListener("input", () => {
+        minimalPairDistanceValue.textContent = minimalPairDistanceInput.value;
+    });
+
     // Keep track of rendered divs by key
     const homophoneDivs = new Map();
     const minimalPairDivs = new Map();
@@ -98,7 +113,7 @@
         const val1 = word1.value[dialect];
         const val2 = word2.value[dialect];
 
-        if(Math.abs(val1.length - val2.length) > 0){
+        if(Math.abs(val1.length - val2.length) > parseInt(minimalPairDistanceInput.value)){
             return false;
         }
 
@@ -234,7 +249,7 @@
                 if (isHomophone(w1, w2, dialect)) {
                     const key = w1.value[dialect];
 
-                    if(key.trim() === "") continue;
+                    if(key.trim() === "" || w2.value[dialect].trim() === "") continue;
 
                     if (!homophones.has(key)) {
                         homophones.set(key, new Set());
@@ -249,6 +264,9 @@
 
                 if (isNearHomophone(w1, w2, dialect)) {
                     const key = `${w1.value[dialect]} ~ ${w2.value[dialect]}`;
+
+                    // if either of them are empty strings, skip
+                    if(w1.value[dialect].trim() === "" ||  w2.value[dialect].trim() === "") continue;
 
                     if (!nearHomophones.has(key)) {
                         nearHomophones.set(key, new Set());
@@ -372,6 +390,7 @@
         beginButton.addEventListener("click", async () => {
             beginButton.remove();
             loadingDiv.classList.remove("hidden");
+            document.getElementById("REMOVE-ME").remove();
 
 
             // get the included categories
