@@ -25,6 +25,12 @@
         word-wrap: break-word;   /* legacy, widely supported */
         overflow-wrap: anywhere; /* modern way to break anywhere */
     }
+
+    .back-to-main {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+    }
 </style>
 
 <head>
@@ -35,6 +41,9 @@
 </head>
 
 <body>
+    <div class="back-to-main">
+        <button onclick="location.href='index.html'" style="padding: 4px;">Back to main page</button>
+    </div>
     Type a dash (-) to automatically put it the correct connecting letter.<br><br>
     <textarea id="input" style="width: 100%; height: 80px; font-family: monospace;" placeholder="write text here" spellcheck="false"></textarea>
 

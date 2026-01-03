@@ -3,7 +3,7 @@
         margin-top: 0;
     }
 
-    input[type="checkbox"]:focus, #input:focus, button:focus, input:focus, select:focus {
+    #input:focus, button:focus, input:focus, select:focus {
         outline: none;
     }
 
@@ -52,6 +52,12 @@
         margin-right: 4px;
         transform: scale(0.85);
     }
+
+    .back-to-main {
+        position: fixed;
+        top: 3px;
+        right: 10px;
+    }
 </style>
 <head>
     <meta property="og:title" content="ngimëte Similarities">
@@ -59,6 +65,9 @@
     <meta property="og:url" content="https://rus1130.github.io/projects/ngimete/similarities">
 </head>
 <body>
+    <div class="back-to-main">
+        <button onclick="location.href='index.html'" style="padding: 4px;">Back to main page</button>
+    </div>
     <div id="chosen-settings" class="hidden"></div>
     <div id="loading" class="hidden"></div>
     <div id="dropdown-wrapper" style="display: inline-block; margin-bottom: -10px;">
@@ -357,8 +366,10 @@
             }
         }
 
+        const l = (n) => n.toLocaleString();
+
         loadingDiv.innerHTML =
-            `Complete! Found <b>${homophones.size}</b> homophone set${homophones.size === 1 ? "" : "s"} and <b>${nearHomophones.size}</b> minimal pair${nearHomophones.size === 1 ? "" : "s"} in <b>${words.length}</b> word${words.length === 1 ? "" : "s"}. Total comparisons: <b>${totalComparisons.toLocaleString()}</b>. Reload the page to run again.`;
+            `Complete! Found <b>${l(homophones.size)}</b> homophone set${homophones.size === 1 ? "" : "s"} and <b>${l(nearHomophones.size)}</b> minimal pair${nearHomophones.size === 1 ? "" : "s"} in <b>${l(words.length)}</b> word${words.length === 1 ? "" : "s"}. Total comparisons: <b>${l(totalComparisons)}</b>. Reload the page to run again.`;
     }
 
     dict.waitForDictLoad().then(async () => {
@@ -467,6 +478,15 @@
                  <b>Homophone Type:</b> ${homophoneTypeSelect.value}<br>
                  <b>Minimal Pair Type:</b> ${minimalPairTypeSelect.value}<br>
                  <b>Excluded Categories:</b> ${excludedCategories.length > 0 ? excludedCategories.join(", ") : "None"}`;
+
+
+            localStorage.setItem("ngimete-similarities-settings", JSON.stringify({
+                dialect: getDialect(),
+                maxMinimalPairDistance: minimalPairDistanceInput.value,
+                homophoneType: homophoneTypeSelect.value,
+                minimalPairType: minimalPairTypeSelect.value,
+                includedCategories: includedCategories
+            }));
 
 
             document.getElementById("chosen-settings").classList.remove("hidden");
