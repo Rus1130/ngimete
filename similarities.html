@@ -109,6 +109,7 @@
 <script type="module" defer>
     import { dict } from './dictionary.js';
 
+
     const chunkSize = 350;
 
     const loadingDiv = document.getElementById("loading");
@@ -446,6 +447,23 @@
 
         await generateCategoryCheckboxes();
         updateCheckedBoxText();
+
+        if(localStorage.getItem("ngimete-similarities-settings")){
+            const settings = JSON.parse(localStorage.getItem("ngimete-similarities-settings"));
+
+            document.getElementById("dialect-select").checked = settings.dialect === "A'atsilwi";
+            document.getElementById("minimal-pair-distance").value = settings.maxMinimalPairDistance;
+            document.getElementById("minimal-pair-distance-value").textContent = settings.maxMinimalPairDistance;
+            document.getElementById("homophone-type").value = settings.homophoneType;
+            document.getElementById("minimal-pair-type").value = settings.minimalPairType;
+
+            // Set included categories
+            const checkboxes = document.querySelectorAll('input[name="exclude-category"]');
+            checkboxes.forEach(cb => {
+                cb.checked = settings.includedCategories.includes(cb.value);
+            });
+            updateCheckedBoxText();
+        }
 
         dropdown.addEventListener("click", () => {
             container.classList.toggle("show");
