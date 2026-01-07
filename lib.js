@@ -388,7 +388,6 @@ const ORTHO_RULES = [
     { re: /ä/g, to: "ɑ" },
     { re: /ë/g, to: "ə" },
     { re: /ü/g, to: "y" },
-    { re: /är/g, to: "Q" }, // ɑː
 
     { re: /\.\./g, to: "." },
 ];
@@ -514,7 +513,9 @@ function ipa(input) {
     s = s.replaceAll("z", ".");
     s = s.replaceAll("c", ".");
     s = s.replaceAll("ə", ".");
-    s = s.replaceAll("ā", "a.");
+    //s = s.replaceAll("ā", "a.");
+
+    s = s.replaceAll("är", "Q");
 
     s = applyRules(s, ORTHO_RULES);
 
@@ -541,7 +542,7 @@ function ipa(input) {
     s = applyRules(s, remap);
     
     s = s
-        .replaceAll("ɑ.r", "ɑː")
+        // .replaceAll("ɑ.r", "ɑː")
         .replaceAll(".|.|", " || ")
         .replaceAll(".|", " | ")
 
