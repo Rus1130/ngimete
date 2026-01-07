@@ -100,8 +100,15 @@ export class Dictionary {
 
         if (!wordsInCategory || wordsInCategory.length === 0) return null;
 
-        const randomIndex = Math.floor(Math.random() * wordsInCategory.length);
-        return wordsInCategory[randomIndex];
+        let randomIndex = Math.floor(Math.random() * wordsInCategory.length);
+        let randomWord = wordsInCategory[randomIndex];
+
+        while(randomWord.key.trim() === "") {
+            randomIndex = Math.floor(Math.random() * wordsInCategory.length);
+            randomWord = wordsInCategory[randomIndex];
+        }
+
+        return randomWord;
     }
 
     /**
