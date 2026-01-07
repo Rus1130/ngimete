@@ -413,12 +413,14 @@ const GROUPS = {
     "1": "aeiouɑəyAEIOUQ", // V
     "2": "bdfghklmnpstvwjcŋʔMNSBDG", // C
     "3": "mnŋ", // N
-    "4": "S", // Ss
+    "4": "s", // Ss
+    "5": "S",
     "7": "l",
 };
 
 const SYLLABLES = [
     "417(?![aeiouɑəyAEIOUQ])",
+    "517",
     "14",
     "(2)1(3)",
     "(2)14",
