@@ -20,8 +20,12 @@
     <meta name="google" content="notranslate">
 </head>
 <body>
-    <div class="bar" id="standard-letter-distrib"></div><br>
+    <div class="bar" id="standard-letter-distrib"></div>
     <div class="bar" id="aatsilwi-letter-distrib"></div>
+    <div class="bar" id="standard-onset"></div>
+    <div class="bar" id="standard-coda" style="width: 500px;"></div>
+    <div class="bar" id="aatsilwi-onset"></div>
+    <div class="bar" id="aatsilwi-coda" style="width: 500px;"></div>
     <div class="pie" id="categories"></div>
 </body>
 <script type="module">
@@ -118,24 +122,43 @@
             if(!["dont add", "Phrases", "Grammar", "Vowel Sounds", "Consonant Sounds", "Connecting Letters"].includes(set)){
                 dict.dict[set].forEach((word) => {
 
-                const standardSyllables = getSyllables(word.script["Standard"]);
+                    const standardSyllables = getSyllables(word.script["Standard"]);
 
-                standardSyllables.forEach((syllable) => {
-                    if (!syllable) return;
+                    const aatsilwiSyllables = getSyllables(word.script["A'atsilwi"]);
 
-                    const onset = extractOnset(syllable);
-                    const coda  = extractCoda(syllable);
+                    standardSyllables.forEach((syllable) => {
+                        if (!syllable) return;
 
-                    const ipa = word.script["Standard"].toString(undefined, undefined , ["ipa"]);
+                        const onset = extractOnset(syllable);
+                        const coda  = extractCoda(syllable);
 
-                    if (onset) {
-                        addToMap(onsetsStandard, onset, `[${syllable}] in ${ipa}`);
-                    }
+                        const ipa = word.script["Standard"].toString(undefined, undefined , ["ipa"]);
 
-                    if (coda) {
-                        addToMap(codasStandard, coda, `[${syllable}] in ${ipa}`);
-                    }
-                });
+                        if (onset) {
+                            addToMap(onsetsStandard, onset, `[${syllable}] in ${ipa}`);
+                        }
+
+                        if (coda) {
+                            addToMap(codasStandard, coda, `[${syllable}] in ${ipa}`);
+                        }
+                    });
+
+                    aatsilwiSyllables.forEach((syllable) => {
+                        if (!syllable) return;
+
+                        const onset = extractOnset(syllable);
+                        const coda  = extractCoda(syllable);
+
+                        const ipa = word.script["A'atsilwi"].toString(undefined, undefined , ["ipa"]);
+
+                        if (onset) {
+                            addToMap(onsetsAatsilwi, onset, `[${syllable}] in ${ipa}`);
+                        }
+
+                        if (coda) {
+                            addToMap(codasAatsilwi, coda, `[${syllable}] in ${ipa}`);
+                        }
+                    });
 
                     if(categoriesDistribution[set]) categoriesDistribution[set]++;
                     else categoriesDistribution[set] = 1;
@@ -169,44 +192,66 @@
         let aatsilwiKeys = Object.keys(distributionAatsilwi);
         let aatsilwiValues = Object.values(distributionAatsilwi);
 
-        // short standardKeys and standardValues from greatest to least
-        for(let i = 0; i < standardKeys.length; i++){
-            for(let j = i + 1; j < standardKeys.length; j++){
-                if(standardValues[i] < standardValues[j]){
-                    let temp = standardValues[i];
-                    standardValues[i] = standardValues[j];
-                    standardValues[j] = temp;
+        function sortLinkedLists(l1, l2){
+            for(let i = 0; i < l1.length; i++){
+                for(let j = i + 1; j < l1.length; j++){
+                    if(l2[i] < l2[j]){
+                        let temp = l2[i];
+                        l2[i] = l2[j];
+                        l2[j] = temp;
 
-                    temp = standardKeys[i];
-                    standardKeys[i] = standardKeys[j];
-                    standardKeys[j] = temp;
+                        temp = l1[i];
+                        l1[i] = l1[j];
+                        l1[j] = temp;
+                    }
                 }
             }
+
+            return [l1, l2];
         }
 
-        // short aatsilwiKeys and aatsilwiValues from greatest to least
-        for(let i = 0; i < aatsilwiKeys.length; i++){
-            for(let j = i + 1; j < aatsilwiKeys.length; j++){
-                if(aatsilwiValues[i] < aatsilwiValues[j]){
-                    let temp = aatsilwiValues[i];
-                    aatsilwiValues[i] = aatsilwiValues[j];
-                    aatsilwiValues[j] = temp;
+        const onsetsStandardKeys = Array.from(onsetsStandard.keys());
+        const onsetsStandardValues = onsetsStandardKeys.map(key => onsetsStandard.get(key).count);
 
-                    temp = aatsilwiKeys[i];
-                    aatsilwiKeys[i] = aatsilwiKeys[j];
-                    aatsilwiKeys[j] = temp;
-                }
-            }
-        }
+        const codaStandardKeys = Array.from(codasStandard.keys());
+        const codaStandardValues = codaStandardKeys.map(key => codasStandard.get(key).count);
 
-        console.log(onsetsStandard)
-        console.log(codasStandard)
+        const onsetsAatsilwiKeys = Array.from(onsetsAatsilwi.keys());
+        const onsetsAatsilwiValues = onsetsAatsilwiKeys.map(key => onsetsAatsilwi.get(key).count);
+
+        const codaAatsilwiKeys = Array.from(codasAatsilwi.keys());
+        const codaAatsilwiValues = codaAatsilwiKeys.map(key => codasAatsilwi.get(key).count);
+
+
+        sortLinkedLists(standardKeys, standardValues);
+        sortLinkedLists(aatsilwiKeys, aatsilwiValues);
+        sortLinkedLists(onsetsStandardKeys, onsetsStandardValues);
+        sortLinkedLists(onsetsAatsilwiKeys, onsetsAatsilwiValues);
+        sortLinkedLists(codaStandardKeys, codaStandardValues);
+        sortLinkedLists(codaAatsilwiKeys, codaAatsilwiValues);
+
+        
+        console.log(onsetsStandard, codasStandard);
+        console.log(onsetsAatsilwi, codasAatsilwi);
+
 
         new BarChart(`#standard-letter-distrib`,{width:1200,height:500})
-        .setData("Standard Dialect Letter Distribution","Letter","Frequency",100,4,standardKeys, standardValues);
+        .setData("Standard Dialect Letter Distribution","Letter","Frequency",100,4, standardKeys, standardValues);
 
         new BarChart("#aatsilwi-letter-distrib", {width:1200, height:500})
-        .setData("A'atsilwi Dialect Letter Distribution","Letter","Frequency",100,4,aatsilwiKeys, aatsilwiValues);
+        .setData("A'atsilwi Dialect Letter Distribution","Letter","Frequency",100,4, aatsilwiKeys, aatsilwiValues);
+
+        new BarChart("#standard-onset", {width:1200, height:500})
+        .setData("Standard Dialect Onset Distribution","Onset","Frequency",100,4, onsetsStandardKeys, onsetsStandardValues);
+
+        new BarChart("#aatsilwi-onset", {width:1200, height:500})
+        .setData("A'atsilwi Dialect Onset Distribution","Onset","Frequency",100,4, onsetsAatsilwiKeys, onsetsAatsilwiValues);
+
+        new BarChart("#standard-coda", {width:500, height:500})
+        .setData("Standard Dialect Coda Distribution","Coda","Frequency",100, 4, codaStandardKeys, codaStandardValues);
+
+        new BarChart("#aatsilwi-coda", {width:500, height:500})
+        .setData("A'atsilwi Dialect Coda Distribution","Coda","Frequency",100, 4, codaAatsilwiKeys, codaAatsilwiValues);
 
         let pieChart = new PieChart("#categories", {
             width: 500,

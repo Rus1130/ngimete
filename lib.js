@@ -426,7 +426,7 @@ const GROUPS = {
 
 const SYLLABLES = [
     "FwV", // (f/p/b/t)w(vowel)
-    "Sil", // (s/ts)il
+    `Sil(?![${GROUPS.V}])`, // (s/ts)il 
     `kid(?![${GROUPS.V}${GROUPS.C}])`, // kid not followed by vowel or consonant
     `CVN(?![${GROUPS.V}])`, // consonant-vowel-nasal not followed by vowel
     `CVN(?=[${GROUPS.C}])`, // consonant-vowel-nasal followed by consonant
@@ -528,8 +528,6 @@ function ipa(input) {
     s = s.replaceAll("är", "Q");
 
     s = applyRules(s, ORTHO_RULES);
-
-    console.log(s)
 
     s = s
         .split(" ")
