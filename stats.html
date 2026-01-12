@@ -32,10 +32,110 @@
     const distributionAatsilwi = {};
     const categoriesDistribution = {};
 
+    const onsetsStandard = new Map();
+    const codasStandard = new Map();
+
+    const onsetsAatsilwi = new Map();
+    const codasAatsilwi = new Map();
+
+
+    const IPA_VOWEL_BASE = /[aeiouɑəy]/i;
+    const IPA_DIACRITICS = /[\u032F\u0300-\u036F]/;
+
+    function isVowel(token) {
+        return IPA_VOWEL_BASE.test(token[0]);
+    }
+
+    function tokenizeIPA(s) {
+        const tokens = [];
+        const chars = [...s]; // spreads by Unicode codepoint
+
+        for (let i = 0; i < chars.length; i++) {
+            const c = chars[i];
+
+            // vowel nucleus
+            if (IPA_VOWEL_BASE.test(c)) {
+                let token = c;
+
+                // attach combining diacritics (̯, ̃, etc.)
+                while (i + 1 < chars.length && IPA_DIACRITICS.test(chars[i + 1])) {
+                    token += chars[++i];
+                }
+
+                // attach length marker
+                if (chars[i + 1] === "ː") {
+                    token += chars[++i];
+                }
+
+                tokens.push(token);
+                continue;
+            }
+
+            tokens.push(c);
+        }
+
+        return tokens;
+    }
+
+    function extractOnset(syllable) {
+        const tokens = tokenizeIPA(syllable);
+        const i = tokens.findIndex(isVowel);
+        return i > 0 ? tokens.slice(0, i).join("") : "";
+    }
+
+    function extractCoda(syllable) {
+        const tokens = tokenizeIPA(syllable);
+        let lastVowel = -1;
+
+        tokens.forEach((t, i) => {
+            if (isVowel(t)) lastVowel = i;
+        });
+
+        return lastVowel !== -1 && lastVowel < tokens.length - 1
+            ? tokens.slice(lastVowel + 1).join("")
+            : "";
+    }
+
+    function getSyllables(conlangContent){
+        return conlangContent.toString(undefined, undefined, ["ipa"]).replaceAll(/\[|\]/g, "").split(".")
+    }
+
+    function addToMap(map, key, source) {
+    if (!map.has(key)) {
+            map.set(key, {
+                count: 1,
+                sources: new Set([source])
+            });
+        } else {
+            const entry = map.get(key);
+            entry.count++;
+            entry.sources.add(source);
+        }
+    }
+
     dict.waitForDictLoad().then(() => {
         dict.practiceOrder.forEach((set) => {
             if(!["dont add", "Phrases", "Grammar", "Vowel Sounds", "Consonant Sounds", "Connecting Letters"].includes(set)){
                 dict.dict[set].forEach((word) => {
+
+                const standardSyllables = getSyllables(word.script["Standard"]);
+
+                standardSyllables.forEach((syllable) => {
+                    if (!syllable) return;
+
+                    const onset = extractOnset(syllable);
+                    const coda  = extractCoda(syllable);
+
+                    if (onset) {
+                        console.log()
+                        addToMap(onsetsStandard, onset, `[${syllable}] in ${word.script["Standard"].toString(undefined, undefined , ["ipa"])}`);
+                    }
+
+                    if (coda) {
+                        addToMap(codasStandard, coda, word.script["Standard"].toString(undefined, undefined , ["ipa"]));
+                    }
+                });
+
                     if(categoriesDistribution[set]) categoriesDistribution[set]++;
                     else categoriesDistribution[set] = 1;
                     
@@ -97,6 +197,9 @@
                 }
             }
         }
+
+        console.log(onsetsStandard)
+        console.log(codasStandard)
 
         new BarChart(`#standard-letter-distrib`,{width:1200,height:500})
         .setData("Standard Dialect Letter Distribution","Letter","Frequency",100,4,standardKeys, standardValues);

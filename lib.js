@@ -520,7 +520,7 @@ function ipa(input) {
     s = s.replaceAll("z", ".");
     s = s.replaceAll("c", ".");
     s = s.replaceAll("ə", ".");
-    //s = s.replaceAll("ā", "a.");
+    s = s.replaceAll("ā", "a.");
 
     s = s.replaceAll("är", "Q");
 
