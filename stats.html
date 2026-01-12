@@ -126,13 +126,14 @@
                     const onset = extractOnset(syllable);
                     const coda  = extractCoda(syllable);
 
+                    const ipa = word.script["Standard"].toString(undefined, undefined , ["ipa"]);
+
                     if (onset) {
-                        console.log()
-                        addToMap(onsetsStandard, onset, `[${syllable}] in ${word.script["Standard"].toString(undefined, undefined , ["ipa"])}`);
+                        addToMap(onsetsStandard, onset, `[${syllable}] in ${ipa}`);
                     }
 
                     if (coda) {
-                        addToMap(codasStandard, coda, word.script["Standard"].toString(undefined, undefined , ["ipa"]));
+                        addToMap(codasStandard, coda, `[${syllable}] in ${ipa}`);
                     }
                 });
 

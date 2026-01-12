@@ -376,6 +376,8 @@ const ORTHO_RULES = [
     { re: /mb/g, to: "B" }, // ᵐb
     { re: /ngg/g, to: "G" }, // ᵑg
     { re: /ng/g, to: "ŋ" },
+    { re: /M/g, to: "mb" },
+    { re: /N/g, to: "nd" },
 
     // glottal
     { re: /'/g, to: "ʔ" },
@@ -416,21 +418,21 @@ const remap = [
 ]
 
 const GROUPS = {
-    "1": "aeiouɑəyAEIOUQ", // V
-    "2": "bdfghklmnpstvwjcŋʔMNSBDG", // C
-    "3": "mnŋ", // N
-    "4": "s", // Ss
-    "5": "S",
-    "7": "l",
+    "V": "aeiouɑəyAEIOUQ",
+    "C": "bdfghklmnpstvwjcŋʔSBDG",
+    "N": "mnŋ",
+    "F": "fpbt",
 };
 
 const SYLLABLES = [
-    "417(?![aeiouɑəyAEIOUQ])",
-    "517",
-    "14",
-    "(2)1(3)",
-    "(2)14",
-    "(2)1",
+    "FwV", // (f/p/b/t)w(vowel)
+    "Sil", // (s/ts)il
+    `kid(?![${GROUPS.V}${GROUPS.C}])`, // kid not followed by vowel or consonant
+    `CVN(?![${GROUPS.V}])`, // consonant-vowel-nasal not followed by vowel
+    `CVN(?=[${GROUPS.C}])`, // consonant-vowel-nasal followed by consonant
+    `(C)Vs(?![${GROUPS.V}${GROUPS.C}])`, // (consonant)-vowel-s not followed by vowel or consonant
+    "CV",
+    "V"
 ];
 
 function syllabifyWord(word, groups, templates) {
@@ -504,6 +506,7 @@ function compileTemplate(tpl, groups) {
             re += ")?";
             i++;
         } else {
+            re += ch;
             i++;
         }
     }
@@ -526,20 +529,23 @@ function ipa(input) {
 
     s = applyRules(s, ORTHO_RULES);
 
+    console.log(s)
+
     s = s
         .split(" ")
         .map(s => syllabifyWord(s, GROUPS, SYLLABLES))
         .join(" ");
+
+    
     
     s = s
-        //.replaceAll(/([Ss])i\.l/g, "$1il")
-        .replaceAll(/([mnŋ])\.([aeiouɑəyAEIOUQ])/g, ".$1$2")
-        .replaceAll(/(\.?)([fpbt])\.w/g, "$1$2w")
-        .replaceAll(/\.([MN])/g, "$1")
-        .replaceAll(
-        /([bdfghklmnpstvwjcŋʔMNSBDG])([aeiouɑəyAEIOUQ])\.s(?=[^aeiouɑəyAEIOUQ]|$)/g,
-        "$1$2s"
-    )
+        // .replaceAll(/([mnŋ])\.([aeiouɑəyAEIOUQ])/g, ".$1$2")
+        // .replaceAll(/(\.?)([fpbt])\.w/g, "$1$2w")
+        // .replaceAll(/\.([MN])/g, "$1")
+    //     .replaceAll(
+    //     /([bdfghklmnpstvwjcŋʔMNSBDG])([aeiouɑəyAEIOUQ])\.s(?=[^aeiouɑəyAEIOUQ]|$)/g,
+    //     "$1$2s"
+    // )
     s = applyRules(s, IPA_FIXES);
 
     s = s
