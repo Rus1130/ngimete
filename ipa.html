@@ -31,6 +31,10 @@
         top: 10px;
         right: 10px;
     }
+
+    label {
+        user-select: none;
+    }
 </style>
 
 <head>
@@ -57,8 +61,8 @@
     <button id="ortho" style="padding: 10px;">copy ortho</button>
     <button id="ipa" style="padding: 10px;">copy IPA</button>
     <button id="script" style="padding: 10px;">copy script</button>
-    <label for="alternate-mode">
-        <input type="checkbox" id="alternate-mode" checked>
+    <label for="pretty-mode">
+        <input type="checkbox" id="pretty-mode" checked>
         Pretty output
     </label>
     <label for="script-type">
@@ -80,7 +84,7 @@ const output = document.getElementById("out");
 // const ipaButton = document.getElementById("ipa");
 // const orthoIPAButton = document.getElementById("ortho-ipa");
 // const scriptButton = document.getElementById("script");
-const alternateModeCheckbox = document.getElementById("alternate-mode");
+const prettyOutputCheckbox = document.getElementById("pretty-mode");
 const scriptTypeCheckbox = document.getElementById("script-type");
 
 const allButton = document.getElementById("all");
@@ -96,11 +100,17 @@ const random = dict.randomWord(["Connecting Letters", "Vowel Sounds", "Consonant
 
 
 
-//input.textContent = random.value["Standard"]
+input.textContent = random.value["Standard"]
 //input.textContent = "ngawu mbawë ngingi túwus á'á tsi'i nggala gyelu kyesi ndawi mbaba ngguso tsa'an ábao pifwe tuha welebing fetsimwa fesúa witsunggá'o fwí kewes fwígiwes tembbe us simbbärnta a'atsilwi ipalas esiya benise witsumbbenise'o imaso emeso fesúaso"
 
-input.textContent = "kyawasana ndálohí gúhäsa máfëtär sebesikya kekéne ëvënefu sipilana lohíyam naoneno mótsiyo witsunddenddu yu'úla hükaka"
-scriptTypeCheckbox.checked = false;
+//input.textContent = "kyawasana ndálohí gúhäsa máfëtär sebesikya kekéne ëvënefu sipilana lohíyam naoneno mótsiyo witsunddenddu yu'úla hükaka"
+//scriptTypeCheckbox.checked = false;
+
+if(localStorage.getItem("ngimete-kepwamete-output") === "true"){
+    scriptTypeCheckbox.checked = true;
+} else {
+    scriptTypeCheckbox.checked = false;
+}
 
 console.log(random.key);
 updateOutput();
@@ -127,13 +137,15 @@ function updateOutput() {
 
     const cc = new ConlangContent(value);
     
-    setOutputText(cc.toString(scriptTypeCheckbox.checked ? "low" : "high", alternateModeCheckbox.checked, ["ortho", "script", "ipa"]));
+    setOutputText(cc.toString(scriptTypeCheckbox.checked ? "low" : "high", prettyOutputCheckbox.checked, ["ortho", "script", "ipa"]));
+
+    localStorage.setItem("ngimete-kepwamete-output", scriptTypeCheckbox.checked);
 }
 
 input.addEventListener("input", setInputHeight);
 input.addEventListener("input", updateOutput);
 
-alternateModeCheckbox.addEventListener("change", updateOutput);
+prettyOutputCheckbox.addEventListener("change", updateOutput);
 scriptTypeCheckbox.addEventListener("change", updateOutput);
 
 function handleButton(button, categories){
@@ -143,7 +155,7 @@ function handleButton(button, categories){
         if (!value) return;
 
         const cc = new ConlangContent(value);
-        navigator.clipboard.writeText(cc.toString(scriptTypeCheckbox.checked ? "low" : "high", alternateModeCheckbox.checked, categories));
+        navigator.clipboard.writeText(cc.toString(scriptTypeCheckbox.checked ? "low" : "high", prettyOutputCheckbox.checked, categories));
         button.innerText = "copied!";
         setTimeout(() => button.innerText = ogText, 2000);
     });

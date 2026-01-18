@@ -1,0 +1,42 @@
+<style>
+    button:focus, input:focus, select:focus, textarea:focus, [contenteditable]:focus {
+        outline:none;
+    }
+
+    body {
+        font-family: monospace;
+    }
+</style>
+<head>
+    <meta property="og:title" content="IPA of Every Word">
+    <meta property="og:description" content="IPA transcription of every word in the ngimëte dictionary.">
+    <meta property="og:url" content="https://rus1130.github.io/projects/ngimete/every-word">
+    <script src="dictionary.js" type="module"></script>
+</head>
+<body>
+    
+    
+</body>
+<script type="module">
+    import { dict } from './dictionary.js';
+
+    // wait for dict.ready to be true
+    while(dict.ready != true) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
+
+    dict.getAllWords(["dont add", "Consonant Sounds", "Vowel Sounds", "Connecting Letters", "Phrases"]).forEach(word => {
+        //console.log(word.script["Standard"].constructor.toStringInfo = true)
+
+        const wordscript = word.script["Standard"];
+
+        if(wordscript === undefined) return;
+
+        const ipa = wordscript.toString("high", true, ["ipa"]);
+        const term = wordscript.toString("high", true, ["ortho"]);
+
+        console.log(wordscript)
+
+        document.body.insertAdjacentHTML('beforeend', `<div>${ipa} - ${term}</div>`);
+    });
+</script>

@@ -7,7 +7,7 @@ export class Dictionary {
      * false - loading in progress
      * true - loading complete
      */
-    dictLoadedFromLink = null;
+    ready = null;
 
 
     constructor(categories) {
@@ -19,8 +19,8 @@ export class Dictionary {
     }
 
     async waitForDictLoad() {
-        if(this.dictLoadedFromLink == null) return false;
-        while(this.dictLoadedFromLink != true) {
+        if(this.ready == null) return false;
+        while(this.ready != true) {
             await new Promise(resolve => setTimeout(resolve, 100));
         }
     }
@@ -29,9 +29,23 @@ export class Dictionary {
         return Object.keys(this.dict);
     }
 
+    /**
+     * 
+     * @param {string[]} excludedCategories
+     * @returns 
+     */
+    getAllWords(excludedCategories = []) {
+        let words = [];
+        for (const category in this.dict) {
+            if (excludedCategories.includes(category)) continue;
+            words = words.concat(this.dict[category]);
+        }
+        return words;
+    }
+
     async bulkAddFromUrl(url, entryDelimiter, definitionDelimiter, dialectDelimiter) {
         try {
-            this.dictLoadedFromLink = false;
+            this.ready = false;
             let response = await fetch(url);
             if (!response.ok) throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
             let data = await response.text()
@@ -52,9 +66,9 @@ export class Dictionary {
                 this.addWord(category, new Word(english, ...other));
             });
 
-            this.dictLoadedFromLink = true;
+            this.ready = true;
         } catch (error) {
-            this.dictLoadedFromLink = null;
+            this.ready = null;
             console.error("Error loading dictionary from URL:", error);
         }
     }
@@ -141,7 +155,9 @@ export class Dictionary {
         let excludedCategories = options?.excludedCategories || [];
         let regexSearch = options?.regexSearch || false;
 
-        if(["not loaded", "loading"].includes(this.dictLoadedFromLink)) throw new Error("Dictionary not loaded yet. Please wait for the dictionary to load before searching.");
+        if(this.ready != true){
+            throw new Error("Dictionary not loaded yet. Please wait for the dictionary to load before searching.");
+        }
 
         let results = [];
 
@@ -293,6 +309,9 @@ export class Dictionary {
 }
 
 function ortho(s){
+
+    s = s.replaceAll("_", "");
+
     const V = ["a", "e", "i", "o", "u", "á", "é", "í", "ó", "ú", "ä", "ë", "ü"]
     const C = ["b", "d", "f", "g", "h", "k", "l", "m", "n", "p", "s", "t", "v", "w", "y", "r"]
     const C1 = ["m", "n", "s", "v", "w", "r"]
@@ -412,8 +431,8 @@ const remap = [
     { re: /D/g, to: "ⁿd" },
     { re: /G/g, to: "ᵑɡ" },
     { re: /S/g, to: "t͡s" },
-    { re: /M/g, to: "m.b" },
-    { re: /N/g, to: "n.d" },
+    { re: /M/g, to: "mb" },
+    { re: /N/g, to: "nd" },
     { re: /\.\./g, to: "" },
 ]
 
@@ -421,16 +440,18 @@ const GROUPS = {
     "V": "aeiouɑəyAEIOUQ",
     "C": "bdfghklmnpstvwjcŋʔSBDG",
     "N": "mnŋ",
-    "F": "fpbt",
+    "F": "fpbts",
+    "T": "Ss",
 };
 
 const SYLLABLES = [
     "FwV", // (f/p/b/t)w(vowel)
-    `Sil(?![${GROUPS.V}])`, // (s/ts)il 
+    `Til(?![${GROUPS.V}])`, // (s/ts)il 
     `kid(?![${GROUPS.V}${GROUPS.C}])`, // kid not followed by vowel or consonant
     `CVN(?![${GROUPS.V}])`, // consonant-vowel-nasal not followed by vowel
     `CVN(?=[${GROUPS.C}])`, // consonant-vowel-nasal followed by consonant
     `(C)Vs(?![${GROUPS.V}${GROUPS.C}])`, // (consonant)-vowel-s not followed by vowel or consonant
+    `VN(?=[${GROUPS.C}])`, // vowel-nasal followed by consonant
     "CV",
     "V"
 ];
@@ -534,16 +555,7 @@ function ipa(input) {
         .map(s => syllabifyWord(s, GROUPS, SYLLABLES))
         .join(" ");
 
-    
-    
-    s = s
-        // .replaceAll(/([mnŋ])\.([aeiouɑəyAEIOUQ])/g, ".$1$2")
-        // .replaceAll(/(\.?)([fpbt])\.w/g, "$1$2w")
-        // .replaceAll(/\.([MN])/g, "$1")
-    //     .replaceAll(
-    //     /([bdfghklmnpstvwjcŋʔMNSBDG])([aeiouɑəyAEIOUQ])\.s(?=[^aeiouɑəyAEIOUQ]|$)/g,
-    //     "$1$2s"
-    // )
+
     s = applyRules(s, IPA_FIXES);
 
     s = s
@@ -589,25 +601,6 @@ function renderGlyph(character) {
     return base;
 }
 
-// function findMergeTarget(renderPipeline) {
-//     // iterate backwards from the end
-//     for (let i = renderPipeline.length - 1; i >= 0; i--) {
-//         const glyph = renderPipeline[i];
-
-//         if (!glyph || glyph.raw) continue; // skip raw text
-//         if (glyph.merged) continue;        // already merged
-
-//         if (glyph.multi) {
-//             // check last part of multi glyph
-//             const lastPart = glyph.parts[glyph.parts.length - 1];
-//             if (!lastPart.merged) return { glyph, index: i };
-//         } else {
-//             return { glyph, index: i };
-//         }
-//     }
-//     return null; // no valid merge target
-// }
-
 function findMergeTarget(renderPipeline) {
     const i = renderPipeline.length - 1;
     if (i < 0) return null;
@@ -625,47 +618,6 @@ function findMergeTarget(renderPipeline) {
 
     return { glyph, index: i };
 }
-
-
-// function findMergeTarget(pipeline) {
-//     // look backwards for a glyph that:
-//     // - is not raw
-//     // - is not already merged
-//     // - is not a multi-glyph (treat multi as atomic)
-//     for (let i = pipeline.length - 1; i >= 0; i--) {
-//         const glyph = pipeline[i];
-//         if (!glyph.raw && !glyph.merged && !glyph.multi) return { glyph, index: i };
-//         if (glyph.raw) break; // stop at any raw char (space, punctuation)
-//     }
-//     return null;
-// }
-
-// function findMergeTarget(pipeline) {
-//     if (pipeline.length === 0) return null;
-
-//     const lastGlyph = pipeline[pipeline.length - 1];
-
-//     // If the last glyph is raw (space/punctuation), nothing to merge
-//     if (lastGlyph.raw) return null;
-
-//     // // If the last glyph is multi, merge only into its last part
-//     if (lastGlyph.multi) {
-//         const lastIndex = lastGlyph.parts.length - 1;
-//         const lastPart = lastGlyph.parts[lastIndex];
-//         if (!lastPart.merged) {
-//             return { glyph: lastGlyph, index: pipeline.length - 1  };
-//         } else {
-//             return null; // already merged, don't merge again
-//         }
-//     }
-
-//     // // Last glyph is normal, not yet merged
-//     // if (!lastGlyph.merged) {
-//     //     return { glyph: lastGlyph, index: pipeline.length - 1 };
-//     // }
-
-//     return null; // last glyph already merged, nothing to do
-// }
 
 const mods = {
     left: "ᨙ",
@@ -1238,19 +1190,6 @@ function script(s, type = 0){
         rendered = renderPipeline.map(renderGlyph).join("");
     }
 
-    if (type == 2) {
-        let abugidaOutput = "";
-
-        // split by space or .
-        const cleaned = ipa(old_s)
-            .replace(/[\[\]\|]/g, "")      // remove [, ], |
-            .trim()
-            .split(/[.\s]+/)               // split by any space or period
-            .filter(Boolean)               // remove empty segments
-
-        console.log(cleaned)
-    }
-
 
     rendered = rendered.replace(/([^ ])ᨌ/g, "$1");
     rendered = rendered.replace(/ /g, "\u2002"); // en space
@@ -1271,12 +1210,12 @@ export class ConlangContent {
     /**
      * 
      * @param {Number} scriptType - 0 = separate, 1 = condensed
-     * @param {Boolean} alternateMode - if true, outputs in alternating lines per word
+     * @param {Boolean} prettyOutput - if true, each entry is grouped together with a blank line between entries
      * @param {String[]} includedCategories  - categories to include: "ortho", "script", "ipa"
      * @returns 
      */
-    toString(scriptType = 0, alternateMode = false, includedCategories = ["ortho", "script", "ipa"]) {
-        if(ConlangContent.toStringInfo) console.info(`ConlangContent.toString scriptType<Number>, alternateMode<Boolean>, includedCategories<String[]>. If scriptType is "low" it will use "0", if "high" it will use "1". Default includedCategories are all three.`);
+    toString(scriptType = 0, prettyOutput = false, includedCategories = ["ortho", "script", "ipa"]) {
+        if(ConlangContent.toStringInfo) console.info(`ConlangContent.toString scriptType<Number>, prettyOutput<Boolean>, includedCategories<String[]>. If scriptType is "low" it will use "0", if "high" it will use "1". Default includedCategories are all three.`);
         let lines = [];
 
         if(scriptType == "low") scriptType = 0;
@@ -1285,7 +1224,7 @@ export class ConlangContent {
         // Helper to check if a category is included
         const include = (cat) => includedCategories.includes(cat);
 
-        if (alternateMode) {
+        if (prettyOutput) {
             for (let i = 0; i < this.ipa.length; i++) {
                 if (include("ortho")) lines.push(this.ortho[i]);
                 if (include("script")) lines.push(scriptType === 0 ? this.script_low[i] : this.script_high[i]);
@@ -1298,7 +1237,10 @@ export class ConlangContent {
             if (include("ipa")) lines.push(this.ipa.map(line => line.replaceAll("[]", "")).join("\n"));
         }
 
-        return lines.join("\n").trim();
+        const result = lines.join("\n").trim();
+
+        if(result == "") return null;
+        return result;
     }
 }
 

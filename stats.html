@@ -101,7 +101,7 @@
     }
 
     function getSyllables(conlangContent){
-        return conlangContent.toString(undefined, undefined, ["ipa"]).replaceAll(/\[|\]/g, "").split(".")
+        return conlangContent.ipa.join("").replaceAll(/\[|\]/g, "").split(".")
     }
 
     function addToMap(map, key, source) {
