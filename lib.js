@@ -1264,8 +1264,8 @@ export class ConlangContent {
 
         this.ipa = s.map(ipa).map(line => line.replaceAll("[]", ""));
         this.ortho = s.map(ortho)
-        this.script_sep = s.map(line => script(ortho(line), 0));
-        this.script_mer = s.map(line => script(ortho(line), 1));
+        this.script_low = s.map(line => script(ortho(line), 0));
+        this.script_high = s.map(line => script(ortho(line), 1));
     }
 
     /**
@@ -1288,13 +1288,13 @@ export class ConlangContent {
         if (alternateMode) {
             for (let i = 0; i < this.ipa.length; i++) {
                 if (include("ortho")) lines.push(this.ortho[i]);
-                if (include("script")) lines.push(scriptType === 0 ? this.script_sep[i] : this.script_mer[i]);
+                if (include("script")) lines.push(scriptType === 0 ? this.script_low[i] : this.script_high[i]);
                 if (include("ipa")) lines.push(this.ipa[i].replaceAll("[]", ""));
                 lines.push(""); // Add a blank line between entries
             }
         } else {
             if (include("ortho")) lines.push(this.ortho.join("\n"));
-            if (include("script")) lines.push((scriptType === 0 ? this.script_sep : this.script_mer).join("\n"));
+            if (include("script")) lines.push((scriptType === 0 ? this.script_low : this.script_high).join("\n"));
             if (include("ipa")) lines.push(this.ipa.map(line => line.replaceAll("[]", "")).join("\n"));
         }
 

@@ -247,6 +247,22 @@ async function generateCategoryCheckboxes() {
     );
 }
 
+function getDialectCheckboxes() {
+    return document.querySelectorAll('input[name="dialect"]');
+}
+
+function enforceAtLeastOneDialect() {
+    const dialectCheckboxes = getDialectCheckboxes();
+    const checked = Array.from(dialectCheckboxes).filter(cb => cb.checked);
+
+    if (checked.length === 1) {
+        checked[0].disabled = true;
+    } else {
+        dialectCheckboxes.forEach(cb => cb.disabled = false);
+    }
+}
+
+
 function updateCheckedBoxText(){
     const container = document.getElementById("exclude-categories");
     const checkedBoxes = container.querySelectorAll('input[name="exclude-category"]:checked').length;
@@ -368,11 +384,11 @@ function generateTable(results) {
             .replaceAll(">", "&gt;")
             .replaceAll("<", "&lt;");
 
-        const checkedDialects = Array.from(dialectCheckboxes)
-            .filter(cb => cb.checked)
-            .map(cb => cb.value);
-
         let scripts = [];
+
+        const checkedDialects = Array.from(
+            document.querySelectorAll('input[name="dialect"]:checked')
+        ).map(cb => cb.value);
 
         if (checkedDialects.includes("Standard")) {
             scripts.push(result.script["Standard"].toString(1, undefined, ["script"]));
@@ -430,7 +446,98 @@ function generateTable(results) {
     return table;
 }
 
+function generateTableHeader(hasCategory) {
+    return `
+        <tr style="position: sticky; top: 0px; background-color: white; user-select: none;">
+            <td style="width: 50px; font-weight: bold;">#</td>
+            <th>Word</th>
+            <th>Definition</th>
+            <th>Script</th>
+            ${hasCategory ? "<th>Category</th>" : ""}
+        </tr>
+    `;
+}
+
+function generateTableRow(result, index, hasCategory) {
+    const noDefIdentifier = "";
+
+    const definition = result.key
+        .replaceAll(">", "&gt;")
+        .replaceAll("<", "&lt;");
+
+    let preTerm = [...new Set(Object.values(result.value))]
+        .filter(s => s !== noDefIdentifier);
+
+    const term = preTerm.join(" / ")
+        .replaceAll(">", "&gt;")
+        .replaceAll("<", "&lt;");
+
+    const scripts = [];
+    const checkedDialects = Array.from(
+        document.querySelectorAll('input[name="dialect"]:checked')
+    ).map(cb => cb.value);
+
+    if (checkedDialects.includes("Standard")) {
+        scripts.push(result.script["Standard"].toString(1, undefined, ["script"]));
+    }
+
+    if (checkedDialects.includes("A'atsilwi")) {
+        scripts.push(result.script["A'atsilwi"].toString(0, undefined, ["script"]));
+    }
+
+    let scriptCell = [...new Set(scripts)]
+        .filter(s => s !== noDefIdentifier)
+        .join(" / ");
+
+    if (term === "" && scriptCell === "") return null;
+
+    if (result.category === "Consonant Sounds" || result.category === "Vowel Sounds") {
+        scriptCell = scriptConsonantVowelFix[result.key];
+    }
+
+    if (result.category === "Connecting Letters") {
+        scriptCell = scriptConnectingLetterFix[result.key];
+    }
+
+    const categoryCell = hasCategory ? `<td>${result.category}</td>` : "";
+
+    return `
+        <tr>
+            <td>${index + 1}.</td>
+            <td>${definition}</td>
+            <td>${term}</td>
+            <td>${scriptCell}</td>
+            ${categoryCell}
+        </tr>
+    `;
+}
+
+async function renderTableAsync(results) {
+    const hasCategory = !removeCategoryColumn;
+
+    // Clear + header
+    output.innerHTML = generateTableHeader(hasCategory);
+
+    const BATCH_SIZE = 20; // tune this (15–50 is good)
+
+    for (let i = 0; i < results.length; i += BATCH_SIZE) {
+        let chunkHTML = "";
+
+        for (let j = i; j < i + BATCH_SIZE && j < results.length; j++) {
+            const row = generateTableRow(results[j], j, hasCategory);
+            if (row) chunkHTML += row;
+        }
+
+        output.insertAdjacentHTML("beforeend", chunkHTML);
+
+        // Yield to the browser
+        await new Promise(requestAnimationFrame);
+    }
+}
+
 async function updateDictionary() {
+    const container = document.getElementById("container");
+
     const swap = document.getElementById("swap").checked;
     const regexSearch = document.getElementById("regex-search").checked;
 
@@ -444,7 +551,9 @@ async function updateDictionary() {
     };
 
     await dict.waitForDictLoad();
+
     const searchResult = dict.wordSearch(input.value, options);
+
     output.innerHTML = generateTable(searchResult.results);
 }
 
@@ -454,6 +563,13 @@ async function updateDictionary() {
         if (e.key === "Enter") e.preventDefault();
         updateDictionary();
     });
+});
+
+document.addEventListener("input", (e) => {
+    if (e.target.matches('input[name="dialect"]')) {
+        enforceAtLeastOneDialect();
+        updateDictionary();
+    }
 });
 
 button.addEventListener("click", () => dict.openDictionary("window"));
