@@ -153,6 +153,14 @@
 <script type="module">
 import { dict } from './dictionary.js';
 
+document.addEventListener('copy', (e) => {
+    const selection = document.getSelection().toString();
+    const cleaned = selection.replace(/\t/g, '');
+
+    e.clipboardData.setData('text/plain', cleaned);
+    e.preventDefault(); // required to override the default behavior
+});
+
 const dropdown = document.getElementById("exclude-categories-dropdown");
 const excludeCategoriesButton = document.getElementById("exclude-categories-button");
 const dropbtn = dropdown.querySelector(".dropbtn");

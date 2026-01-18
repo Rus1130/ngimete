@@ -679,7 +679,7 @@ const mods = {
 /**
  * 
  * @param {*} s 
- * @param {number} type 0 = normal; 1 = merged; 2 = abugidized
+ * @param {number} type 0 = normal; 1 = merged
  * @returns 
  */
 function script(s, type = 0){
@@ -696,10 +696,10 @@ function script(s, type = 0){
         b: { base: "ᨃ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false },
         t: { base: "ᨈ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         d: { base: "ᨊ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
-        "\uE008": { base: "ᨇ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
+        "\uE008": { base: "ᨇ", top: false, bottom: false, left: false, right: false, special: false, vowel: false }, // gy/ky
         k: { base: "ᨍ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         g: { base: "ᨍ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false },
-        "\uE00B": { base: "ᨀ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
+        "\uE00B": { base: "ᨀ", top: false, bottom: false, left: false, right: false, special: false, vowel: false }, // glottal
 
         // top-bottom
         // "\uE003": { base: "ᨃ", top: true, bottom: true,  left: false, right: false, special: false, vowel: false }, // mb
@@ -737,12 +737,12 @@ function script(s, type = 0){
 
         m: { base: "ᨅ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         n: { base: "ᨄ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
-        "\uE006": { base: "ᨋ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false },
+        "\uE006": { base: "ᨋ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false }, // ng
         f: { base: "ᨂ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         v: { base: "ᨂ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false },
         s: { base: "ᨆ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         h: { base: "ᨀ", top: false, bottom: true, left: false, right: false, special: false, vowel: false },
-        "\uE007": { base: "ᨉ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
+        "\uE007": { base: "ᨉ", top: false, bottom: false, left: false, right: false, special: false, vowel: false }, // ts
         w: { base: "ᨏ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false },
         y: { base: "ᨒ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false },
         l: { base: "ᨓ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false },
@@ -759,7 +759,7 @@ function script(s, type = 0){
         a: { base: "ᨔ", top: false,  bottom: false, left: false, right: false, special: false, vowel: true  },
         á: { base: "ᨖ", top: false,  bottom: false, left: false, right: false, special: false, vowel: true  },
         ä: { base: "ᨔ", top: false, bottom: true,  left: false, right: false, special: false, vowel: true  },
-        "\uE00A": { base: "ᨖ", top: false, bottom: true,  left: false, right: false, special: false, vowel: true  },
+        "\uE00A": { base: "ᨖ", top: false, bottom: true,  left: false, right: false, special: false, vowel: true  }, // är
         "\uE002": { multi: true, parts: [
             { base: "ᨅ", top: false, bottom: false, left: false, right: false, special: false, vowel: false }, // m
             { base: "ᨃ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false } // b
@@ -773,6 +773,90 @@ function script(s, type = 0){
         "(": { raw: true, base: "（" },
         ")": { raw: true, base: "）" },
     }
+
+
+    const kepwamete_script_map = {
+        "p": "ᨃ",
+        "b": "ᨃᨙ",
+        "t": "ᨈ",
+        "d": "ᨈᨙ",
+        "\uE008": "ᨍᨗ", // gy/ky
+        "k": "ᨍ",
+        "g": "ᨍᨙ",
+        "\uE00B": "ᨔ", // glottal
+        "\uE003": "ᨅᨘ", // mb
+        "\uE004": "ᨄᨘ", // nd
+        "\uE005": "ᨋᨘ", // ngg
+        "m": "ᨅ",
+        "n": "ᨄ",
+        "\uE006": "ᨋ", // ng
+        "f": "ᨂ",
+        "v": "ᨂᨙ",
+        "s": "ᨆ",
+        "h": "ᨖ",
+        "\uE007": "ᨈᨆ", // ts
+        "w": "ᨏ",
+        "y": "ᨑ",
+        "l": "ᨓ",
+        "i": "ᨑᨙ",
+        "ü": "ᨄᨙ",
+        "í": "ᨑᨙᨘ",
+        "u": "ᨏᨙ",
+        "ú": "ᨏᨙᨘ",
+        "e": "ᨇᨙ",
+        "é": "ᨇᨙᨘ",
+        "ë": "ᨖᨗ",
+        "o": "ᨉ",
+        "ó": "ᨉᨘ",
+        "a": "ᨀ",
+        "á": "ᨀᨘ",
+        "ä": "ᨔᨙ",
+        "\uE00A": "ᨔᨙᨘ", // är
+        "\uE002": "ᨅᨃᨙ", // mb
+        "\uE001": "ᨄᨊ", // nd
+
+
+        // "p": "ᨃ",
+        // "b": "ᨃᨙ",
+        // "t": "ᨈ",
+        // "d": "ᨈᨙ",
+        // "\uE008": "ᨇ", // gy/ky
+        // "k": "ᨍ",
+        // "g": "ᨍᨙ",
+        // "\uE00B": "ᨔ", // glottal
+        // "\uE003": "ᨅᨘ", // mb
+        // "\uE004": "ᨄᨘ", // nd
+        // "\uE005": "ᨋᨘ", // ngg
+        // "m": "ᨅ",
+        // "n": "ᨄ",
+        // "\uE006": "ᨋ", // ng
+        // "f": "ᨂ",
+        // "v": "ᨂᨙ",
+        // "s": "ᨆ",
+        // "h": "ᨖ",
+        // "\uE007": "ᨈᨆ", // ts
+        // "w": "ᨏ",
+        // "y": "ᨑ",
+        // "l": "ᨓ",
+        // "i": "ᨑᨚ",
+        // "ü": "ᨄᨚ",
+        // "í": "ᨑᨚᨀ",
+        // "u": "ᨏᨚ",
+        // "ú": "ᨏᨚᨀ",
+        // "e": "ᨇᨚ",
+        // "é": "ᨇᨚᨀ",
+        // "ë": "ᨖᨚ",
+        // "o": "ᨆᨚ",
+        // "ó": "ᨆᨚᨀ",
+        // "a": "ᨍᨚ",
+        // "á": "ᨍᨚᨀ",
+        // "ä": "ᨔᨚ",
+        // "\uE00A": "ᨔᨚᨀ", // är
+        // "\uE002": "ᨅᨃ", // mb
+        // "\uE001": "ᨄᨊ", // nd
+    }
+
+    const NEW_KEPWAMETE = false;
 
     const script_replace_list = {
         "mbb": "\uE002", // X
@@ -800,6 +884,20 @@ function script(s, type = 0){
     let rendered = ""
 
     if(type == 0){
+        if(NEW_KEPWAMETE){
+            for(let i = 0; i < s.length; i++){
+                let char = s[i];
+                const renderable = kepwamete_script_map[char];
+                if(renderable != undefined){
+                    rendered += renderable;
+                } else {
+                    rendered += char;
+                }
+            }
+
+            return rendered;
+        }
+
         for(let i = 0; i < s.length; i++){
             let char = s[i];
             const renderable = script_map[char];
@@ -918,6 +1016,7 @@ function script(s, type = 0){
 }
 
 export class ConlangContent {
+    static toStringInfo = true;
     constructor(s) {
         s = s.trim().normalize("NFC").split("\n");
 
@@ -935,7 +1034,11 @@ export class ConlangContent {
      * @returns 
      */
     toString(scriptType = 0, alternateMode = false, includedCategories = ["ortho", "script", "ipa"]) {
+        if(ConlangContent.toStringInfo) console.info(`ConlangContent.toString scriptType<Number>, alternateMode<Boolean>, includedCategories<String[]>. If scriptType is "sep" it will use "0", if "mer" it will use "1". Default includedCategories are all three.`);
         let lines = [];
+
+        if(scriptType == "sep") scriptType = 0;
+        if(scriptType == "mer") scriptType = 1;
 
         // Helper to check if a category is included
         const include = (cat) => includedCategories.includes(cat);

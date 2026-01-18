@@ -96,10 +96,13 @@ const random = dict.randomWord(["Connecting Letters", "Vowel Sounds", "Consonant
 
 
 
-input.textContent = random.value["Standard"]
+//input.textContent = random.value["Standard"]
 //input.textContent = "ngawu mbawë ngingi túwus á'á tsi'i nggala gyelu kyesi ndawi mbaba ngguso tsa'an ábao pifwe tuha welebing fetsimwa fesúa witsunggá'o fwí kewes fwígiwes tembbe us simbbärnta a'atsilwi ipalas esiya benise witsumbbenise'o imaso emeso fesúaso"
+
+input.textContent = "kyawasana ndálohí gúhäsa máfëtär sebesikya kekéne ëvënefu sipilana lohíyam naoneno mótsiyo witsunddenddu yu'úla hükaka"
+scriptTypeCheckbox.checked = false;
+
 console.log(random.key);
-//input.textContent = "babe ngawu mbawë ngingi túwus á'á tsi'i nggala gyelu kyesi ndawi mbaba ngguso tsa'an ábao pifwe tuha welebing fetsimwa fesúa witsunggá'o fwí kewes fwígiwes tembbe"
 updateOutput();
 
 function setOutputText(text) {
@@ -140,7 +143,7 @@ function handleButton(button, categories){
         if (!value) return;
 
         const cc = new ConlangContent(value);
-        navigator.clipboard.writeText(cc.toString(1, alternateModeCheckbox.checked, categories));
+        navigator.clipboard.writeText(cc.toString(scriptTypeCheckbox.checked ? 1 : 0, alternateModeCheckbox.checked, categories));
         button.innerText = "copied!";
         setTimeout(() => button.innerText = ogText, 2000);
     });

@@ -1,4 +1,6 @@
-import { Dictionary, Word } from "./lib.js";
+import { Dictionary, Word, ConlangContent } from "./lib.js";
+
+ConlangContent.toStringInfo = false;
 
 let setNames = [
     "Consonant Sounds",
