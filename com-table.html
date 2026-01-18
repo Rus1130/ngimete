@@ -82,6 +82,8 @@
 
     import { ConlangContent } from './lib.js';
 
+    ConlangContent.toStringInfo = false;
+
     const dialectSelect = document.getElementById("dialect-select");
 
     dialectSelect.addEventListener("change", () => {
@@ -121,8 +123,8 @@
     }
 
     function dialectContent(cc, singleType) {
-        let str = dialectSelect.value == "Standard" ? cc.toString(1, undefined, [singleType]) : cc.toString(0, undefined, [singleType])
-        if(!isOnset()) {
+        let str = dialectSelect.value == "Standard" ? cc.toString("high", undefined, [singleType]) : cc.toString("low", undefined, [singleType])
+        if(!isOnset() && str != null && dialectSelect.value == "Standard") {
             str = str.replaceAll("ᨌ", "");
         }
         return str;
