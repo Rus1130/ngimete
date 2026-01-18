@@ -776,44 +776,237 @@ function script(s, type = 0){
 
 
     const kepwamete_script_map = {
-        "p": "ᨃ",
-        "b": "ᨃᨙ",
-        "t": "ᨈ",
-        "d": "ᨈᨙ",
-        "\uE008": "ᨍᨗ", // gy/ky
-        "k": "ᨍ",
-        "g": "ᨍᨙ",
-        "\uE00B": "ᨔ", // glottal
-        "\uE003": "ᨅᨘ", // mb
-        "\uE004": "ᨄᨘ", // nd
-        "\uE005": "ᨋᨘ", // ngg
-        "m": "ᨅ",
-        "n": "ᨄ",
-        "\uE006": "ᨋ", // ng
-        "f": "ᨂ",
-        "v": "ᨂᨙ",
-        "s": "ᨆ",
-        "h": "ᨖ",
-        "\uE007": "ᨈᨆ", // ts
-        "w": "ᨏ",
-        "y": "ᨑ",
-        "l": "ᨓ",
-        "i": "ᨑᨙ",
-        "ü": "ᨄᨙ",
-        "í": "ᨑᨙᨘ",
-        "u": "ᨏᨙ",
-        "ú": "ᨏᨙᨘ",
-        "e": "ᨇᨙ",
-        "é": "ᨇᨙᨘ",
-        "ë": "ᨖᨗ",
-        "o": "ᨉ",
-        "ó": "ᨉᨘ",
-        "a": "ᨀ",
-        "á": "ᨀᨘ",
-        "ä": "ᨔᨙ",
-        "\uE00A": "ᨔᨙᨘ", // är
-        "\uE002": "ᨅᨃᨙ", // mb
-        "\uE001": "ᨄᨊ", // nd
+        "p": {
+            base: "ᨃ",
+            mod: false,
+            top: false,
+            bottom: false,
+        },
+        "b": {
+            base: "ᨃ",
+            mod: true,
+            top: false,
+            bottom: false,
+        },
+        "t": {
+            base: "ᨈ",
+            mod: false,
+            top: false,
+            bottom: false,
+        },
+        "d": {
+            base: "ᨈ",
+            mod: true,
+            top: false,
+            bottom: false,
+        },
+        "\uE008": { // gy/ky
+            base: "ᨇ",
+            mod: false,
+            top: false,
+            bottom: false,
+        },
+        "k": {
+            base: "ᨍ",
+            mod: false,
+            top: false,
+            bottom: false,
+        },
+        "g": {
+            base: "ᨍ",
+            mod: true,
+            top: false,
+            bottom: false,
+        },
+        "\uE00B": { // glottal
+            base: "ᨔ",
+            mod: false,
+            top: false,
+            bottom: false,
+        },
+        "\uE003": { // mb
+            base: "ᨅ",
+            mod: false,
+            top: false,
+            bottom: true,
+        },
+        "\uE004": { // nd
+            base: "ᨄ",
+            mod: false,
+            top: false,
+            bottom: true,
+        },
+        "\uE005": { // ngg
+            base: "ᨋ",
+            mod: false,
+            top: false,
+            bottom: true,
+        },
+        "m": {
+            base: "ᨅ",
+            mod: false,
+            top: false,
+            bottom: false,
+        },
+        "n": {
+            base: "ᨄ",
+            mod: false,
+            top: false,
+            bottom: false,
+        },
+        "\uE006": { // ng
+            base: "ᨋ",
+            mod: false,
+            top: false,
+            bottom: false,
+        },
+        "f": {
+            base: "ᨂ",
+            mod: false,
+            top: false,
+            bottom: false,
+        },
+        "v": {
+            base: "ᨂ",
+            mod: true,
+            top: false,
+            bottom: false,
+        },
+        "s": {
+            base: "ᨆ",
+            mod: false,
+            top: false,
+            bottom: false,
+        },
+        "h": {
+            base: "ᨖ",
+            mod: false,
+            top: false,
+            bottom: false,
+        },
+        "\uE007": { // ts
+            multi: true,
+            parts: [
+                { base: "ᨈ", mod: false, top: false, bottom: false },
+                { base: "ᨆ", mod: false, top: false, bottom: false },
+            ],
+        },
+        "w": {
+            base: "ᨏ",
+            mod: false,
+            top: false,
+            bottom: false,
+        },
+        "y": {
+            base: "ᨒ",
+            mod: false,
+            top: false,
+            bottom: false,
+        },
+        "l": {
+            base: "ᨓ",
+            mod: false,
+            top: false,
+            bottom: false,
+        },
+        "i": {
+            base: "ᨌ",
+            mod: false,
+            top: false,
+            bottom: false,
+        },
+        "ü": {
+            base: "ᨄ",
+            mod: true,
+            top: false,
+            bottom: false,
+        },
+        "í": {
+            base: "ᨌ",
+            mod: false,
+            top: false,
+            bottom: true,
+        },
+        "u": {
+            base: "ᨏ",
+            mod: true,
+            top: false,
+            bottom: false,
+        },
+        "ú": {
+            base: "ᨏ",
+            mod: true,
+            top: false,
+            bottom: true,
+        },
+        "e": {
+            base: "ᨍ",
+            mod: true,
+            top: false,
+            bottom: false,
+        },
+        "é": {
+            base: "ᨍ",
+            mod: true,
+            top: false,
+            bottom: true,
+        },
+        "ë": {
+            base: "ᨖ",
+            mod: true,
+            top: true,
+            bottom: false,
+        },
+        "o": {
+            base: "ᨉ",
+            mod: false,
+            top: false,
+            bottom: false,
+        },
+        "ó": {
+            base: "ᨉ",
+            mod: true,
+            top: false,
+            bottom: true,
+        },
+        "a": {
+            base: "ᨀ",
+            mod: false,
+            top: false,
+            bottom: false,
+        },
+        "á": {
+            base: "ᨀ",
+            mod: false,
+            top: false,
+            bottom: true,
+        },
+        "ä": {
+            base: "ᨔ",
+            mod: true,
+            top: false,
+            bottom: false,
+        },
+        "\uE00A": { // är
+            base: "ᨔ",
+            mod: true,
+            top: false,
+            bottom: true,
+        },
+        "\uE002": { // mbb
+            multi: true,
+            parts: [
+                { base: "ᨅ", mod: false, top: false, bottom: false },
+                { base: "ᨃ", mod: true, top: false, bottom: false },
+            ],
+        },
+        "\uE001": { // ndd
+            multi: true,
+            parts: [
+                { base: "ᨄ", mod: false, top: false, bottom: false },
+                { base: "ᨊ", mod: false, top: false, bottom: false },
+            ],
+        },
 
 
         // "p": "ᨃ",
@@ -856,7 +1049,7 @@ function script(s, type = 0){
         // "\uE001": "ᨄᨊ", // nd
     }
 
-    const NEW_KEPWAMETE = false;
+    const NEW_KEPWAMETE = true;
 
     const script_replace_list = {
         "mbb": "\uE002", // X
@@ -885,14 +1078,63 @@ function script(s, type = 0){
 
     if(type == 0){
         if(NEW_KEPWAMETE){
+
+            let pipeline = [];
+
             for(let i = 0; i < s.length; i++){
                 let char = s[i];
-                const renderable = kepwamete_script_map[char];
-                if(renderable != undefined){
-                    rendered += renderable;
+
+
+
+                if(kepwamete_script_map[char] != undefined){
+                    if(kepwamete_script_map[char].multi) pipeline.push(...kepwamete_script_map[char].parts);
+                    else pipeline.push(kepwamete_script_map[char]);
                 } else {
-                    rendered += char;
+
+                    if(char == " ") {
+                        pipeline.push({ raw: true, base: "\u2002" });
+                        continue;
+                    }
+
+                    pipeline.push({ raw: true, base: char });
                 }
+            }
+
+            for(let i = 0; i < pipeline.length; i++){
+                let current = pipeline[i];
+                let next = pipeline[i + 1];
+
+                if(current.raw) {
+                    rendered += renderGlyph({
+                        base: current.base,
+                        raw: true
+                    })
+                    continue;
+                }
+
+                const renderable = { 
+                    base: current.base,
+                    top: current.top,
+                    bottom: current.bottom,
+                    left: false,
+                    right: false,
+                    special: false,
+                    raw: current.raw
+                }
+
+
+                if(current.mod){
+                    if(next?.base == current.base){
+                        renderable.right = true;
+                        renderable.left = false;
+                    } else {
+                        renderable.right = false;
+                        renderable.left = true;
+                    }
+                }
+
+
+                rendered += renderGlyph(renderable);
             }
 
             return rendered;
@@ -1034,11 +1276,11 @@ export class ConlangContent {
      * @returns 
      */
     toString(scriptType = 0, alternateMode = false, includedCategories = ["ortho", "script", "ipa"]) {
-        if(ConlangContent.toStringInfo) console.info(`ConlangContent.toString scriptType<Number>, alternateMode<Boolean>, includedCategories<String[]>. If scriptType is "sep" it will use "0", if "mer" it will use "1". Default includedCategories are all three.`);
+        if(ConlangContent.toStringInfo) console.info(`ConlangContent.toString scriptType<Number>, alternateMode<Boolean>, includedCategories<String[]>. If scriptType is "low" it will use "0", if "high" it will use "1". Default includedCategories are all three.`);
         let lines = [];
 
-        if(scriptType == "sep") scriptType = 0;
-        if(scriptType == "mer") scriptType = 1;
+        if(scriptType == "low") scriptType = 0;
+        if(scriptType == "high") scriptType = 1;
 
         // Helper to check if a category is included
         const include = (cat) => includedCategories.includes(cat);
