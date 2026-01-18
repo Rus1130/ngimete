@@ -195,9 +195,12 @@ function getSelectedDialects() {
 
 const defaultExcludedCategories = ["Consonant Sounds", "Vowel Sounds", "Connecting Letters", "Grammar", "Tenses"];
 
+while(dict.ready === false) {
+    await new Promise(r => setTimeout(r, 50));
+}
+
 // Generate category checkboxes dynamically from dictionary
 async function generateCategoryCheckboxes() {
-    await dict.waitForDictLoad();
 
     const container = document.getElementById("exclude-categories");
     container.innerHTML = "";
