@@ -132,7 +132,7 @@ né le	to light	Verbs
 som	to give	Verbs	
 kini	to lend	Verbs	
 witsu	to find	Verbs	
-tapa	to touch/feel (something)	Verbs	
+tapa	to touch/feel an object	Verbs	
 fasu'i	to smell	Verbs	
 bëm	to feel an emotion	Verbs	
 nde'o	to see	Verbs	
@@ -728,12 +728,12 @@ novi'an	to unwillingly look at the aftermath of something	Abstracted Verbs
 tongku/	the sound of a thin, hollow, perhaps dead, or otherwise not-very-dense tree hitting the ground	Onomatopoeia	
 mbinddun/	the sound of a thick, dense tree hitting the ground	Onomatopoeia	
 /tongkilongku	the sound of logs rumbling as they hit and roll on the ground, swimming away from you as you give chase	Onomatopoeia	
-kihikifufu/kihivihufu	the sound of grass rustling when rabbits run away	Onomatopoeia	
+kihikifufu/kihivisisi	the sound of grass rustling when rabbits run away	Onomatopoeia	
 ngíhi'hi'hi'ha'ha'há/ngéhihihaha'há	the sound of ngingi	Onomatopoeia	
 tumpilumpu	the sound of going up a flight of stairs	Onomatopoeia	
 tumpu	the sound of taking a step	Onomatopoeia	
 vuvu/	the sound of walking on loose dirt	Onomatopoeia	
-kuluku/kiluku	the sound of ngingi effigies rattling (in the wind)	Onomatopoeia	
+kuluku/kiliki	the sound of ngingi effigies rattling (in the wind)	Onomatopoeia	
 yuleyu	to play an instrument	Verbs	
 tumpe	a step (you take with your feet)	Verbs	
 yule	to press down the fingers	Verbs	
@@ -744,10 +744,15 @@ kusákasá/	the sound of the leaves of a falling tree shaking	Onomatopoeia
 gagu	fool	Nouns	
 féyu	to toggle a lever or switch, to lock (a door)	Verbs	
 towa	to jump	Verbs	
-lowi ya	low (of elevation)	Adjectives	
-tiwi ya	high (of elevation)	Adjectives	
-tongku ya/	low (of pitch)	Adjectives	
-sene ya	high (of pitch)	Adjectives	
+towa'an	to bounce	Abstracted Verbs	
+towa'on	to ricochet	Superabstracted Verbs	
+lowi ya/botsë ya	low (of elevation)	Adjectives	
+tiwi ya/bo ongome	high (of elevation)	Adjectives	
+tongku ya/tongkuyu	low (of pitch)	Adjectives	
+sene ya/seneyu	high (of pitch)	Adjectives	
 lowiyo/lowiso	to crouch, to lower your body down to the ground	Reflexive Verbs	
 hümä	to mumble	Verbs	
 apesene	to sing	Verbs	
+kapwá	a card (in a game)	Nouns	
+gaguyu	foolish	Adjectives	
+huliyan	artist	Nouns	
