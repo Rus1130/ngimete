@@ -949,14 +949,14 @@ function script(s, type = 0){
             multi: true,
             parts: [
                 { base: "ᨅ", mod: false, top: false, bottom: false },
-                { base: "ᨃ", mod: true, top: false, bottom: false },
+                { base: "ᨃ", mod: false, top: true, bottom: false },
             ],
         },
         "\uE001": { // ndd
             multi: true,
             parts: [
                 { base: "ᨄ", mod: false, top: false, bottom: false },
-                { base: "ᨊ", mod: false, top: false, bottom: false },
+                { base: "ᨈ", mod: false, top: top, bottom: false },
             ],
         },
 
@@ -1180,11 +1180,36 @@ function script(s, type = 0){
                     if (curr.base.startsWith("ᨖ")) {
                         renderPipeline.push({ raw: true, base: "ᨑ" });
                     }
+                    
                     continue;
                 }
             }
 
             renderPipeline.push({ ...curr });
+        }
+
+        const ALLOW_REPEATED_CONSONANT_MERGE = true;
+
+        if(ALLOW_REPEATED_CONSONANT_MERGE) for(let i = 0; i < renderPipeline.length - 1; i++){
+            let curr = renderPipeline[i];
+            let next = renderPipeline[i + 1];
+
+            if(
+                next.base == curr.base && 
+                curr.special == false  && 
+                next.special == false  &&
+                curr.vowel == false    && 
+                next.vowel == false
+            ){
+                // if next has any markers that curr has, skip
+
+                if(next.top || next.left || next.right || next.bottom || next.special) continue;
+
+                curr.special = true;
+
+                renderPipeline.splice(i + 1, 1);
+                i--;
+            }
         }
 
         rendered = renderPipeline.map(renderGlyph).join("");
