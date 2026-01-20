@@ -917,7 +917,7 @@ function script(s, type = 0){
         },
         "ó": {
             base: "ᨉ",
-            mod: true,
+            mod: false,
             top: false,
             bottom: true,
         },
