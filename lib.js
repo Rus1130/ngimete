@@ -1103,6 +1103,11 @@ function script(s, type = 0){
         }
     }
 
+    const VOWEL_A = "ᨔ"
+    const VOWEL_Á = "ᨖ"
+    const VOWEL_LONG_MARKER = "ᨑ"
+    const PRENASAL_MARKER = "ᨌ"
+
     if (type == 1) {
         let renderPipeline = [];
 
@@ -1123,7 +1128,7 @@ function script(s, type = 0){
 
             // Push if previous is raw, multi, or special cases
             if (renderPipeline[renderPipeline.length - 1]?.raw || curr.multi || curr.special || 
-                curr.base == "ᨑ" || curr.base == "ᨌ" ) {
+                curr.base == VOWEL_LONG_MARKER || curr.base == PRENASAL_MARKER) {
                 renderPipeline.push(curr.multi ? copy(curr) : { ...curr });
                 continue;
             }
@@ -1177,8 +1182,8 @@ function script(s, type = 0){
                         };
                     }
 
-                    if (curr.base.startsWith("ᨖ")) {
-                        renderPipeline.push({ raw: true, base: "ᨑ" });
+                    if (curr.base.startsWith(VOWEL_Á)) {
+                        renderPipeline.push({ raw: true, base: VOWEL_LONG_MARKER });
                     }
                     
                     continue;
@@ -1201,8 +1206,6 @@ function script(s, type = 0){
                 curr.vowel == false    && 
                 next.vowel == false
             ){
-                // if next has any markers that curr has, skip
-
                 if(next.top || next.left || next.right || next.bottom || next.special) continue;
 
                 curr.special = true;
