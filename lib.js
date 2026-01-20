@@ -892,14 +892,14 @@ function script(s, type = 0){
             bottom: true,
         },
         "e": {
-            base: "ᨍ",
-            mod: true,
+            base: "ᨑ",
+            mod: false,
             top: false,
             bottom: false,
         },
         "é": {
-            base: "ᨍ",
-            mod: true,
+            base: "ᨑ",
+            mod: false,
             top: false,
             bottom: true,
         },
