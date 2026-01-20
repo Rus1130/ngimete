@@ -403,7 +403,9 @@ function generateTable(results) {
 
         // new
         let scriptCell = new Set(scripts);
-        scriptCell = [...scriptCell].filter(s => s !== noDefIdentifier).join(" / ");
+        scriptCell = [...scriptCell].filter(s => s !== noDefIdentifier && s != null).join(" / ");
+        
+        //.join(" / ");
 
         // old
         // const scriptCell = [...new Set(scripts)].join(" / ");
@@ -513,29 +515,6 @@ function generateTableRow(result, index, hasCategory) {
             ${categoryCell}
         </tr>
     `;
-}
-
-async function renderTableAsync(results) {
-    const hasCategory = !removeCategoryColumn;
-
-    // Clear + header
-    output.innerHTML = generateTableHeader(hasCategory);
-
-    const BATCH_SIZE = 20; // tune this (15–50 is good)
-
-    for (let i = 0; i < results.length; i += BATCH_SIZE) {
-        let chunkHTML = "";
-
-        for (let j = i; j < i + BATCH_SIZE && j < results.length; j++) {
-            const row = generateTableRow(results[j], j, hasCategory);
-            if (row) chunkHTML += row;
-        }
-
-        output.insertAdjacentHTML("beforeend", chunkHTML);
-
-        // Yield to the browser
-        await new Promise(requestAnimationFrame);
-    }
 }
 
 async function updateDictionary() {
