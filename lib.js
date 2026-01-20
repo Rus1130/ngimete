@@ -736,8 +736,8 @@ function script(s, type = 0){
         },
         "b": {
             base: "ᨃ",
-            mod: true,
-            top: false,
+            mod: false,
+            top: true,
             bottom: false,
         },
         "t": {
@@ -748,8 +748,8 @@ function script(s, type = 0){
         },
         "d": {
             base: "ᨈ",
-            mod: true,
-            top: false,
+            mod: false,
+            top: true,
             bottom: false,
         },
         "\uE008": { // gy/ky
@@ -766,8 +766,8 @@ function script(s, type = 0){
         },
         "g": {
             base: "ᨍ",
-            mod: true,
-            top: false,
+            mod: false,
+            top: true,
             bottom: false,
         },
         "\uE00B": { // glottal
@@ -820,8 +820,8 @@ function script(s, type = 0){
         },
         "v": {
             base: "ᨂ",
-            mod: true,
-            top: false,
+            mod: false,
+            top: true,
             bottom: false,
         },
         "s": {
