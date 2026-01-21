@@ -740,7 +740,7 @@ yule	to press down the fingers	Verbs
 yuleyo	to grip	Reflexive Verbs	
 yuleyu'an	to be forced to play a musical instrument	Abstracted Verbs	
 mewu	someone/somebody	Nouns	
-kusákasá/	the sound of the leaves of a falling tree shaking	Onomatopoeia	
+kusákasá/sísi	the sound of the leaves of a falling tree shaking	Onomatopoeia	
 gagu	fool	Nouns	
 féyu	to toggle a lever or switch, to lock (a door)	Verbs	
 towa	to jump	Verbs	
@@ -756,3 +756,7 @@ apesene	to sing	Verbs
 kapwá	a card (in a game)	Nouns	
 gaguyu	foolish	Adjectives	
 huliyan	artist	Nouns	
+sísin	to rustle, to shake	Verbs	
+sísingu	foliage	Nouns	
+damüyodepa	interjection to get somebody's attention; semi formal	Phrases	
+dásapa	interjection before getting past someone; semi formal	Phrases	

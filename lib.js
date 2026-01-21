@@ -487,14 +487,22 @@ function syllabifyWord(word, groups, templates) {
     return out.join(".");
 }
 
+const diphthongs = [
+    "ao",
+    "eo",
+    "oa",
+    "ie",
+    "ae"
+]
+
+const non_syllabic_diacritic = "̯";
+
 const IPA_FIXES = [
     { re: /n/g, to: "n̪" },
-    //{ re: /ŋ.g/g, to: ".ᵑg" },
-
     { re: /g/g, to: "ɡ" },
-    { re: /a\.o/g, to: "ao̯" },
-    { re: /e\.o/g, to: "eo̯" },
-    { re: /o\.a/g, to: "oa̯" },
+    ...diphthongs.map(d => {
+        return { re: new RegExp(d.split("").join("\\."), "g"), to: d[0] + d[1] + non_syllabic_diacritic }
+    })
 ];
 
 function compileTemplate(tpl, groups) {
@@ -537,6 +545,9 @@ function compileTemplate(tpl, groups) {
 
 function ipa(input) {
     let s = normalize(ortho(input));
+
+    s = s.replaceAll("-", "");
+    s = s.replaceAll("=", "");
 
     s = s.replaceAll(".", "||");
     s = s.replaceAll(",", "|");

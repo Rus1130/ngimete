@@ -34,9 +34,8 @@
 
         const ipa = wordscript.toString("high", true, ["ipa"]);
         const term = wordscript.toString("high", true, ["ortho"]);
+        const script = wordscript.toString("high", true, ["script"]);
 
-        console.log(wordscript)
-
-        document.body.insertAdjacentHTML('beforeend', `<div>${ipa} - ${term}</div>`);
+        document.body.insertAdjacentHTML('beforeend', `<div>${ipa} - ${term} - ${script}</div>`);
     });
 </script>
