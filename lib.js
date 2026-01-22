@@ -492,7 +492,8 @@ const diphthongs = [
     "eo",
     "oa",
     "ie",
-    "ae"
+    "ae",
+    "ua"
 ]
 
 const non_syllabic_diacritic = "̯";
