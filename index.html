@@ -66,43 +66,49 @@
     <div class="menu">
         <div class="menu-section">
             <div class="menu-section-title">Tools</div>
-            <a href="dictionary">
+            <a id="about">
+                About
+                <div class="desc">
+                    About ngimëte
+                </div>
+            </a>
+            <a id="dictionary">
                 Dictionary
                 <div class="desc">
                     Search ngimëte words and definitions
                 </div>
             </a>
-            <a href="ipa">
+            <a id="ipa">
                 IPA Converter
                 <div class="desc">
                     Romanization to script and IPA conversion
                 </div>
             </a>
-            <a href="similarities">
+            <a id="similarities">
                 Similarities
                 <div class="desc">
                     Find homophones and minimal pairs
                 </div>
             </a>
-            <a href="com-table.html">
+            <a id="com-table">
                 Combination Table
                 <div class="desc">
                     View all possible letter combinations
                 </div>
             </a>
-            <a href="stats">
+            <a id="stats">
                 Statistics
                 <div class="desc">
                     View letter and category statistics
                 </div>
             </a>
-            <a href="learn">
+            <a id="learn">
                 Learn
                 <div class="desc">
                     Simple memorization game
                 </div>
             </a>
-            <a href="magics">
+            <a id="magics">
                 Magics
                 <div class="desc">
                     Alternate universe magic system
@@ -111,3 +117,10 @@
         </div>
     </div>
 </body>
+<script>
+    const isLocalhost = window.location.hostname == "localhost"
+    document.querySelectorAll(".menu a").forEach(elem => {
+        if(isLocalhost) elem.href = elem.id + ".html"
+        else elem.href = elem.id
+    })
+</script>

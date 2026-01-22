@@ -144,6 +144,7 @@
                 </div>
             </div>
             <button id="category-toggle">Toggle Categories</button>
+            <button id="reset-categories">Reset Categories</button>
         </div>
     </div>
     <div id="container">
@@ -165,6 +166,7 @@ const dropdown = document.getElementById("exclude-categories-dropdown");
 const excludeCategoriesButton = document.getElementById("exclude-categories-button");
 const dropbtn = dropdown.querySelector(".dropbtn");
 const categoryToggleButton = document.getElementById("category-toggle");
+const resetCategorysButton = document.getElementById("reset-categories");
 
 const input = document.getElementById("input");
 const output = document.getElementById("output");
@@ -567,6 +569,21 @@ categoryToggleButton.addEventListener("click", () => {
 
     checkboxes.forEach(cb => {
         cb.checked = !allChecked;
+    });
+
+    updateDictionary();
+    updateCheckedBoxText();
+});
+
+resetCategorysButton.addEventListener("click", () => {
+    const checkboxes = dropdown.querySelectorAll('input[name="exclude-category"]');
+
+    checkboxes.forEach(cb => {
+        if (defaultExcludedCategories.includes(cb.value)) {
+            cb.checked = true;
+        } else {
+            cb.checked = false;
+        }
     });
 
     updateDictionary();
