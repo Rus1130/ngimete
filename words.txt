@@ -1,766 +1,766 @@
-ngawu/nggawu	water, rain	Nouns	
-bawë/mbawë	bird(s)	Nouns	
-ngingi	monkey(s)/cannibal(s)	Cannibals and Mutants	
-né	fire	Nouns	
-yam	foodstuff(s)	Irregular Plural Nouns	
-yepë	day	Nouns	
-yepwá	midday/noon	Nouns	
-á'á	night	Nouns	
-kaha	wood/tree	Nouns	
-kopa	house	Nouns	
-mem pele	knowledge	Nouns	
-më te	language/talk/tongue	Nouns	
-ngimëte	human language	Nouns	
-wisi	leaf(s)	Irregular Plural Nouns	
-mbaba	idiot	Nouns	
-táne	beach/shore/path	Nouns	
-so'o	north of the bonfire, into the forest	Religious Terms	
-néna	south of the bonfire, off the cliff	Religious Terms	
-sitwi	west of the bonfire, to the rolling hills	Religious Terms	
-láma	east of the bonfire, to the beach	Religious Terms	
-ngawu tapu	water collecter	Nouns	
-yá	meat	Nouns	
-tapu yá	shell/skin	Nouns	
-lu	this/it/thing	Nouns	
-sepü	lake	Nouns	
-us	rabbit	Nouns	
-us tapu yá	rabbit skin	Nouns	
-kilikali	lizard	Nouns	
-kilikali tapu yá	lizard skin	Nouns	
-ngawu te/nggate	drink	Nouns	
-ken wisi	drug	Nouns	
-kopāme	village/camp	Nouns	
-noa ngingi	blue monkey(s)	Cannibals and Mutants	
-gala	elk/deer	Nouns	
-pula/närla	place	Nouns	
-sene ngingi	shrieker monkey(s)	Cannibals and Mutants	
-bawë wisi/mbawë wisi	feather	Nouns	
-tesi	pouch	Nouns	
-fwí	arrow(s)	Irregular Plural Nouns	
-ngawu tesi/ada	waterskin	Nouns	
-fwí tesi	quiver	Nouns	
-hiho	stamina	Nouns	
-nggala	fish	Nouns	
-nggala tapu yá	fish scale(s)	Irregular Plural Nouns	
-tsi'i	berry(s)	Irregular Plural Nouns	
-noa tsi'i	poisonous berry(s)	Irregular Plural Nouns	
-ewu	health/blood	Nouns	
-ná	hunger	Nouns	
-alu	sky/air	Nouns	
-tapu	turtle (shell/hide)	Nouns	
-kaha tsi'an te	wood mover	Nouns	
-gala tapu yá	deer skin	Nouns	
-mbúse	sap	Nouns	
-nggusa	armsy	Cannibals and Mutants	
-vin/ven	an annoying person	Nouns	
-túwus	bonfire	Religious Terms	
-pumpum	cowman	Cannibals and Mutants	
-paena/haina	virginia	Cannibals and Mutants	
-boyepë	tomorrow 	Nouns	
-yua	father	Nouns	
-alo'a/äwa	mother	Nouns	
-iluyepë	today	Nouns	
-ati yua	grandfather	Nouns	
-ati alo'a/ati äwa	grandmother	Nouns	
-yam pula/yam närla	drying rack	Nouns	
-kaha pula/kaha näla	wood storage	Nouns	
-seve	a selfish person	Nouns	
-nggawi'i	water god	Religious Terms	
-vovi'i	fire god	Religious Terms	
-dom	head	Nouns about Bones, Limbs, Body Parts, and Death	
-gám	arm	Nouns about Bones, Limbs, Body Parts, and Death	
-ke	hand	Nouns about Bones, Limbs, Body Parts, and Death	
-kili	torso	Nouns about Bones, Limbs, Body Parts, and Death	
-gí	leg	Nouns about Bones, Limbs, Body Parts, and Death	
-mban	foot	Nouns about Bones, Limbs, Body Parts, and Death	
-lengki	demon, foul-soul	Religious Terms	
-papap	sexual intercourse	Nouns	
-iela	back	Nouns about Bones, Limbs, Body Parts, and Death	
-gyelu	waist	Nouns about Bones, Limbs, Body Parts, and Death	
-nona	human/person	Nouns	
-tíke	animal(s)	Irregular Plural Nouns	
-keleni	body	Nouns about Bones, Limbs, Body Parts, and Death	
-lata'a	part, piece	Nouns	
-kaoleni	skeleton	Nouns about Bones, Limbs, Body Parts, and Death	
-kaoki	bone	Nouns about Bones, Limbs, Body Parts, and Death	
-bingi	tooth	Nouns about Bones, Limbs, Body Parts, and Death	
-sene tapu yá	metal/pot	Nouns	
-nditi	eye	Nouns about Bones, Limbs, Body Parts, and Death	
-wá	mouth	Nouns about Bones, Limbs, Body Parts, and Death	
-hihi	nose	Nouns about Bones, Limbs, Body Parts, and Death	
-payepë	yesterday	Nouns	
-ábe	breast(s) (chest)	Irregular Plural Nouns	
-fusabó	valley	Nouns	
-gemëte	nonsense, unintelligible	Nouns	
-giya	word(s)	Irregular Plural Nouns	
-e	archaic causative	dont add	
-kome	why	Interrogatives	
-'e	what	Interrogatives	
-e'e	where	Interrogatives	
-ten/teng	when	Interrogatives	
-tawu/tewu	how	Interrogatives	
-mawu/mewu	who	Interrogatives	
-süm	to want	Verbs	
-tsi	to go	Verbs	
-eme	to do	Verbs	
-meowi	to build	Verbs	
-ndawi	to run	Verbs	
-pele	to know	Verbs	
-pelepele	to understand	Verbs	
-ken	to fuck	Verbs	
-ima	to sleep	Verbs	
-më	to speak	Verbs	
-ngale/nggale	to drink	Verbs	
-sene	to shriek/make noise	Verbs	
-owa le	to agree	Verbs	
-tsi'an	to move	Abstracted Verbs	
-napa	to eat	Verbs	
-tiwi	to rise	Verbs	
-lowi	to lower	Verbs	
-ngaowi	to attack/fight	Verbs	
-nggala le	to fish	Verbs	
-pelele	to learn	Verbs	
-mëmë	to translate	Verbs	
-yáni	to think	Verbs	
-ngálowi/ngärlowi	to mangle	dont add	
-ngátiwi	to annihilate	dont add	
-kúnu	to involve, to gather (around)	Verbs	
-yíse	to love	Verbs	
-tsuti	to wander	Verbs	
-ngá	to kill	Verbs	
-né le	to light	Verbs	
-som	to give	Verbs	
-kini	to lend	Verbs	
-witsu	to find	Verbs	
-tapa	to touch/feel an object	Verbs	
-fasu'i	to smell	Verbs	
-bëm	to feel an emotion	Verbs	
-nde'o	to see	Verbs	
-wisiwisi	to cover	Verbs	
-getsilu	to keep away	Verbs	
-witsunde'o/witsundde'o	to forage	Verbs	
-míki	to hear, to listen	Verbs	
-noa	dead/poisonous/deadly	Adjectives	
-mboko	stupid	Adjectives	
-génti	rotten	Adjectives	
-ati	more, big	Adjectives	
-gati	less, small	Adjectives	
-silsetsalo	beautiful	Adjectives	
-wána ngingi/wángingina	ugly	Adjectives	
-wi'ia	healthy/healing	Adjectives	
-tembbe	hungry	Adjectives	
-ndeki	hot	Adjectives	
-sepi	warm	Adjectives	
-ärlu	cold	Adjectives	
-engomo	bloody	Adjectives	
-ngeka	dry	Adjectives	
-wána/wá>NOUN<na	akin to/same (as)	Adjectives	
-no'i	cowardly, scared	Adjectives	
-ge	no	Miscellaneous	
-gege	definite no	Miscellaneous	
-owaowa	definite yes	Miscellaneous	
-owa	yes	Miscellaneous	
-giwa 	maybe	Miscellaneous	
-mi	ok/neutral yes	Miscellaneous	
-gogowa	wrong	Miscellaneous	
-owilowa	correct	Miscellaneous	
-katálo	hello/hi	Miscellaneous	
-sülu/sëlu	(i) got it! (killed/caught something)	Miscellaneous	
-gegela	zero	Numerals	
-gela	one, any number except 2	Numerals	
-la	two	Numerals	
-bese/befe	three	Numerals	
-sála/särla	four	Numerals	
-sála/särla	wellbeing	Nouns	
-kimi	five	Numerals	
-molo	six	Numerals	
-wé	seven	Numerals	
-ana	eight	Numerals	
-miki	nine	Numerals	
-kó	ten	Numerals	
-nam	and	Miscellaneous	
-yëpütu	forever	Miscellaneous	
-na'ë	too	Miscellaneous	
-apelelala	to plead	Verbs	
-ute	or	Miscellaneous	
-úte	very, so	Miscellaneous	
-e'aya	procedure	Nouns	
-mbaba mboko	a really big idiot	Nouns	
-keki	limb	Nouns about Bones, Limbs, Body Parts, and Death	
-tikao	animal remains	Nouns about Bones, Limbs, Body Parts, and Death	
-langki	cremation ash	Nouns about Bones, Limbs, Body Parts, and Death	
-galu	hip bone	Nouns about Bones, Limbs, Body Parts, and Death	
-ilolo	spinal cord	Nouns about Bones, Limbs, Body Parts, and Death	
-damo	skull	Nouns about Bones, Limbs, Body Parts, and Death	
-gámo	all arm bones	Nouns about Bones, Limbs, Body Parts, and Death	
-ka'e'o	hand bone	Nouns about Bones, Limbs, Body Parts, and Death	
-kili'o	ribcage	Nouns about Bones, Limbs, Body Parts, and Death	
-ga'í'o	all leg bones	Nouns about Bones, Limbs, Body Parts, and Death	
-mbano	all foot bones	Nouns about Bones, Limbs, Body Parts, and Death	
-ábao	human remains	Nouns about Bones, Limbs, Body Parts, and Death	
-ngi'angi'o	cannibal remains	Nouns about Bones, Limbs, Body Parts, and Death	
-neneno	finger	Nouns about Bones, Limbs, Body Parts, and Death	
-nenenwá	fingernail(s)	Nouns about Bones, Limbs, Body Parts, and Death	
-naoneno	finger bone	Nouns about Bones, Limbs, Body Parts, and Death	
-nggawu'an	to chug/forcibly drink	Abstracted Verbs	
-tsuti'an	to stray away/get lost by wandering off	Abstracted Verbs	
-witsu'an	to search, to explore	Abstracted Verbs	
-fasu'i'an	to sniff	Abstracted Verbs	
-wisiwisi'an	to hide	Abstracted Verbs	
-getsilu'an	to smuggle	Abstracted Verbs	
-pelele'an	to study	Abstracted Verbs	
-yáni'an	to assume	Abstracted Verbs	
-nde'o'an	to scout/lookout	Abstracted Verbs	
-tiwi'an	to lift up	Abstracted Verbs	
-lowi'an	to drop	Abstracted Verbs	
-sene'an	to scream/yell	Abstracted Verbs	
-som'an	to give up (something)	Abstracted Verbs	
-bëm'an	to feel (an emotion you don't want to)	Abstracted Verbs	
-witsunde'o'an	to scour for food (or starve)	Abstracted Verbs	
-ngaowi'an	to fight back, assault (something)	Abstracted Verbs	
-yíse'an	to fall in love	Abstracted Verbs	
-ima'an	to fall asleep	Abstracted Verbs	
-tapa'an	to press against	Abstracted Verbs	
-sána	to shoot (an arrow)	Verbs	
-yana	sun	Nouns	
-a'a	moon	Nouns	
-ngá'an	to manslaughter	Abstracted Verbs	
-né'an	to commit arson/light ablaze	Abstracted Verbs	
-napa'an	to devour/gobble down	Abstracted Verbs	
-kahalala	stick/twig	Nouns	
-peleli'i	god of knowledge 	Religious Terms	
-gola	fat, obese	Adjectives	
-gola ngingi	large ngingi	Cannibals and Mutants	
-vovi'nona/vona	man	Nouns	
-nggawi'nona/nggona	woman	Nouns	
-kasë ngawu	oil	Nouns	
-á'á yepwá/ágo	midnight	Nouns	
-apeya	nice, good	Adjectives	
-sepu	bad	Adjectives	
-süm'on	to steal, to commit a crime	Superabstracted Verbs	
-mem pele wisi	paper, scroll, text	Nouns	
-wetsilu/tsutitiwi	to travel	Verbs	
-tsi'on	to kidnap, forcefully move	Superabstracted Verbs	
-hógu	effigy	Nouns	
-sümtiwi	to hope/wish (by extension; to desire)	Verbs	
-ndawi'an	to forcibly run, flee	Abstracted Verbs	
-atita	many (inanimate)	Adjectives	
-atiya	many (animate)	Adjectives	
-kalahala	polite "mbaba mboko"	Nouns	
-hühä	exhaustion	Nouns	
-ima'on	to knock (someone) unconscious 	Superabstracted Verbs	
-ngaowi'on	to defend (from attack)	Superabstracted Verbs	
-mbigye	treasure (informal)	Nouns	
-angtiwí'o	ridiculous	Adjectives	
-ndálohí	the passage of time	Nouns	
-ndálohí máfëtär	pass (the days) safely	Phrases	
-ka ati alo'a napa'an yam pula/ka ati äwa napa'an yam näla	did you have to waste all the food by eating it when you weren't hungry?"	Phrases	
-ndálohí kama	to pull an all nighter	dont add	
-kehibó	(usually high elevation, snow tipped) mountain(s)	Irregular Plural Nouns	
-mbitsë	land	Nouns	
-kehibwá	low elevation mountain(s)	Irregular Plural Nouns	
-máfu	bay	Nouns	
-pa'ü'o	bone marrow	Nouns	
-kini'an	to sell	Abstracted Verbs	
-tapwá	seashell	Nouns	
-kono	bottle	Nouns	
-wi'ia kono/ewu ya kono	medicine	Nouns	
-sene tapi'i	metal god / plane	Religious Terms	
-tseho	friend, acquaintance (formal)	Nouns	
-ka 'a eme apelelala-ya ken	how are you (informal)	Phrases	
-ka 'a ndálohí atita á'á	how are you (formal)	Phrases	
-lengki ya	evil	Adjectives	
-kili'o yá	gut, innards	Nouns about Bones, Limbs, Body Parts, and Death	
-ken wisi kono/ken kono	alcohol	Nouns	
-wawá	to fall	Verbs	
-kakala	to laugh	Verbs	
-nápa	to remember 	Verbs	
-mem	communication, message	Nouns	
-suntu	ocean/sea	Nouns	
-kóme	shark	Nouns	
-lowi'i	pit god	Religious Terms	
-kehibi'i	mountain god	Religious Terms	
-ká'ono	whole, all, entire	Adjectives	
-máte	world, earth	Nouns	
-sú'ufe	to cook	Verbs	
-yani	soup	Nouns	
-mate	to return (somewhere)	Verbs	
-onta	to return (home, origin)	Verbs	
-mate'an	to retreat	Abstracted Verbs	
-onta'an	to defeat	Abstracted Verbs	
-pese/pefe	colorful, fragrant	Adjectives	
-ek	where	dont add	
-ngi	person	dont add	
-u	lative	dont add	
-wulë	hello	dont add	
-tsi	to go	dont add	
-witsundehohan ya	hungry	dont add	
-ë	and	dont add	
-buntse/mbuntse	strange	Adjectives	
-vovi	fire	dont add	
-noni'i	human god, the first god	Religious Terms	
-kaoki ken	peepnis	Nouns about Bones, Limbs, Body Parts, and Death	
-galu ken yá	voogigna	Nouns about Bones, Limbs, Body Parts, and Death	
-ábe	human(s)	dont add	
-kole	comitative	dont add	
-u'u	animal	dont add	
-keloyani	lower body	Nouns about Bones, Limbs, Body Parts, and Death	
-ketiyani	upper body	Nouns about Bones, Limbs, Body Parts, and Death	
-kaoloyani	lower skeleton	Nouns about Bones, Limbs, Body Parts, and Death	
-kaotiyani	upper skeleton	Nouns about Bones, Limbs, Body Parts, and Death	
-ke'aki'o	skeletal limbs	Nouns about Bones, Limbs, Body Parts, and Death	
-kili'olili	rib(s)	Nouns about Bones, Limbs, Body Parts, and Death	
-tsena	chest	Nouns about Bones, Limbs, Body Parts, and Death	
-tane	shoulder	Nouns about Bones, Limbs, Body Parts, and Death	
-táne'o	shoulder bone	Nouns about Bones, Limbs, Body Parts, and Death	
-mbaonano	toe bones	Nouns about Bones, Limbs, Body Parts, and Death	
-mbanano	toe	Nouns about Bones, Limbs, Body Parts, and Death	
-hihíwe	nostril(s)	Nouns about Bones, Limbs, Body Parts, and Death	
-lebo	ear	Nouns about Bones, Limbs, Body Parts, and Death	
-goma	crotch/groin	Nouns about Bones, Limbs, Body Parts, and Death	
-mafu	stomach, belly	Nouns about Bones, Limbs, Body Parts, and Death	
-ka kome tiwi	why put up a fight when you know theres no point?/why try so hard?	Phrases	
-káma	nation, realm	Nouns	
-kama	rest/sleep	Nouns	
-sana	door	Nouns	
-nasobe'o	decoration	Nouns	
-káli	heart	Nouns	
-samo	bed	Nouns	
-wase	animal track(s)	Nouns	
-sindda	to play	Verbs	
-mafo	to resemble	Verbs	
-ndasi	to shine	Verbs	
-som'on	to sacrifice (something), to give again	Superabstracted Verbs	
-ndenti	blessing, favor	Nouns	
-i'i	god	Nouns	
-si/siloa	to fly	Verbs	
-kola/besi	rock, stone	Nouns	
-sen/sam	but, however	Miscellaneous	
-lohíyam	to continue (to do something)	Miscellaneous	
-lohí	time	Nouns	
-ka lohí kini yë X	can I have X time	Phrases	
-sálohí	to miss (someone), to reminince (about something)	Verbs	
-süm'an	to need/require	Abstracted Verbs	
-giya 	building 	Nouns	
-welebing	misunderstanding, mistranslation, mishap	Nouns	
-lohi	to change	Verbs	
-na witsunde'o kola/na witsundde'oso besi	"go forage yourself rocks" (leave me alone)	Phrases	
-nahá	to retrieve	Verbs	
-naha	to put on, to adorn	Verbs	
-miwa	to be able to	Verbs	
-müta	to stop, to halt, to prevent (something) before it happens	Verbs	
-ngolo	to follow	Verbs	
-nggolo	(usually nominal) water current	Nouns	
-nggave	to deconstruct, to deassemble	Verbs	
-a'i'o	shit	Nouns	
-asipi	to talk nonsensically	Verbs	
-asipi'an	to speak in a possessed manner	Abstracted Verbs	
-asipi'on	to make excuses	Superabstracted Verbs	
--lo	ordinal (1st, 2nd, etc) expression	Phrases	
-u'i'i'a'i'u'i'i'i'i'a'i	to crash out	dont add	
-vese/vefe	to work (a job, labor)	Verbs	
-ndafo	to forget	Verbs	
-panta	task, quest	Nouns	
-üná	profession, trade	Nouns	
-ngána	river	Nouns	
-ani	friend, bro (informal)	Nouns	
-simbbärnta	journey, adventure	Nouns	
-kyesi	above, up	Miscellaneous	
-saha	breath	Nouns	
-íne	birth	Nouns	
-peye	face	Nouns	
-ëwaya	another	Miscellaneous	
-kuni	to send	Verbs	
-yu'úla	to grieve	Verbs	
-kuni mem te	messenger	Nouns	
-fóse	absence	Nouns	
-kálakü	nose-spitter (insult towards A'atsilwi speakers)	Nouns	
-fogaäpüha	grunt-screecher (insult towards Standard speakers)	Nouns	
-népi	sun	dont add	
-ápwa	moon	dont add	
-hana	to enjoy, to like	Verbs	
-mogü	to hate, to despise	Verbs	
-niba	below, down	Miscellaneous	
-gabu	frog	Nouns	
-kekyene	iteration, version, edition	Nouns	
-fesúa	to help	Verbs	
-nenta	to write	Verbs	
-'ata	direction, way	Nouns	
-tine/gimë	few	Adjectives	
-hatsamwa	simple, basic	Adjectives	
-tsefese	to exist	Verbs	
-tama	name, label	Nouns	
-pala	extra, leftover, remaining	Adjectives	
-mbayu	sorry	Miscellaneous	
-bambba	noise, sound	Nouns	
-lafeowigye	melody, tune, song	Nouns	
-säna	hollow, empty	Adjectives	
-tuha	result	Nouns	
-mbeno	to create	Verbs	
-bátsi	to enter	Verbs	
-naya	to demand	Verbs	
-bátsi'an	to intrude	Abstracted Verbs	
-malá	remainder, leftover	Nouns	
-gayana	between	Miscellaneous	
-sebesikya	rule	Nouns	
-kekéne/kokone	long (of horizontal length)	Adjectives	
-sawasa	short (of horizontal length)	Adjectives	
-witsuyo	to have	Reflexive Verbs	
-tsefeseyo	to suffer	Reflexive Verbs	
-witsunde'oso/witsundde'oso	to tidy one's appearance	Reflexive Verbs	
-kuniyo	to embark	Reflexive Verbs	
-bátsiyo	to welcome	Reflexive Verbs	
-kyelu	(foreign) script, writing	Nouns	
-seyaya	to list	Verbs	
-nagyu	to fetch, to grab	Verbs	
-seyayaso	to register one's self, to sign up	Reflexive Verbs	
-ndaoba	basement, cellar	Verbs	
-báli	porch, foyer	Verbs	
-igyensa	to start, to begin, to initiate	Verbs	
-ndo	to open	Verbs	
-veseyo/vefeyo	to exert/strain one's self	Reflexive Verbs	
-wawáso	to trip, to miswalk	Reflexive Verbs	
-imaso	to collapse into sleep, to faint	Reflexive Verbs	
-eme'an	to be obliged to (perform an action)	Abstracted Verbs	
-emeso	to take charge, to assume leadership	Reflexive Verbs	
-ndawiso	to exercise/workout	Reflexive Verbs	
-timbba	to clean, to wash	Verbs	
-timbbaso	to wash one's self	Reflexive Verbs	
-ndafoyo	to act different than usual	Reflexive Verbs	
-fesúaso	to self reflect, to think deeply	Reflexive Verbs	
-igyensayo	to awaken (after a long/deep sleep)	Reflexive Verbs	
-fene	to work (properly)	Verbs	
-mayani	to make	Verbs	
-sana	new (inanimate objects)	Adjectives	
-wengki	old (inanimate objects)	Adjectives	
-tsali/tsaya	young (animate objects)	Adjectives	
-nena	old (animate objects)	Adjectives	
-mótsi	to exit, to leave	Verbs	
-mótsiyo	to zone out	Reflexive Verbs	
-mótsi'an	to kick (someone) out	Abstracted Verbs	
-sóhu	to await (for someone)	Verbs	
-bíhu	to wait (for something)	Verbs	
-ndaní	to not have something that you are supposed to have	Verbs	
-esiya/masiya	to set aside for later, to save (for later), to store	Verbs	
-wetsilu'an/tsutitiwi'an	to migrate	Abstracted Verbs	
-kyesatsa	window (of a house)	Nouns	
-sanwa/tsamwa	to read	Verbs	
-sepesu	done (of an action)	Adjectives	
-bíhu'an	to keep in place	Abstracted Verbs	
-bengya	to depart	Verbs	
-wensu	long (of time)	Adjectives	
-mbimbbi	short (of time)	Adjectives	
-gelasa	only	Miscellaneous	
-sono	to walk	Verbs	
-ngopo	to place, to arrange	Verbs	
-gyadani	room	Nouns	
-ngama	to lay, to lie/put down (something), to deactivate, to turn off	Verbs	
-ngopoyo	to sit down	Verbs	
-ngamayo	to lay down	Verbs	
-esiyaso/masiyaso	to ration (due to a shortage)	Reflexive Verbs	
-gina	letter (a, b, etc.), character, mark, stroke (of writing)	Nouns	
-mewana	current (belonging to present time)	Adjectives	
-pele'an	to know something you didn't desire to	Abstracted Verbs	
-máne	to feint, to deceive, to gaslight (with lies)	Verbs	
-denddu	to block (from an attack), to shield, to barricade	Verbs	
-nehu	to check, to verify, to certify	Verbs	
-mababa	to punch	Verbs	
-kífe	to thrust (a weapon), to pierce	Verbs	
-ndayó	to strike, to inflict (a wound)	Verbs	
-bene	to stimulate	Verbs	
-bobiloko	to say repeatedly	Verbs	
-ndisé	choice, option	Nouns	
-gúhäsa	to be seen/perceived (by something)	Verbs	
-bobilokoso	to mumble, to murmur	Reflexive Verbs	
-tëyá/tehëyá	obvious	Adjectives	
-mukamala	expert, professional	Nouns	
-tsim	to pray (to have a conversation with a deity)	Verbs	
-bikyë	to pray (with the assumption that you will receive something from the deity)	Verbs	
-temfe	to pray (to request something from the deity)	Verbs	
-mundda	immediately, now, at this moment	Miscellaneous	
-halóhëlu	as soon as possible	Phrases	
-fóvaki	stealthy, sneaky	Adjectives	
-fusa	plain(s), meadow(s)	Irregular Plural Nouns	
-gëlütu	cave	Nouns	
-teyíyofo	pity	Nouns	
-teye	a short person	Nouns	
-ngopo'an	to act/serve as/take the role of	Abstracted Verbs	
-mele	to utilize, to use	Verbs	
-tanta	to clear (an area), to raze	Verbs	
-fufó	to extinguish (a fire)	Verbs	
-yensa	to get/obtain	Verbs	
-benise	to nurture (someone)	Verbs	
-kokena	to grow (plants)	Verbs	
-opu'uken	to breed (animals)	Verbs	
-kolo	to be certain, sure	Verbs	
-ndayó'an	to break something	Abstracted Verbs	
-ngi	person	Nouns	
-gengi	no one/nobody	Nouns	
-yukya	quiet	Adjectives	
-pin/bin	to notice/acknowledge	Verbs	
-ingka	smart, intelligent, knowledgable	Adjectives	
-gábewa	strong	Adjectives	
-yufe	weak	Adjectives	
-mandda	to inform, to tell	Verbs	
-manddayo	to realize	Reflexive Verbs	
-nagyuso	to receive	Reflexive Verbs	
-yáne	(look) like this, in this fashion/way	Phrases	
-witsunggá'o	to hunt (down), to track (down)	Verbs	
-witsungkalu	to speak out (against), to protest	Verbs	
-witsumbbenise'o	to adopt (someone), to take in (someone)	Verbs	
-witsumbbele'o	to find (something) viable (to use)	Verbs	
-yeba	atmosphere (of a room), vibe	Nouns	
-witsumbbátsi'an	to harass	Abstracted Verbs	
-mbendi	difficult	Adjectives	
-téyi	thank you	Phrases	
-kona/kone	to carry, to bring	Verbs	
-witsunddenddu	to prevent (something), to block (an action)	Verbs	
-kewes	a dangerous place, "Hell"	Nouns	
-ngewus	clan, tribe	Nouns	
-kéle	to strike up (an informal) conversation	Verbs	
-sétwi	to flirt	Verbs	
-sétwi'an	to unintentionally flirt (go with the flow)	Abstracted Verbs	
-konayo/koneyo	to persevere	Reflexive Verbs	
-kéleyo	to introduce (oneself)	Verbs	
-kéle'an	to participate in small talk out of politeness (despite not wanting to)	Abstracted Verbs	
-gyeye	to nurse (a child)	Verbs	
-kasëcya	dark	Adjectives	
-léngá	a terror, a horror	Nouns	
-vékye	to bring (as a side effect, unintentionally)	Verbs	
-ndásana	to pass/walk/go through	Verbs	
-nandda	easy	Adjectives	
-fén	to latch onto (something), to hold onto	Verbs	
-kilu	roof, top, cover	Verbs	
-sumpin	sibling	Nouns	
-wónde	to love like family	Verbs	
-móse	to quit, to give up	Verbs	
-léke	undesirable	Adjectives	
-nuba	to raise an animal	Verbs	
-ki'e	to drag	Verbs	
-bähu	sick	Adjectives	
-fetsimwa	an attempt, "a try", "a go"	Nouns	
-sä	nothing	Nouns	
-këlä	sapling	Nouns	
-kyawasana	fishing net	Nouns	
-igyesa	to sleep deeply, to slumber	Verbs	
-kómëte	words (that someone speaks)	Irregular Plural Nouns	
-kasë	black	Adjectives	
-ndaya	white	Adjectives	
-eya/eyu	red (fresh blood)	Adjectives	
-engoya	dark red (dried blood)	Adjectives	
-géya/génta	brown (rot)	Adjectives	
-saga	light brown (debarked tree)	Adjectives	
-wisiya/wisiyu	green (leaf)	Adjectives	
-ngaya/nggaya	light blue (rain)	Adjectives	
-mepüya/mepüfu	sky blue (lake blue)	Adjectives	
-súsë	dark blue (ocean)	Adjectives	
-yaya	orange/yellow (sun)	Adjectives	
-néya/néfë	orange-red (fire)	Adjectives	
-toka	purple, pink, grue, any unnatural color	Adjectives	
-ya'a	lighter variation of (color)	Adjectives	
-iboya/ibuy(V)	darker variation of (color)	Adjectives	
-wa'i	saturated variation of (color), rejuvenated by fire, ember-touched, lit up by fire	Adjectives	
-yoba/yob(V)	paler variation of (color)	Adjectives	
-nélala	ember(s)	Irregular Plural Nouns	
-ibo	shadow	Nouns	
-nggoye	to bubble, to boil	Verbs	
-pífwe	reason	Nouns	
-nahayo	to fascinate	Reflexive Verbs	
-tapa'on	to interact	Superabstracted Verbs	
-bähulala/yubaya	uneasy	Adjectives	
-adedayo	to make a mistake	Verbs	
-a/ngí	about, concerning	Miscellaneous	
-kyone	real	Adjectives	
-nu'á'o	diverse	Adjectives	
-kësa	to unlock	Verbs	
-sem sem sem	"yeah yeah..."	Phrases	
-náwes	inevitable, evercoming	Adjectives	
-sätä	to go against societal norms	Verbs	
-kyénä	fish that has just been caught, a body that has just died	Nouns	
-ndeniwus	to bless	Verbs	
-müta tapa gya sana (nam ndásana ano)	stop touching the door (and walk through it) "stop being indecisive (and commit to something)"	Phrases	
-wandda	to twirl around, to spin around, (by extension) to wag (a tail)	Verbs	
-suli	to come, to move towards the speaker, to move nearer to the point of perspective	Verbs	
-wanddayo	to dance	Reflexive Verbs	
-sipilana	to scare	Verbs	
-gugulu	to search for a piece of information (via books, other people, etc)	Verbs	
-besekya	to turn into (another physical form)	Verbs	
-besekya'an	to change clothes	Abstracted Verbs	
-semes	chief of a human village	Nouns	
-nggáhetí	enemy(ies)	Irregular Plural Nouns	
-yima	ok (all good)	Miscellaneous	
-kahāme	forest	Nouns	
-tike	peaceful	Adjectives	
-sá	hushing sound	Onomatopoeia	
-soma	to fear	Verbs	
-kílu	rough (surface), rigid	Adjectives	
-ndásanayo	to propose (an idea)	Verbs	
-tápa	book	Nouns	
-nggoyo	to exhaust (someone), to tire out (someone) repeatedly	Verbs	
-nggoya	drained (of energy), exhausted	Adjectives	
-nggongo	to bang, to slam	Verbs	
-lapa	type	Nouns	
-keviwes	a (usually blessed) warrior/fighter with the highest valor/honor	Religious Terms	
-yofo	wind(s), gust(s)	Irregular Plural Nouns	
-mibe	clay	Nouns	
-naogu	seafloor(s)/oceanfloor(s)	Irregular Plural Nouns	
-fipe	grain(s)	Irregular Plural Nouns	
-sisa	cereal crop, a crop capable of being milled into grain or flour	Nouns	
-naohé	riverbed(s)	Irregular Plural Nouns	
-sífi	flour, powder, processed grain	Nouns	
-núba	stream, small offshoot	Nouns	
-naopü	lakebed(s)	Irregular Plural Nouns	
-na	surface, plane	Nouns	
-mika	color	Nouns	
-fufo	to wring out (a wet cloth), to straighten out/flatten out a piece of (dry) textile	Verbs	
-naka	isolated, remote	Adjectives	
-ádobo	civilization(s)	Irregular Plural Nouns	
-kapa	a neighborhood; an obscure, very small settlement	Nouns	
-ngahé / nggahé	a large village centered around a river or a large village in general	Nouns	
-ngaki / nggaki	a settlement near a large body of water	Nouns	
-feohiki	a (usually) well-known, very large settlement, city	Nouns	
-sínaha	to roam, to wander aimlessly or without direction	Verbs	
-gelasa	particular, specific	Adjectives	
-nga	destination, end-point	Nouns	
-anwe'e	somewhere, in/at/near an unspecific place	Miscellaneous	
-ndáki	a bridge or crossing, a passageway (usually) wedged between something	Nouns	
-fihi	sand	Nouns	
-kisi	grass	Nouns	
-gyembbu	dirt	Nouns	
-kabo	(usually of a surface) stone, slate	Nouns	
-mipa	plant	Nouns	
-mipātoka/sásiztoka	coneflower	Nouns	
-ému	spear	Nouns	
-ëvënefu	shelf	Nouns	
-gyolo	tail	Nouns	
-imono	fur	Nouns	
-imono ya	fluffy	Adjectives	
-ímova	shiny	Adjectives	
-ongome	cloud	Nouns	
-ódemu	square, box	Nouns	
-úmoke	basket	Nouns	
-ühela	axe	Nouns	
-veka	ocean wave(s)	Irregular Plural Nouns	
-daga	table	Nouns	
-sema	after	Miscellanous	
-sengki	before	Miscellanous	
-népiki	sunrise	Nouns	
-nétoki	sunset	Nouns	
-boha	passive agressive "ani"	Nouns	
-fesána	to aim, to predict	Verbs	
-sána fwí te	archer	Nouns	
-fwígiwes	a (usually blessed) high-ranking archer (sharpshooter)	Nouns	
-wandda ketiyani te	dancer	Nouns	
-tanta mbitsë te	someone who hacks (down trees, plants, or something in the way), clearer	Nouns	
-mipa kokena te	farmer	Nouns	
-néti	altar (usually for fire)	Nouns	
-sásu	flower	Nouns	
-sása	cyclic, repetitive, (by extension) predictable	Adjectives	
-upwá	sepal(s)	Irregular Plural Nouns	
-sási	petal(s) (of a flower)	Irregular Plural Nouns	
-hele	to bring about (something from somewhere known to another known place)	Verbs	
-heleyo	to retrace ones (own) places or steps	Reflexive Verbs	
-hele'an	to unwillingly bring along someone (who doesnt know where a place you do is)	Abstracted Verbs	
-népa/vopa	the first few houses surrounding a túwus (bonfire) of the settlement	Nouns	
-néki/voki	the neighborhood of homes surrounding a túwus (bonfire) of a large settlement	Nouns	
-néhiki	the sector of a large, usually well known, settlement with the túwus (bonfire)	Nouns	
-hetivi	a long double-bladed weapon, sword	Nouns	
-hevi	any short, bladed weapon	Nouns	
-gavi	blade, edge	Nouns	
-ngivi	a short curved-blade weapon (usually) used to slash or reap, war sickle	Nouns	
-ngitivi	a long curved-bladed weapon (usually) used to slash or reap, war scythe	Nouns	
-évimu	a short weapon used to stab or thrust, dagger	Nouns	
-évitimu	a long weapon used to stab or thrust, lance, bayonet	Nouns	
-ngana	agricultural sickle	Nouns	
-ngatina	agricultural scythe	Nouns	
-hena	cutting knife, food knife	Nouns	
-gugu	neck	Nouns about Bones, Limbs, Body Parts, and Death	
-kingi	to hit on an anvil to shape	Verbs	
-ngátoyos	"execution by ngingi", where a criminal is non-lethally crucified low to the ground, wounded so blood is spilled, and left to the ngingi	Verbs	
-heoba	hand-crafted axe	Nouns	
-ipalas	taboo, taboo action	Nouns	
-sáne	to give way (for something to come), to yield (to something)	Verbs	
-sáneyo	to rise (for a perceived greater good)	Reflexive Verbs	
-fefe	to pet (an animal)	Verbs	
-ungkala	heavy to the point where it requires more than one person	Adjectives	
-síhata	the marriage game	Nouns	
-animono/anímono	raccoon	Nouns	
-gega	crocodile	Nouns	
-sakisaki / titikyugyi	squirrel	Nouns	
-bengkeng	goose	Nouns	
-lugubi / lutubi	boar	Nouns	
-gimbbi	large animals: crocodile, deer, boar, sharks	Nouns	
-salumala	oyster	Nouns	
-hükaka	the action of doing something taboo	Verbs	
-tulatsa	to suspect	Verbs	
-wandda'an	to wag (a tail)	Abstracted Verbs	
-melëtsa	board game	Nouns	
-tsahäs	the northern lands, resting place of kehibi'i	Religious Terms	
-nanalohí	goodbye	Phrases	
-máfëtär	safely, securely	Miscellaneous	
-nana/naná	bye bye, see you	Phrases	
-gupi	worm(s)	Irregular Plural Nouns	
-gupimëte	a'atsilwi script (worm writing)	Nouns	
-kehimëte	main ngimëte script (mountain script)	Nouns	
-kepwámëte	a'atsilwi version of the main ngimëte script (low mountain script)	Nouns	
-mëte	any spoken communication/language, type(s) of native ngimëte orthography	Nouns	
-sowa	to inhabit, to live (somewhere)	Verbs	
-ndá	through, between somewhere	Miscellaneous	
-migu	to ask, to inquire, to question	Verbs	
-pawana	belonging to a past, recent, time	Adjectives	
-kone'e	during (temporal preposition)	Miscellaneous	
-mowa	wealthy, rich	Adjectives	
-vese te/vefe te	a job	Nouns	
-nutu	unwanted	Adjectives	
-bekive	to forgive	Verbs	
-dayo te	a mistake caused by the subject	Nouns	
-da müta yo dayo te pá	interjection to get somebody's attention (lit. HON prevent my mistake (before it happens) HON); highly formal	Phrases	
-da sáne pá	interjection before getting past someone (lit. HON yield HON); highly formal	Phrases	
-kavu	to guard, to passively defend (from attack)	Verbs	
-kavu te	dog, "the one who guards"	Nouns	
-foye/fo'i	small (of size)	Adjectives	
-foye te/	cat, "little one"	Nouns	
-/novi te	cat, "one who stares down upon you"	Nouns	
-novi	to stare down at (something), to observe after passing	Verbs	
-noviso	to reflect upon one's outer appearance	Reflexive Verbs	
-novi'an	to unwillingly look at the aftermath of something	Abstracted Verbs	
-/tongku	the sound of a tree hitting the ground	Onomatopoeia	
-tongku/	the sound of a thin, hollow, perhaps dead, or otherwise not-very-dense tree hitting the ground	Onomatopoeia	
-mbinddun/	the sound of a thick, dense tree hitting the ground	Onomatopoeia	
-/tongkilongku	the sound of logs rumbling as they hit and roll on the ground, swimming away from you as you give chase	Onomatopoeia	
-kihikifufu/kihivisisi	the sound of grass rustling when rabbits run away	Onomatopoeia	
-ngíhi'hi'hi'ha'ha'há/ngéhihihaha'há	the sound of ngingi	Onomatopoeia	
-tumpilumpu	the sound of going up a flight of stairs	Onomatopoeia	
-tumpu	the sound of taking a step	Onomatopoeia	
-vuvu/	the sound of walking on loose dirt	Onomatopoeia	
-kuluku/kiliki	the sound of ngingi effigies rattling (in the wind)	Onomatopoeia	
-yuleyu	to play an instrument	Verbs	
-tumpe	a step (you take with your feet)	Verbs	
-yule	to press down the fingers	Verbs	
-yuleyo	to grip	Reflexive Verbs	
-yuleyu'an	to be forced to play a musical instrument	Abstracted Verbs	
-mewu	someone/somebody	Nouns	
-kusákasá/sísi	the sound of the leaves of a falling tree shaking	Onomatopoeia	
-gagu	fool	Nouns	
-féyu	to toggle a lever or switch, to lock (a door)	Verbs	
-towa	to jump	Verbs	
-towa'an	to bounce	Abstracted Verbs	
-towa'on	to ricochet	Superabstracted Verbs	
-lowi ya/botsë ya	low (of elevation)	Adjectives	
-tiwi ya/bo ongome	high (of elevation)	Adjectives	
-tongku ya/tongkuyu	low (of pitch)	Adjectives	
-sene ya/seneyu	high (of pitch)	Adjectives	
-lowiyo/lowiso	to crouch, to lower your body down to the ground	Reflexive Verbs	
-hümä	to mumble	Verbs	
-apesene	to sing	Verbs	
-kapwá	a card (in a game)	Nouns	
-gaguyu	foolish	Adjectives	
-huliyan	artist	Nouns	
-sísin	to rustle, to shake	Verbs	
-sísingu	foliage	Nouns	
-damüyodepa	interjection to get somebody's attention; semi formal	Phrases	
-dásapa	interjection before getting past someone; semi formal	Phrases	
-hohiho	to do the mochi thing	Verbs	
-hohiho'an	to be forced to do the repetitive labour by an elder family member	Abstracted Verbs	
-hohihoyo	to cartwheel, to do acrobatics	Reflexive Verbs	
-yua	pejorative intensifier	Miscellaneous	
+ngawu/nggawu	water, rain	Nouns
+bawë/mbawë	bird(s)	Nouns
+ngingi	monkey(s)/cannibal(s)	Cannibals and Mutants
+né	fire	Nouns
+yam	foodstuff(s)	Irregular Plural Nouns
+yepë	day	Nouns
+yepwá	midday/noon	Nouns
+á'á	night	Nouns
+kaha	wood/tree	Nouns
+kopa	house	Nouns
+mem pele	knowledge	Nouns
+më te	language/talk/tongue	Nouns
+ngimëte	human language	Nouns
+wisi	leaf(s)	Irregular Plural Nouns
+mbaba	idiot	Nouns
+táne	beach/shore/path	Nouns
+so'o	north of the bonfire, into the forest	Religious Terms
+néna	south of the bonfire, off the cliff	Religious Terms
+sitwi	west of the bonfire, to the rolling hills	Religious Terms
+láma	east of the bonfire, to the beach	Religious Terms
+ngawu tapu	water collecter	Nouns
+yá	meat	Nouns
+tapu yá	shell/skin	Nouns
+lu	this/it/thing	Nouns
+sepü	lake	Nouns
+us	rabbit	Nouns
+us tapu yá	rabbit skin	Nouns
+kilikali	lizard	Nouns
+kilikali tapu yá	lizard skin	Nouns
+ngawu te/nggate	drink	Nouns
+ken wisi	drug	Nouns
+kopāme	village/camp	Nouns
+noa ngingi	blue monkey(s)	Cannibals and Mutants
+gala	elk/deer	Nouns
+pula/närla	place	Nouns
+sene ngingi	shrieker monkey(s)	Cannibals and Mutants
+bawë wisi/mbawë wisi	feather	Nouns
+tesi	pouch	Nouns
+fwí	arrow(s)	Irregular Plural Nouns
+ngawu tesi/ada	waterskin	Nouns
+fwí tesi	quiver	Nouns
+hiho	stamina	Nouns
+nggala	fish	Nouns
+nggala tapu yá	fish scale(s)	Irregular Plural Nouns
+tsi'i	berry(s)	Irregular Plural Nouns
+noa tsi'i	poisonous berry(s)	Irregular Plural Nouns
+ewu	health/blood	Nouns
+ná	hunger	Nouns
+alu	sky/air	Nouns
+tapu	turtle (shell/hide)	Nouns
+kaha tsi'an te	wood mover	Nouns
+gala tapu yá	deer skin	Nouns
+mbúse	sap	Nouns
+nggusa	armsy	Cannibals and Mutants
+vin/ven	an annoying person	Nouns
+túwus	bonfire	Religious Terms
+pumpum	cowman	Cannibals and Mutants
+paena/haina	virginia	Cannibals and Mutants
+boyepë	tomorrow 	Nouns
+yua	father	Nouns
+alo'a/äwa	mother	Nouns
+iluyepë	today	Nouns
+ati yua	grandfather	Nouns
+ati alo'a/ati äwa	grandmother	Nouns
+yam pula/yam närla	drying rack	Nouns
+kaha pula/kaha näla	wood storage	Nouns
+seve	a selfish person	Nouns
+nggawi'i	water god	Religious Terms
+vovi'i	fire god	Religious Terms
+dom	head	Nouns about Bones, Limbs, Body Parts, and Death
+gám	arm	Nouns about Bones, Limbs, Body Parts, and Death
+ke	hand	Nouns about Bones, Limbs, Body Parts, and Death
+kili	torso	Nouns about Bones, Limbs, Body Parts, and Death
+gí	leg	Nouns about Bones, Limbs, Body Parts, and Death
+mban	foot	Nouns about Bones, Limbs, Body Parts, and Death
+lengki	demon, foul-soul	Religious Terms
+papapa	sexual intercourse	Nouns
+iela	back	Nouns about Bones, Limbs, Body Parts, and Death
+gyelu	waist	Nouns about Bones, Limbs, Body Parts, and Death
+nona	human/person	Nouns
+tíke	animal(s)	Irregular Plural Nouns
+keleni	body	Nouns about Bones, Limbs, Body Parts, and Death
+lata'a	part, piece	Nouns
+kaoleni	skeleton	Nouns about Bones, Limbs, Body Parts, and Death
+kaoki	bone	Nouns about Bones, Limbs, Body Parts, and Death
+bingi	tooth	Nouns about Bones, Limbs, Body Parts, and Death
+sene tapu yá	metal/pot	Nouns
+nditi	eye	Nouns about Bones, Limbs, Body Parts, and Death
+wá	mouth	Nouns about Bones, Limbs, Body Parts, and Death
+hihi	nose	Nouns about Bones, Limbs, Body Parts, and Death
+payepë	yesterday	Nouns
+ábe	breast(s) (chest)	Irregular Plural Nouns
+fusabó	valley	Nouns
+gemëte	nonsense, unintelligible	Nouns
+giya	word(s)	Irregular Plural Nouns
+e	archaic causative	dont add
+kome	why	Interrogatives
+'e	what	Interrogatives
+e'e	where	Interrogatives
+ten/teng	when	Interrogatives
+tawu/tewu	how	Interrogatives
+mawu/mewu	who	Interrogatives
+süm	to want	Verbs
+tsi	to go	Verbs
+eme	to do	Verbs
+meowi	to build	Verbs
+ndawi	to run	Verbs
+pele	to know	Verbs
+pelepele	to understand	Verbs
+ken	to fuck	Verbs
+ima	to sleep	Verbs
+më	to speak	Verbs
+ngale/nggale	to drink	Verbs
+sene	to shriek/make noise	Verbs
+owa le	to agree	Verbs
+tsi'an	to move	Abstracted Verbs
+napa	to eat	Verbs
+tiwi	to rise	Verbs
+lowi	to lower	Verbs
+ngaowi	to attack/fight	Verbs
+nggala le	to fish	Verbs
+pelele	to learn	Verbs
+mëmë	to translate	Verbs
+yáni	to think	Verbs
+ngálowi/ngärlowi	to mangle	dont add
+ngátiwi	to annihilate	dont add
+kúnu	to involve, to gather (around)	Verbs
+yíse	to love	Verbs
+tsuti	to wander	Verbs
+ngá	to kill	Verbs
+né le	to light	Verbs
+som	to give	Verbs
+kini	to lend	Verbs
+witsu	to find	Verbs
+tapa	to touch/feel an object	Verbs
+fasu'i	to smell	Verbs
+bëm	to feel an emotion	Verbs
+nde'o	to see	Verbs
+wisiwisi	to cover	Verbs
+getsilu	to keep away	Verbs
+witsunde'o/witsundde'o	to forage	Verbs
+míki	to hear, to listen	Verbs
+noa	dead/poisonous/deadly	Adjectives
+mboko	stupid	Adjectives
+génti	rotten	Adjectives
+ati	more, big	Adjectives
+gati	less, small	Adjectives
+silsetsalo	beautiful	Adjectives
+wána ngingi/wángingina	ugly	Adjectives
+wi'ia	healthy/healing	Adjectives
+tembbe	hungry	Adjectives
+ndeki	hot	Adjectives
+sepi	warm	Adjectives
+ärlu	cold	Adjectives
+engomo	bloody	Adjectives
+ngeka	dry	Adjectives
+wána/wá>NOUN<na	akin to/same (as)	Adjectives
+no'i	cowardly, scared	Adjectives
+ge	no	Miscellaneous
+gege	definite no	Miscellaneous
+owaowa	definite yes	Miscellaneous
+owa	yes	Miscellaneous
+giwa 	maybe	Miscellaneous
+mi	ok/neutral yes	Miscellaneous
+gogowa	wrong	Miscellaneous
+owilowa	correct	Miscellaneous
+katálo	hello/hi	Miscellaneous
+sülu/sëlu	(i) got it! (killed/caught something)	Miscellaneous
+gegela	zero	Numerals
+gela	one, any number except 2	Numerals
+la	two	Numerals
+bese/befe	three	Numerals
+sála/särla	four	Numerals
+sála/särla	wellbeing	Nouns
+kimi	five	Numerals
+molo	six	Numerals
+wé	seven	Numerals
+ana	eight	Numerals
+miki	nine	Numerals
+kó	ten	Numerals
+nam	and	Miscellaneous
+yëpütu	forever	Miscellaneous
+na'ë	too	Miscellaneous
+apelelala	to plead	Verbs
+ute	or	Miscellaneous
+úte	very, so	Miscellaneous
+e'aya	procedure	Nouns
+mbaba mboko	a really big idiot	Nouns
+keki	limb	Nouns about Bones, Limbs, Body Parts, and Death
+tikao	animal remains	Nouns about Bones, Limbs, Body Parts, and Death
+langki	cremation ash	Nouns about Bones, Limbs, Body Parts, and Death
+galu	hip bone	Nouns about Bones, Limbs, Body Parts, and Death
+ilolo	spinal cord	Nouns about Bones, Limbs, Body Parts, and Death
+damo	skull	Nouns about Bones, Limbs, Body Parts, and Death
+gámo	all arm bones	Nouns about Bones, Limbs, Body Parts, and Death
+ka'e'o	hand bone	Nouns about Bones, Limbs, Body Parts, and Death
+kili'o	ribcage	Nouns about Bones, Limbs, Body Parts, and Death
+ga'í'o	all leg bones	Nouns about Bones, Limbs, Body Parts, and Death
+mbano	all foot bones	Nouns about Bones, Limbs, Body Parts, and Death
+ábao	human remains	Nouns about Bones, Limbs, Body Parts, and Death
+ngi'angi'o	cannibal remains	Nouns about Bones, Limbs, Body Parts, and Death
+neneno	finger	Nouns about Bones, Limbs, Body Parts, and Death
+nenenwá	fingernail(s)	Nouns about Bones, Limbs, Body Parts, and Death
+naoneno	finger bone	Nouns about Bones, Limbs, Body Parts, and Death
+nggawu'an	to chug/forcibly drink	Abstracted Verbs
+tsuti'an	to stray away/get lost by wandering off	Abstracted Verbs
+witsu'an	to search, to explore	Abstracted Verbs
+fasu'i'an	to sniff	Abstracted Verbs
+wisiwisi'an	to hide	Abstracted Verbs
+getsilu'an	to smuggle	Abstracted Verbs
+pelele'an	to study	Abstracted Verbs
+yáni'an	to assume	Abstracted Verbs
+nde'o'an	to scout/lookout	Abstracted Verbs
+tiwi'an	to lift up	Abstracted Verbs
+lowi'an	to drop	Abstracted Verbs
+sene'an	to scream/yell	Abstracted Verbs
+som'an	to give up (something)	Abstracted Verbs
+bëm'an	to feel (an emotion you don't want to)	Abstracted Verbs
+witsunde'o'an	to scour for food (or starve)	Abstracted Verbs
+ngaowi'an	to fight back, assault (something)	Abstracted Verbs
+yíse'an	to fall in love	Abstracted Verbs
+ima'an	to fall asleep	Abstracted Verbs
+tapa'an	to press against	Abstracted Verbs
+sána	to shoot (an arrow)	Verbs
+yana	sun	Nouns
+a'a	moon	Nouns
+ngá'an	to manslaughter	Abstracted Verbs
+né'an	to commit arson/light ablaze	Abstracted Verbs
+napa'an	to devour/gobble down	Abstracted Verbs
+kahalala	stick/twig	Nouns
+peleli'i	god of knowledge 	Religious Terms
+gola	fat, obese	Adjectives
+gola ngingi	large ngingi	Cannibals and Mutants
+vovi'nona/vona	man	Nouns
+nggawi'nona/nggona	woman	Nouns
+kasë ngawu	oil	Nouns
+á'á yepwá/ágo	midnight	Nouns
+apeya	nice, good	Adjectives
+sepu	bad	Adjectives
+süm'on	to steal, to commit a crime	Superabstracted Verbs
+mem pele wisi	paper, scroll, text	Nouns
+wetsilu/tsutitiwi	to travel	Verbs
+tsi'on	to kidnap, forcefully move	Superabstracted Verbs
+hógu	effigy	Nouns
+sümtiwi	to hope/wish (by extension; to desire)	Verbs
+ndawi'an	to forcibly run, flee	Abstracted Verbs
+atita	many (inanimate)	Adjectives
+atiya	many (animate)	Adjectives
+kalahala	polite "mbaba mboko"	Nouns
+hühä	exhaustion	Nouns
+ima'on	to knock (someone) unconscious 	Superabstracted Verbs
+ngaowi'on	to defend (from attack)	Superabstracted Verbs
+mbigye	treasure (informal)	Nouns
+angtiwí'o	ridiculous	Adjectives
+ndálohí	the passage of time	Nouns
+ndálohí máfëtär	pass (the days) safely	Phrases
+ka ati alo'a napa'an yam pula/ka ati äwa napa'an yam näla	did you have to waste all the food by eating it when you weren't hungry?"	Phrases
+ndálohí kama	to pull an all nighter	dont add
+kehibó	(usually high elevation, snow tipped) mountain(s)	Irregular Plural Nouns
+mbitsë	land	Nouns
+kehibwá	low elevation mountain(s)	Irregular Plural Nouns
+máfu	bay	Nouns
+pa'ü'o	bone marrow	Nouns
+kini'an	to sell	Abstracted Verbs
+tapwá	seashell	Nouns
+kono	bottle	Nouns
+wi'ia kono/ewu ya kono	medicine	Nouns
+sene tapi'i	metal god / plane	Religious Terms
+tseho	friend, acquaintance (formal)	Nouns
+ka 'a eme apelelala-ya ken	how are you (informal)	Phrases
+ka 'a ndálohí atita á'á	how are you (formal)	Phrases
+lengki ya	evil	Adjectives
+kili'o yá	gut, innards	Nouns about Bones, Limbs, Body Parts, and Death
+ken wisi kono/ken kono	alcohol	Nouns
+wawá	to fall	Verbs
+kakala	to laugh	Verbs
+nápa	to remember 	Verbs
+mem	communication, message	Nouns
+suntu	ocean/sea	Nouns
+kóme	shark	Nouns
+lowi'i	pit god	Religious Terms
+kehibi'i	mountain god	Religious Terms
+ká'ono	whole, all, entire	Adjectives
+máte	world, earth	Nouns
+sú'ufe	to cook	Verbs
+yani	soup	Nouns
+mate	to return (somewhere)	Verbs
+onta	to return (home, origin)	Verbs
+mate'an	to retreat	Abstracted Verbs
+onta'an	to defeat	Abstracted Verbs
+pese/pefe	colorful, fragrant	Adjectives
+ek	where	dont add
+ngi	person	dont add
+u	lative	dont add
+wulë	hello	dont add
+tsi	to go	dont add
+witsundehohan ya	hungry	dont add
+ë	and	dont add
+buntse/mbuntse	strange	Adjectives
+vovi	fire	dont add
+noni'i	human god, the first god	Religious Terms
+kaoki ken	peepnis	Nouns about Bones, Limbs, Body Parts, and Death
+galu ken yá	voogigna	Nouns about Bones, Limbs, Body Parts, and Death
+ábe	human(s)	dont add
+kole	comitative	dont add
+u'u	animal	dont add
+keloyani	lower body	Nouns about Bones, Limbs, Body Parts, and Death
+ketiyani	upper body	Nouns about Bones, Limbs, Body Parts, and Death
+kaoloyani	lower skeleton	Nouns about Bones, Limbs, Body Parts, and Death
+kaotiyani	upper skeleton	Nouns about Bones, Limbs, Body Parts, and Death
+ke'aki'o	skeletal limbs	Nouns about Bones, Limbs, Body Parts, and Death
+kili'olili	rib(s)	Nouns about Bones, Limbs, Body Parts, and Death
+tsena	chest	Nouns about Bones, Limbs, Body Parts, and Death
+tane	shoulder	Nouns about Bones, Limbs, Body Parts, and Death
+táne'o	shoulder bone	Nouns about Bones, Limbs, Body Parts, and Death
+mbaonano	toe bones	Nouns about Bones, Limbs, Body Parts, and Death
+mbanano	toe	Nouns about Bones, Limbs, Body Parts, and Death
+hihíwe	nostril(s)	Nouns about Bones, Limbs, Body Parts, and Death
+lebo	ear	Nouns about Bones, Limbs, Body Parts, and Death
+goma	crotch/groin	Nouns about Bones, Limbs, Body Parts, and Death
+mafu	stomach, belly	Nouns about Bones, Limbs, Body Parts, and Death
+ka kome tiwi	why put up a fight when you know theres no point?/why try so hard?	Phrases
+káma	nation, realm	Nouns
+kama	rest/sleep	Nouns
+sana	door	Nouns
+nasobe'o	decoration	Nouns
+káli	heart	Nouns
+samo	bed	Nouns
+wase	animal track(s)	Nouns
+sindda	to play	Verbs
+mafo	to resemble	Verbs
+ndasi	to shine	Verbs
+som'on	to sacrifice (something), to give again	Superabstracted Verbs
+ndenti	blessing, favor	Nouns
+i'i	god	Nouns
+si/siloa	to fly	Verbs
+kola/besi	rock, stone	Nouns
+sen/sam	but, however	Miscellaneous
+lohíyam	to continue (to do something)	Miscellaneous
+lohí	time	Nouns
+ka lohí kini yë X	can I have X time	Phrases
+sálohí	to miss (someone), to reminince (about something)	Verbs
+süm'an	to need/require	Abstracted Verbs
+giya 	building 	Nouns
+welebing	misunderstanding, mistranslation, mishap	Nouns
+lohi	to change	Verbs
+na witsunde'o kola/na witsundde'oso besi	"go forage yourself rocks" (leave me alone)	Phrases
+nahá	to retrieve	Verbs
+naha	to put on, to adorn	Verbs
+miwa	to be able to	Verbs
+müta	to stop, to halt, to prevent (something) before it happens	Verbs
+ngolo	to follow	Verbs
+nggolo	(usually nominal) water current	Nouns
+nggave	to deconstruct, to deassemble	Verbs
+a'i'o	shit	Nouns
+asipi	to talk nonsensically	Verbs
+asipi'an	to speak in a possessed manner	Abstracted Verbs
+asipi'on	to make excuses	Superabstracted Verbs
+-lo	ordinal (1st, 2nd, etc) expression	Phrases
+u'i'i'a'i'u'i'i'i'i'a'i	to crash out	dont add
+vese/vefe	to work (a job, labor)	Verbs
+ndafo	to forget	Verbs
+panta	task, quest	Nouns
+üná	profession, trade	Nouns
+ngána	river	Nouns
+ani	friend, bro (informal)	Nouns
+simbbärnta	journey, adventure	Nouns
+kyesi	above, up	Miscellaneous
+saha	breath	Nouns
+íne	birth	Nouns
+peye	face	Nouns
+ëwaya	another	Miscellaneous
+kuni	to send	Verbs
+yu'úla	to grieve	Verbs
+kuni mem te	messenger	Nouns
+fóse	absence	Nouns
+kálakü	nose-spitter (insult towards A'atsilwi speakers)	Nouns
+fogaäpüha	grunt-screecher (insult towards Standard speakers)	Nouns
+népi	sun	dont add
+ápwa	moon	dont add
+hana	to enjoy, to like	Verbs
+mogü	to hate, to despise	Verbs
+niba	below, down	Miscellaneous
+gabu	frog	Nouns
+kekyene	iteration, version, edition	Nouns
+fesúa	to help	Verbs
+nenta	to write	Verbs
+'ata	direction, way	Nouns
+tine/gimë	few	Adjectives
+hatsamwa	simple, basic	Adjectives
+tsefese	to exist	Verbs
+tama	name, label	Nouns
+pala	extra, leftover, remaining	Adjectives
+mbayu	sorry	Miscellaneous
+bambba	noise, sound	Nouns
+lafeowigye	melody, tune, song	Nouns
+säna	hollow, empty	Adjectives
+tuha	result	Nouns
+mbeno	to create	Verbs
+bátsi	to enter	Verbs
+naya	to demand	Verbs
+bátsi'an	to intrude	Abstracted Verbs
+malá	remainder, leftover	Nouns
+gayana	between	Miscellaneous
+sebesikya	rule	Nouns
+kekéne/kokone	long (of horizontal length)	Adjectives
+sawasa	short (of horizontal length)	Adjectives
+witsuyo	to have	Reflexive Verbs
+tsefeseyo	to suffer	Reflexive Verbs
+witsunde'oso/witsundde'oso	to tidy one's appearance	Reflexive Verbs
+kuniyo	to embark	Reflexive Verbs
+bátsiyo	to welcome	Reflexive Verbs
+kyelu	(foreign) script, writing	Nouns
+seyaya	to list	Verbs
+nagyu	to fetch, to grab	Verbs
+seyayaso	to register one's self, to sign up	Reflexive Verbs
+ndaoba	basement, cellar	Verbs
+báli	porch, foyer	Verbs
+igyensa	to start, to begin, to initiate	Verbs
+ndo	to open	Verbs
+veseyo/vefeyo	to exert/strain one's self	Reflexive Verbs
+wawáso	to trip, to miswalk	Reflexive Verbs
+imaso	to collapse into sleep, to faint	Reflexive Verbs
+eme'an	to be obliged to (perform an action)	Abstracted Verbs
+emeso	to take charge, to assume leadership	Reflexive Verbs
+ndawiso	to exercise/workout	Reflexive Verbs
+timbba	to clean, to wash	Verbs
+timbbaso	to wash one's self	Reflexive Verbs
+ndafoyo	to act different than usual	Reflexive Verbs
+fesúaso	to self reflect, to think deeply	Reflexive Verbs
+igyensayo	to awaken (after a long/deep sleep)	Reflexive Verbs
+fene	to work (properly)	Verbs
+mayani	to make	Verbs
+sana	new (inanimate objects)	Adjectives
+wengki	old (inanimate objects)	Adjectives
+tsali/tsaya	young (animate objects)	Adjectives
+nena	old (animate objects)	Adjectives
+mótsi	to exit, to leave	Verbs
+mótsiyo	to zone out	Reflexive Verbs
+mótsi'an	to kick (someone) out	Abstracted Verbs
+sóhu	to await (for someone)	Verbs
+bíhu	to wait (for something)	Verbs
+ndaní	to not have something that you are supposed to have	Verbs
+esiya/masiya	to set aside for later, to save (for later), to store	Verbs
+wetsilu'an/tsutitiwi'an	to migrate	Abstracted Verbs
+kyesatsa	window (of a house)	Nouns
+sanwa/tsamwa	to read	Verbs
+sepesu	done (of an action)	Adjectives
+bíhu'an	to keep in place	Abstracted Verbs
+bengya	to depart	Verbs
+wensu	long (of time)	Adjectives
+mbimbbi	short (of time)	Adjectives
+gelasa	only	Miscellaneous
+sono	to walk	Verbs
+ngopo	to place, to arrange	Verbs
+gyadani	room	Nouns
+ngama	to lay, to lie/put down (something), to deactivate, to turn off	Verbs
+ngopoyo	to sit down	Verbs
+ngamayo	to lay down	Verbs
+esiyaso/masiyaso	to ration (due to a shortage)	Reflexive Verbs
+gina	letter (a, b, etc.), character, mark, stroke (of writing)	Nouns
+mewana	current (belonging to present time)	Adjectives
+pele'an	to know something you didn't desire to	Abstracted Verbs
+máne	to feint, to deceive, to gaslight (with lies)	Verbs
+denddu	to block (from an attack), to shield, to barricade	Verbs
+nehu	to check, to verify, to certify	Verbs
+mababa	to punch	Verbs
+kífe	to thrust (a weapon), to pierce	Verbs
+ndayó	to strike, to inflict (a wound)	Verbs
+bene	to stimulate	Verbs
+bobiloko	to say repeatedly	Verbs
+ndisé	choice, option	Nouns
+gúhäsa	to be seen/perceived (by something)	Verbs
+bobilokoso	to mumble, to murmur	Reflexive Verbs
+tëyá/tehëyá	obvious	Adjectives
+mukamala	expert, professional	Nouns
+tsim	to pray (to have a conversation with a deity)	Verbs
+bikyë	to pray (with the assumption that you will receive something from the deity)	Verbs
+temfe	to pray (to request something from the deity)	Verbs
+mundda	immediately, now, at this moment	Miscellaneous
+halóhëlu	as soon as possible	Phrases
+fóvaki	stealthy, sneaky	Adjectives
+fusa	plain(s), meadow(s)	Irregular Plural Nouns
+gëlütu	cave	Nouns
+teyíyofo	pity	Nouns
+teye	a short person	Nouns
+ngopo'an	to act/serve as/take the role of	Abstracted Verbs
+mele	to utilize, to use	Verbs
+tanta	to clear (an area), to raze	Verbs
+fufó	to extinguish (a fire)	Verbs
+yensa	to get/obtain	Verbs
+benise	to nurture (someone)	Verbs
+kokena	to grow (plants)	Verbs
+opu'uken	to breed (animals)	Verbs
+kolo	to be certain, sure	Verbs
+ndayó'an	to break something	Abstracted Verbs
+ngi	person	Nouns
+gengi	no one/nobody	Nouns
+yukya	quiet	Adjectives
+pin/bin	to notice/acknowledge	Verbs
+ingka	smart, intelligent, knowledgable	Adjectives
+gábewa	strong	Adjectives
+yufe	weak	Adjectives
+mandda	to inform, to tell	Verbs
+manddayo	to realize	Reflexive Verbs
+nagyuso	to receive	Reflexive Verbs
+yáne	(look) like this, in this fashion/way	Phrases
+witsunggá'o	to hunt (down), to track (down)	Verbs
+witsungkalu	to speak out (against), to protest	Verbs
+witsumbbenise'o	to adopt (someone), to take in (someone)	Verbs
+witsumbbele'o	to find (something) viable (to use)	Verbs
+yeba	atmosphere (of a room), vibe	Nouns
+witsumbbátsi'an	to harass	Abstracted Verbs
+mbendi	difficult	Adjectives
+téyi	thank you	Phrases
+kona/kone	to carry, to bring	Verbs
+witsunddenddu	to prevent (something), to block (an action)	Verbs
+kewes	a dangerous place, "Hell"	Nouns
+ngewus	clan, tribe	Nouns
+kéle	to strike up (an informal) conversation	Verbs
+sétwi	to flirt	Verbs
+sétwi'an	to unintentionally flirt (go with the flow)	Abstracted Verbs
+konayo/koneyo	to persevere	Reflexive Verbs
+kéleyo	to introduce (oneself)	Verbs
+kéle'an	to participate in small talk out of politeness (despite not wanting to)	Abstracted Verbs
+gyeye	to nurse (a child)	Verbs
+kasëcya	dark	Adjectives
+léngá	a terror, a horror	Nouns
+vékye	to bring (as a side effect, unintentionally)	Verbs
+ndásana	to pass/walk/go through	Verbs
+nandda	easy	Adjectives
+fén	to latch onto (something), to hold onto	Verbs
+kilu	roof, top, cover	Verbs
+sumpin	sibling	Nouns
+wónde	to love like family	Verbs
+móse	to quit, to give up	Verbs
+léke	undesirable	Adjectives
+nuba	to raise an animal	Verbs
+ki'e	to drag	Verbs
+bähu	sick	Adjectives
+fetsimwa	an attempt, "a try", "a go"	Nouns
+sä	nothing	Nouns
+këlä	sapling	Nouns
+kyawasana	fishing net	Nouns
+igyesa	to sleep deeply, to slumber	Verbs
+kómëte	words (that someone speaks)	Irregular Plural Nouns
+kasë	black	Adjectives
+ndaya	white	Adjectives
+eya/eyu	red (fresh blood)	Adjectives
+engoya	dark red (dried blood)	Adjectives
+géya/génta	brown (rot)	Adjectives
+saga	light brown (debarked tree)	Adjectives
+wisiya/wisiyu	green (leaf)	Adjectives
+ngaya/nggaya	light blue (rain)	Adjectives
+mepüya/mepüfu	sky blue (lake blue)	Adjectives
+súsë	dark blue (ocean)	Adjectives
+yaya	orange/yellow (sun)	Adjectives
+néya/néfë	orange-red (fire)	Adjectives
+toka	purple, pink, grue, any unnatural color	Adjectives
+ya'a	lighter variation of (color)	Adjectives
+iboya/ibuy(V)	darker variation of (color)	Adjectives
+wa'i	saturated variation of (color), rejuvenated by fire, ember-touched, lit up by fire	Adjectives
+yoba/yob(V)	paler variation of (color)	Adjectives
+nélala	ember(s)	Irregular Plural Nouns
+ibo	shadow	Nouns
+nggoye	to bubble, to boil	Verbs
+pífwe	reason	Nouns
+nahayo	to fascinate	Reflexive Verbs
+tapa'on	to interact	Superabstracted Verbs
+bähulala/yubaya	uneasy	Adjectives
+adedayo	to make a mistake	Verbs
+a/ngí	about, concerning	Miscellaneous
+kyone	real	Adjectives
+nu'á'o	diverse	Adjectives
+kësa	to unlock	Verbs
+sem sem sem	"yeah yeah..."	Phrases
+náwes	inevitable, evercoming	Adjectives
+sätä	to go against societal norms	Verbs
+kyénä	fish that has just been caught, a body that has just died	Nouns
+ndeniwus	to bless	Verbs
+müta tapa gya sana (nam ndásana ano)	stop touching the door (and walk through it) "stop being indecisive (and commit to something)"	Phrases
+wandda	to twirl around, to spin around, (by extension) to wag (a tail)	Verbs
+suli	to come, to move towards the speaker, to move nearer to the point of perspective	Verbs
+wanddayo	to dance	Reflexive Verbs
+sipilana	to scare	Verbs
+gugulu	to search for a piece of information (via books, other people, etc)	Verbs
+besekya	to turn into (another physical form)	Verbs
+besekya'an	to change clothes	Abstracted Verbs
+semes	chief of a human village	Nouns
+nggáhetí	enemy(ies)	Irregular Plural Nouns
+yima	ok (all good)	Miscellaneous
+kahāme	forest	Nouns
+tike	peaceful	Adjectives
+sá	hushing sound	Onomatopoeia
+soma	to fear	Verbs
+kílu	rough (surface), rigid	Adjectives
+ndásanayo	to propose (an idea)	Verbs
+tápa	book	Nouns
+nggoyo	to exhaust (someone), to tire out (someone) repeatedly	Verbs
+nggoya	drained (of energy), exhausted	Adjectives
+nggongo	to bang, to slam	Verbs
+lapa	type	Nouns
+keviwes	a (usually blessed) warrior/fighter with the highest valor/honor	Religious Terms
+yofo	wind(s), gust(s)	Irregular Plural Nouns
+mibe	clay	Nouns
+naogu	seafloor(s)/oceanfloor(s)	Irregular Plural Nouns
+fipe	grain(s)	Irregular Plural Nouns
+sisa	cereal crop, a crop capable of being milled into grain or flour	Nouns
+naohé	riverbed(s)	Irregular Plural Nouns
+sífi	flour, powder, processed grain	Nouns
+núba	stream, small offshoot	Nouns
+naopü	lakebed(s)	Irregular Plural Nouns
+na	surface, plane	Nouns
+mika	color	Nouns
+fufo	to wring out (a wet cloth), to straighten out/flatten out a piece of (dry) textile	Verbs
+naka	isolated, remote	Adjectives
+ádobo	civilization(s)	Irregular Plural Nouns
+kapa	a neighborhood; an obscure, very small settlement	Nouns
+ngahé / nggahé	a large village centered around a river or a large village in general	Nouns
+ngaki / nggaki	a settlement near a large body of water	Nouns
+feohiki	a (usually) well-known, very large settlement, city	Nouns
+sínaha	to roam, to wander aimlessly or without direction	Verbs
+gelasa	particular, specific	Adjectives
+nga	destination, end-point	Nouns
+anwe'e	somewhere, in/at/near an unspecific place	Miscellaneous
+ndáki	a bridge or crossing, a passageway (usually) wedged between something	Nouns
+fihi	sand	Nouns
+kisi	grass	Nouns
+gyembbu	dirt	Nouns
+kabo	(usually of a surface) stone, slate	Nouns
+mipa	plant	Nouns
+mipātoka/sásiztoka	coneflower	Nouns
+ému	spear	Nouns
+ëvënefu	shelf	Nouns
+gyolo	tail	Nouns
+imono	fur	Nouns
+imono ya	fluffy	Adjectives
+ímova	shiny	Adjectives
+ongome	cloud	Nouns
+ódemu	square, box	Nouns
+úmoke	basket	Nouns
+ühela	axe	Nouns
+veka	ocean wave(s)	Irregular Plural Nouns
+daga	table	Nouns
+sema	after	Miscellanous
+sengki	before	Miscellanous
+népiki	sunrise	Nouns
+nétoki	sunset	Nouns
+boha	passive agressive "ani"	Nouns
+fesána	to aim, to predict	Verbs
+sána fwí te	archer	Nouns
+fwígiwes	a (usually blessed) high-ranking archer (sharpshooter)	Nouns
+wandda ketiyani te	dancer	Nouns
+tanta mbitsë te	someone who hacks (down trees, plants, or something in the way), clearer	Nouns
+mipa kokena te	farmer	Nouns
+néti	altar (usually for fire)	Nouns
+sásu	flower	Nouns
+sása	cyclic, repetitive, (by extension) predictable	Adjectives
+upwá	sepal(s)	Irregular Plural Nouns
+sási	petal(s) (of a flower)	Irregular Plural Nouns
+hele	to bring about (something from somewhere known to another known place)	Verbs
+heleyo	to retrace ones (own) places or steps	Reflexive Verbs
+hele'an	to unwillingly bring along someone (who doesnt know where a place you do is)	Abstracted Verbs
+népa/vopa	the first few houses surrounding a túwus (bonfire) of the settlement	Nouns
+néki/voki	the neighborhood of homes surrounding a túwus (bonfire) of a large settlement	Nouns
+néhiki	the sector of a large, usually well known, settlement with the túwus (bonfire)	Nouns
+hetivi	a long double-bladed weapon, sword	Nouns
+hevi	any short, bladed weapon	Nouns
+gavi	blade, edge	Nouns
+ngivi	a short curved-blade weapon (usually) used to slash or reap, war sickle	Nouns
+ngitivi	a long curved-bladed weapon (usually) used to slash or reap, war scythe	Nouns
+évimu	a short weapon used to stab or thrust, dagger	Nouns
+évitimu	a long weapon used to stab or thrust, lance, bayonet	Nouns
+ngana	agricultural sickle	Nouns
+ngatina	agricultural scythe	Nouns
+hena	cutting knife, food knife	Nouns
+gugu	neck	Nouns about Bones, Limbs, Body Parts, and Death
+kingi	to hit on an anvil to shape	Verbs
+ngátoyos	"execution by ngingi", where a criminal is non-lethally crucified low to the ground, wounded so blood is spilled, and left to the ngingi	Verbs
+heoba	hand-crafted axe	Nouns
+ipalas	taboo, taboo action	Nouns
+sáne	to give way (for something to come), to yield (to something)	Verbs
+sáneyo	to rise (for a perceived greater good)	Reflexive Verbs
+fefe	to pet (an animal)	Verbs
+ungkala	heavy to the point where it requires more than one person	Adjectives
+síhata	the marriage game	Nouns
+animono/anímono	raccoon	Nouns
+gega	crocodile	Nouns
+sakisaki / titikyugyi	squirrel	Nouns
+bengkeng	goose	Nouns
+lugubi / lutubi	boar	Nouns
+gimbbi	large animals: crocodile, deer, boar, sharks	Nouns
+salumala	oyster	Nouns
+hükaka	the action of doing something taboo	Verbs
+tulatsa	to suspect	Verbs
+wandda'an	to wag (a tail)	Abstracted Verbs
+melëtsa	board game	Nouns
+tsahäs	the northern lands, resting place of kehibi'i	Religious Terms
+nanalohí	goodbye	Phrases
+máfëtär	safely, securely	Miscellaneous
+nana/naná	bye bye, see you	Phrases
+gupi	worm(s)	Irregular Plural Nouns
+gupimëte	a'atsilwi script (worm writing)	Nouns
+kehimëte	main ngimëte script (mountain script)	Nouns
+kepwámëte	a'atsilwi version of the main ngimëte script (low mountain script)	Nouns
+mëte	any spoken communication/language, type(s) of native ngimëte orthography	Nouns
+sowa	to inhabit, to live (somewhere)	Verbs
+ndá	through, between somewhere	Miscellaneous
+migu	to ask, to inquire, to question	Verbs
+pawana	belonging to a past, recent, time	Adjectives
+kone'e	during (temporal preposition)	Miscellaneous
+mowa	wealthy, rich	Adjectives
+vese te/vefe te	a job	Nouns
+nutu	unwanted	Adjectives
+bekive	to forgive	Verbs
+dayo te	a mistake caused by the subject	Nouns
+da müta yo dayo te pá	interjection to get somebody's attention (lit. HON prevent my mistake (before it happens) HON); highly formal	Phrases
+da sáne pá	interjection before getting past someone (lit. HON yield HON); highly formal	Phrases
+kavu	to guard, to passively defend (from attack)	Verbs
+kavu te	dog, "the one who guards"	Nouns
+foye/fo'i	small (of size)	Adjectives
+foye te/	cat, "little one"	Nouns
+/novi te	cat, "one who stares down upon you"	Nouns
+novi	to stare down at (something), to observe after passing	Verbs
+noviso	to reflect upon one's outer appearance	Reflexive Verbs
+novi'an	to unwillingly look at the aftermath of something	Abstracted Verbs
+/tongku	the sound of a tree hitting the ground	Onomatopoeia
+tongku/	the sound of a thin, hollow, perhaps dead, or otherwise not-very-dense tree hitting the ground	Onomatopoeia
+mbinddun/	the sound of a thick, dense tree hitting the ground	Onomatopoeia
+/tongkilongku	the sound of logs rumbling as they hit and roll on the ground, swimming away from you as you give chase	Onomatopoeia
+kihikifufu/kihivisisi	the sound of grass rustling when rabbits run away	Onomatopoeia
+ngíhi'hi'hi'ha'ha'há/ngéhihihaha'há	the sound of ngingi	Onomatopoeia
+tumpilumpu	the sound of going up a flight of stairs	Onomatopoeia
+tumpu	the sound of taking a step	Onomatopoeia
+vuvu/	the sound of walking on loose dirt	Onomatopoeia
+kuluku/kiliki	the sound of ngingi effigies rattling (in the wind)	Onomatopoeia
+yuleyu	to play an instrument	Verbs
+tumpe	a step (you take with your feet)	Verbs
+yule	to press down the fingers	Verbs
+yuleyo	to grip	Reflexive Verbs
+yuleyu'an	to be forced to play a musical instrument	Abstracted Verbs
+mewu	someone/somebody	Nouns
+kusákasá/sísi	the sound of the leaves of a falling tree shaking	Onomatopoeia
+gagu	fool	Nouns
+féyu	to toggle a lever or switch, to lock (a door)	Verbs
+towa	to jump	Verbs
+towa'an	to bounce	Abstracted Verbs
+towa'on	to ricochet	Superabstracted Verbs
+lowi ya/botsë ya	low (of elevation)	Adjectives
+tiwi ya/bo ongome	high (of elevation)	Adjectives
+tongku ya/tongkuyu	low (of pitch)	Adjectives
+sene ya/seneyu	high (of pitch)	Adjectives
+lowiyo/lowiso	to crouch, to lower your body down to the ground	Reflexive Verbs
+hümä	to mumble	Verbs
+apesene	to sing	Verbs
+kapwá	a card (in a game)	Nouns
+gaguyu	foolish	Adjectives
+huliyan	artist	Nouns
+sísin	to rustle, to shake	Verbs
+sísingu	foliage	Nouns
+damüyodepa	interjection to get somebody's attention; semi formal	Phrases
+dásapa	interjection before getting past someone; semi formal	Phrases
+hohiho	to do the mochi thing	Verbs
+hohiho'an	to be forced to do the repetitive labour by an elder family member	Abstracted Verbs
+hohihoyo	to cartwheel, to do acrobatics	Reflexive Verbs
+yua	pejorative intensifier	Miscellaneous
