@@ -19,7 +19,7 @@
         margin-bottom: 20px;
     }
 
-    .menu-section-title {
+    .line {
         font-weight: bold;
         border-bottom: 1px solid #ccc;
         margin-bottom: 5px;
@@ -65,7 +65,7 @@
     <h1>ngimëte</h1>
     <div class="menu">
         <div class="menu-section">
-            <div class="menu-section-title">Tools</div>
+            <div class="line"></div>
             <a id="about">
                 About
                 <div class="desc">
@@ -118,7 +118,7 @@
     </div>
 </body>
 <script>
-    const isLocalhost = window.location.hostname == "localhost"
+    const isLocalhost = window.location.hostname == "localhost" || window.location.hostname == "127.0.0.1";
     document.querySelectorAll(".menu a").forEach(elem => {
         if(isLocalhost) elem.href = elem.id + ".html"
         else elem.href = elem.id
