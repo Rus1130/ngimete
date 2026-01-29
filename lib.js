@@ -450,7 +450,7 @@ const SYLLABLES = [
     `kid(?![${GROUPS.V}${GROUPS.C}])`, // kid not followed by vowel or consonant
     `CVN(?![${GROUPS.V}])`, // consonant-vowel-nasal not followed by vowel
     `CVN(?=[${GROUPS.C}])`, // consonant-vowel-nasal followed by consonant
-    `(C)Vs(?![${GROUPS.V}])`, // (consonant)-vowel-s not followed by vowel or consonant
+    `(C)Vs(?![${GROUPS.V}])`, // (consonant)-vowel-s not followed by vowel
     `VN(?=[${GROUPS.C}])`, // vowel-nasal followed by consonant
     "CV",
     "V"
