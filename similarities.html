@@ -97,7 +97,11 @@
         <select id="minimal-pair-type" style="margin-bottom: 10px;">
             <option value="orthographic" selected>Orthographic</option>
             <option value="phonetic">Phonetic</option>
-        </select>
+        </select><br>
+        <label for="minimal-pair-differ-type">Minimal pair single vowel difference only:</label>
+        <input type="checkbox" id="minimal-pair-differ-type">
+        <span>(táne - tane matches; tane - tine and tane - tame do not)</span>
+        <br><br>
     </div>
     <br>
     <button id="begin" style="margin-bottom: -20px;">Begin</button>
@@ -133,6 +137,8 @@
         minimalPairDistanceValue.textContent = minimalPairDistanceInput.value;
     });
 
+    const minimalPairDifferTypeCheckbox = document.getElementById("minimal-pair-differ-type");
+
     // Keep track of rendered divs by key
     const homophoneDivs = new Map();
     const minimalPairDivs = new Map();
@@ -144,6 +150,24 @@
         "oː": "O",
         "uː": "U",
         "ɑː": "Q",
+    }
+
+    const longVowelOrthoFixes = {
+        "á": "A",
+        "é": "E",
+        "í": "I",
+        "ó": "O",
+        "ú": "U",
+        "är": "Q",
+    }
+
+    const longToShort = {
+        "A": "a",
+        "E": "e",
+        "I": "i",
+        "O": "o",
+        "U": "u",
+        "Q": "ä",
     }
 
     function isHomophone(word1, word2, dialect, type){
@@ -163,7 +187,15 @@
         else throw new Error("Invalid type for isHomophone");
     }
 
-    function isNearHomophone(word1, word2, dialect, type){
+    /**
+     * Checks if two words are homophones in the specified dialect and type.
+     * @param {Object} word1 - The first word object.
+     * @param {Object} word2 - The second word object.
+     * @param {string} dialect - The dialect to check ('A'atsilwi' or 'Standard').
+     * @param {string} type - The type of homophone check ('orthographic' or 'phonetic').
+     * @param {boolean} singleVowelDifference - Only match if a single vowel difference exists (tane - táne matches; tane - tine and tane - tame do not)
+     */
+    function isNearHomophone(word1, word2, dialect, type, singleVowelDifference = false){
         let val1;
         let val2;
 
@@ -182,6 +214,39 @@
 
         } else {
             throw new Error("Invalid type for isNearHomophone");
+        }
+
+        if (singleVowelDifference) {
+            if (val1 === val2) return false;
+            if (val1.length !== val2.length) return false;
+
+
+            for(const [longVowel, replacement] of Object.entries(longVowelOrthoFixes)){
+                val1 = val1.replaceAll(longVowel, replacement);
+                val2 = val2.replaceAll(longVowel, replacement);
+            }
+
+            let differences = 0;
+
+            for (let i = 0; i < val1.length; i++) {
+                if (val1[i] !== val2[i]) {
+                    differences++;
+                    if (differences > 1) return false;
+
+                    const a = val1[i];
+                    const b = val2[i];
+
+                    const isSameVowelLengthDiff =
+                        (longToShort[a] === b) ||
+                        (longToShort[b] === a);
+
+                    if (!isSameVowelLengthDiff) {
+                        return false;
+                    }
+                }
+            }
+
+            return differences === 1;
         }
 
         if(Math.abs(val1.length - val2.length) > parseInt(minimalPairDistanceInput.value)){
@@ -338,7 +403,7 @@
                 }
 
                 // --- NEAR HOMOPHONE (MINIMAL PAIR) CHECK ---
-                if (isNearHomophone(w1, w2, dialect, minimalPairType)) {
+                if (isNearHomophone(w1, w2, dialect, minimalPairType, minimalPairDifferTypeCheckbox.checked)) {
                     let key = `${w1.value[dialect]} ~ ${w2.value[dialect]}`
                     
                     if(minimalPairType == "phonetic"){
@@ -456,6 +521,7 @@
             document.getElementById("minimal-pair-distance-value").textContent = settings.maxMinimalPairDistance;
             document.getElementById("homophone-type").value = settings.homophoneType;
             document.getElementById("minimal-pair-type").value = settings.minimalPairType;
+            document.getElementById("minimal-pair-differ-type").checked = settings.minimalPairDifferType;
 
             // Set included categories
             const checkboxes = document.querySelectorAll('input[name="exclude-category"]');
@@ -503,7 +569,8 @@
                 maxMinimalPairDistance: minimalPairDistanceInput.value,
                 homophoneType: homophoneTypeSelect.value,
                 minimalPairType: minimalPairTypeSelect.value,
-                includedCategories: includedCategories
+                includedCategories: includedCategories,
+                minimalPairDifferType: minimalPairDifferTypeCheckbox.checked,
             }));
 
 

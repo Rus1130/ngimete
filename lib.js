@@ -450,7 +450,7 @@ const SYLLABLES = [
     `kid(?![${GROUPS.V}${GROUPS.C}])`, // kid not followed by vowel or consonant
     `CVN(?![${GROUPS.V}])`, // consonant-vowel-nasal not followed by vowel
     `CVN(?=[${GROUPS.C}])`, // consonant-vowel-nasal followed by consonant
-    `(C)Vs(?![${GROUPS.V}${GROUPS.C}])`, // (consonant)-vowel-s not followed by vowel or consonant
+    `(C)Vs(?![${GROUPS.V}])`, // (consonant)-vowel-s not followed by vowel or consonant
     `VN(?=[${GROUPS.C}])`, // vowel-nasal followed by consonant
     "CV",
     "V"
@@ -493,7 +493,9 @@ const diphthongs = [
     "oa",
     "ie",
     "ae",
-    "ua"
+    "ua",
+    "ai",
+    "ia"
 ]
 
 const non_syllabic_diacritic = "̯";
@@ -1049,7 +1051,6 @@ function script(s, type = 0){
                 let char = s[i];
 
 
-
                 if(kepwamete_script_map[char] != undefined){
                     if(kepwamete_script_map[char].multi) pipeline.push(...kepwamete_script_map[char].parts);
                     else pipeline.push(kepwamete_script_map[char]);
@@ -1156,11 +1157,6 @@ function script(s, type = 0){
                     continue;
                 }
 
-                // if(curr.vowel && target.glyph.vowel){
-                //     renderPipeline.push({ ...curr });
-                //     continue;
-                // }
-
 
                 const { glyph: prev, index } = target;
                 const slotBlocked = (curr.top && prev.top) || (curr.bottom && prev.bottom) ||
@@ -1171,7 +1167,9 @@ function script(s, type = 0){
                     if (prev.multi) {
                         const lastIdx = prev.parts.length - 1;
                         const lastPart = prev.parts[lastIdx];
-                        prev.parts[lastIdx] = {
+
+
+                        const _glyph = {
                             ...lastPart,
                             top: lastPart.top || curr.top,
                             bottom: lastPart.bottom || curr.bottom,
@@ -1180,9 +1178,11 @@ function script(s, type = 0){
                             special: lastPart.special || curr.special,
                             vowel: false,
                             merged: true,
-                        };
+                        }
+
+                        prev.parts[lastIdx] = _glyph;
                     } else {
-                        renderPipeline[index] = {
+                        const _glyph = {
                             base: prev.base,
                             top: prev.top || curr.top,
                             bottom: prev.bottom || curr.bottom,
@@ -1191,7 +1191,9 @@ function script(s, type = 0){
                             special: prev.special || curr.special,
                             vowel: false,
                             merged: true,
-                        };
+                        }
+
+                        renderPipeline[index] = _glyph;
                     }
 
                     if (curr.base.startsWith(VOWEL_Á)) {
