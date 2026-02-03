@@ -75,9 +75,9 @@
         <label for="dialect-select">A'atsilwi dialect:</label>
         <input type="checkbox" id="dialect-select">
 
-        <label for="minimal-pair-distance" title="Maximum number of differing letters between two words to be considered a minimal pair.">Max Minimal Pair Distance:</label>
-        <input type="range" id="minimal-pair-distance" min="0" max="8" value="0" title="Maximum number of differing letters between two words to be considered a minimal pair.">
-        <span id="minimal-pair-distance-value" title="Maximum number of differing letters between two words to be considered a minimal pair.">0</span>
+        <label for="max-pair-length-diff">Max minimal pair length difference:</label>
+        <input type="range" id="max-pair-length-diff" min="0" max="8" value="0">
+        <span id="max-pair-length-diff-value">0</span>
         <br id="REMOVE-ME">
 
         <label for="exclude-categories-dropdown">Include Categories:</label>
@@ -124,8 +124,8 @@
 
     const dialectSelect = document.getElementById("dialect-select");
 
-    const minimalPairDistanceInput = document.getElementById("minimal-pair-distance");
-    const minimalPairDistanceValue = document.getElementById("minimal-pair-distance-value");
+    const maxPairLengthDiff = document.getElementById("max-pair-length-diff");
+    const maxPairLengthDiffValue = document.getElementById("max-pair-length-diff-value");
 
     const minimalPairTypeSelect = document.getElementById("minimal-pair-type");
     const homophoneTypeSelect = document.getElementById("homophone-type");
@@ -133,8 +133,8 @@
     const homophoneHeading = document.getElementById("homophone-heading");
     const minimalPairHeading = document.getElementById("minimal-pair-heading");
 
-    minimalPairDistanceInput.addEventListener("input", () => {
-        minimalPairDistanceValue.textContent = minimalPairDistanceInput.value;
+    maxPairLengthDiff.addEventListener("input", () => {
+        maxPairLengthDiffValue.textContent = maxPairLengthDiff.value;
     });
 
     const minimalPairDifferTypeCheckbox = document.getElementById("minimal-pair-differ-type");
@@ -249,7 +249,7 @@
             return differences === 1;
         }
 
-        if(Math.abs(val1.length - val2.length) > parseInt(minimalPairDistanceInput.value)){
+        if(Math.abs(val1.length - val2.length) > parseInt(maxPairLengthDiff.value)){
             return false;
         }
 
@@ -268,11 +268,20 @@
                     return false;
                 }
 
-                if(val1.length > val2.length){
+                if (val1[i+1] === val2[j+1]) {
                     i++;
-                } else if(val1.length < val2.length){
                     j++;
-                } else {
+                }
+                // try deletion in val1
+                else if (val1[i+1] === val2[j]) {
+                    i++;
+                }
+                // try insertion in val1
+                else if (val1[i] === val2[j+1]) {
+                    j++;
+                }
+                // fallback
+                else {
                     i++;
                     j++;
                 }
@@ -517,8 +526,8 @@
             const settings = JSON.parse(localStorage.getItem("ngimete-similarities-settings"));
 
             document.getElementById("dialect-select").checked = settings.dialect === "A'atsilwi";
-            document.getElementById("minimal-pair-distance").value = settings.maxMinimalPairDistance;
-            document.getElementById("minimal-pair-distance-value").textContent = settings.maxMinimalPairDistance;
+            document.getElementById("max-pair-length-diff").value = settings.maxMinimalPairDistance;
+            document.getElementById("max-pair-length-diff-value").textContent = settings.maxMinimalPairDistance;
             document.getElementById("homophone-type").value = settings.homophoneType;
             document.getElementById("minimal-pair-type").value = settings.minimalPairType;
             document.getElementById("minimal-pair-differ-type").checked = settings.minimalPairDifferType;
@@ -558,15 +567,15 @@
 
             document.getElementById("chosen-settings").innerHTML =
                 `<b>Dialect:</b> ${getDialect()}<br>
-                 <b>Max Minimal Pair Distance:</b> ${minimalPairDistanceInput.value}<br>
                  <b>Homophone Type:</b> ${homophoneTypeSelect.value}<br>
                  <b>Minimal Pair Type:</b> ${minimalPairTypeSelect.value}<br>
+                 <b>Max Minimal Pair Distance:</b> ${maxPairLengthDiff.value}<br>
                  <b>Excluded Categories:</b> ${excludedCategories.length > 0 ? excludedCategories.join(", ") : "None"}`;
 
 
             localStorage.setItem("ngimete-similarities-settings", JSON.stringify({
                 dialect: getDialect(),
-                maxMinimalPairDistance: minimalPairDistanceInput.value,
+                maxMinimalPairDistance: maxPairLengthDiff.value,
                 homophoneType: homophoneTypeSelect.value,
                 minimalPairType: minimalPairTypeSelect.value,
                 includedCategories: includedCategories,

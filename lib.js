@@ -445,15 +445,15 @@ const GROUPS = {
 };
 
 const SYLLABLES = [
+    `kid`, // special case for "kid"
     "FwV", // (f/p/b/t)w(vowel)
-    `Til(?![${GROUPS.V}])`, // (s/ts)il 
-    `kid(?![${GROUPS.V}${GROUPS.C}])`, // kid not followed by vowel or consonant
+    `TVl(?![${GROUPS.V}])`, // (s/ts)Vl 
     `CVN(?![${GROUPS.V}])`, // consonant-vowel-nasal not followed by vowel
     `CVN(?=[${GROUPS.C}])`, // consonant-vowel-nasal followed by consonant
     `(C)Vs(?![${GROUPS.V}])`, // (consonant)-vowel-s not followed by vowel
     `VN(?=[${GROUPS.C}])`, // vowel-nasal followed by consonant
     "CV",
-    "V"
+    "V",
 ];
 
 function syllabifyWord(word, groups, templates) {
@@ -1130,6 +1130,7 @@ function script(s, type = 0){
         for (let i = 0; i < s.length; i++) {
             const char = s[i];
             const curr = script_map[char];
+            const prev = renderPipeline[renderPipeline.length - 1];
 
             // Handle first character or non-existent mapping
             if (i == 0 || !curr) {
@@ -1140,7 +1141,7 @@ function script(s, type = 0){
             if (curr.merged == undefined) curr.merged = false;
 
             // Push if previous is raw, multi, or special cases
-            if (renderPipeline[renderPipeline.length - 1]?.raw || curr.multi || curr.special || 
+            if (prev?.raw || curr.multi || curr.special || 
                 curr.base == VOWEL_LONG_MARKER || curr.base == PRENASAL_MARKER) {
                 renderPipeline.push(curr.multi ? copy(curr) : { ...curr });
                 continue;
@@ -1148,6 +1149,7 @@ function script(s, type = 0){
 
             // Try to merge vowels with diacritics
             const currHasDiacritics = curr.top || curr.bottom || curr.left || curr.right || curr.special;
+
 
             if (curr.vowel && currHasDiacritics) {
                 const target = findMergeTarget(renderPipeline);
