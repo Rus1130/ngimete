@@ -970,7 +970,7 @@ function script(s, type = 0){
             multi: true,
             parts: [
                 { base: "ᨄ", mod: false, top: false, bottom: false },
-                { base: "ᨈ", mod: false, top: top, bottom: false },
+                { base: "ᨈ", mod: false, top: true, bottom: false },
             ],
         },
 
@@ -1018,8 +1018,8 @@ function script(s, type = 0){
     const NEW_KEPWAMETE = true;
 
     const script_replace_list = {
-        "mbb": "\uE002", // X
-        "ndd": "\uE001", // Y
+        "mbb": "\uE002", // mb
+        "ndd": "\uE001", // nd
         "mb": "\uE003", // B
         "nd": "\uE004", // D
         "ngg": "\uE005", // G
@@ -1038,7 +1038,6 @@ function script(s, type = 0){
     for(const [key, value] of Object.entries(script_replace_list)){
         s = s.replaceAll(key, value)
     }
-
 
     let rendered = ""
 
@@ -1122,116 +1121,133 @@ function script(s, type = 0){
     const PRENASAL_MARKER = "ᨌ"
 
     if (type == 1) {
-        let renderPipeline = [];
+        const prerenderPipeline = [];
 
-        // Helper to deep copy glyphs
-        const copy = (g) => g?.multi ? { ...g, parts: g.parts.map(p => ({ ...p })) } : { ...g };
-
-        for (let i = 0; i < s.length; i++) {
-            const char = s[i];
-            const curr = script_map[char];
-            const prev = renderPipeline[renderPipeline.length - 1];
-
-            // Handle first character or non-existent mapping
-            if (i == 0 || !curr) {
-                renderPipeline.push(curr ? copy(curr) : { raw: true, base: char });
-                continue;
-            }
-
-            if (curr.merged == undefined) curr.merged = false;
-
-            // Push if previous is raw, multi, or special cases
-            if (prev?.raw || curr.multi || curr.special || 
-                curr.base == VOWEL_LONG_MARKER || curr.base == PRENASAL_MARKER) {
-                renderPipeline.push(curr.multi ? copy(curr) : { ...curr });
-                continue;
-            }
-
-            // Try to merge vowels with diacritics
-            const currHasDiacritics = curr.top || curr.bottom || curr.left || curr.right || curr.special;
-
-
-            if (curr.vowel && currHasDiacritics) {
-                const target = findMergeTarget(renderPipeline);
-
-                if (!target || target.glyph.merged) {
-                    renderPipeline.push({ ...curr });
-                    continue;
+        for(let i = 0; i < s.length; i++){
+            const curr = script_map[s[i]];
+            if(curr == undefined){
+                prerenderPipeline.push({ raw: true, base: s[i] });
+            } else {
+                if(curr.multi){
+                    let copy = structuredClone(curr);
+                    prerenderPipeline.push(...copy.parts);
+                } else {
+                    prerenderPipeline.push(structuredClone(curr));
                 }
-
-
-                const { glyph: prev, index } = target;
-                const slotBlocked = (curr.top && prev.top) || (curr.bottom && prev.bottom) ||
-                                    (curr.left && prev.left) || (curr.right && prev.right) ||
-                                    (curr.special && prev.special);
-
-                if (!slotBlocked) {
-                    if (prev.multi) {
-                        const lastIdx = prev.parts.length - 1;
-                        const lastPart = prev.parts[lastIdx];
-
-
-                        const _glyph = {
-                            ...lastPart,
-                            top: lastPart.top || curr.top,
-                            bottom: lastPart.bottom || curr.bottom,
-                            left: lastPart.left || curr.left,
-                            right: lastPart.right || curr.right,
-                            special: lastPart.special || curr.special,
-                            vowel: false,
-                            merged: true,
-                        }
-
-                        prev.parts[lastIdx] = _glyph;
-                    } else {
-                        const _glyph = {
-                            base: prev.base,
-                            top: prev.top || curr.top,
-                            bottom: prev.bottom || curr.bottom,
-                            left: prev.left || curr.left,
-                            right: prev.right || curr.right,
-                            special: prev.special || curr.special,
-                            vowel: false,
-                            merged: true,
-                        }
-
-                        renderPipeline[index] = _glyph;
-                    }
-
-                    if (curr.base.startsWith(VOWEL_Á)) {
-                        renderPipeline.push({ raw: true, base: VOWEL_LONG_MARKER });
-                    }
-                    
-                    continue;
-                }
-            }
-
-            renderPipeline.push({ ...curr });
-        }
-
-        const ALLOW_REPEATED_CONSONANT_MERGE = true;
-
-        if(ALLOW_REPEATED_CONSONANT_MERGE) for(let i = 0; i < renderPipeline.length - 1; i++){
-            let curr = renderPipeline[i];
-            let next = renderPipeline[i + 1];
-
-            if(
-                next.base == curr.base && 
-                curr.special == false  && 
-                next.special == false  &&
-                curr.vowel == false    && 
-                next.vowel == false
-            ){
-                if(next.top || next.left || next.right || next.bottom || next.special) continue;
-
-                curr.special = true;
-
-                renderPipeline.splice(i + 1, 1);
-                i--;
             }
         }
 
         rendered = renderPipeline.map(renderGlyph).join("");
+
+        //rendered = prerenderPipeline.map(renderGlyph).join("");
+
+
+        // let renderPipeline = [];
+
+        // // Helper to deep copy glyphs
+        // const copy = (g) => g?.multi ? { ...g, parts: g.parts.map(p => ({ ...p })) } : { ...g };
+
+        // for (let i = 0; i < s.length; i++) {
+        //     const char = s[i];
+        //     const curr = script_map[char];
+        //     const prev = renderPipeline[renderPipeline.length - 1];
+
+        //     // Handle first character or non-existent mapping
+        //     if (i == 0 || !curr) {
+        //         renderPipeline.push(curr ? copy(curr) : { raw: true, base: char });
+        //         continue;
+        //     }
+
+        //     if (curr.merged == undefined) curr.merged = false;
+
+        //     // Push if previous is raw, multi, or special cases
+        //     if (prev?.raw || curr.multi || curr.special || 
+        //         curr.base == VOWEL_LONG_MARKER || curr.base == PRENASAL_MARKER) {
+        //         renderPipeline.push(curr.multi ? copy(curr) : { ...curr });
+        //         continue;
+        //     }
+
+        //     // Try to merge vowels with diacritics
+        //     const currHasDiacritics = curr.top || curr.bottom || curr.left || curr.right || curr.special;
+
+
+        //     if (curr.vowel && currHasDiacritics) {
+        //         const target = findMergeTarget(renderPipeline);
+
+        //         if (!target || target.glyph.merged) {
+        //             renderPipeline.push({ ...curr });
+        //             continue;
+        //         }
+
+
+        //         const { glyph: prev, index } = target;
+        //         const slotBlocked = (curr.top && prev.top) || (curr.bottom && prev.bottom) ||
+        //                             (curr.left && prev.left) || (curr.right && prev.right) ||
+        //                             (curr.special && prev.special);
+
+        //         if (!slotBlocked) {
+        //             if (prev.multi) {
+        //                 const lastIdx = prev.parts.length - 1;
+        //                 const lastPart = prev.parts[lastIdx];
+
+
+        //                 const _glyph = {
+        //                     ...lastPart,
+        //                     top: lastPart.top || curr.top,
+        //                     bottom: lastPart.bottom || curr.bottom,
+        //                     left: lastPart.left || curr.left,
+        //                     right: lastPart.right || curr.right,
+        //                     special: lastPart.special || curr.special,
+        //                     vowel: false,
+        //                     merged: true,
+        //                 }
+
+        //                 prev.parts[lastIdx] = _glyph;
+        //             } else {
+        //                 const _glyph = {
+        //                     base: prev.base,
+        //                     top: prev.top || curr.top,
+        //                     bottom: prev.bottom || curr.bottom,
+        //                     left: prev.left || curr.left,
+        //                     right: prev.right || curr.right,
+        //                     special: prev.special || curr.special,
+        //                     vowel: false,
+        //                     merged: true,
+        //                 }
+
+        //                 renderPipeline[index] = _glyph;
+        //             }
+                    
+        //             continue;
+        //         }
+        //     }
+
+        //     renderPipeline.push({ ...curr });
+        // }
+
+        // const ALLOW_REPEATED_CONSONANT_MERGE = true;
+
+        // if(ALLOW_REPEATED_CONSONANT_MERGE) for(let i = 0; i < renderPipeline.length - 1; i++){
+        //     let curr = renderPipeline[i];
+        //     let next = renderPipeline[i + 1];
+
+        //     if(
+        //         next.base == curr.base && 
+        //         curr.special == false  && 
+        //         next.special == false  &&
+        //         curr.vowel == false    && 
+        //         next.vowel == false
+        //     ){
+        //         if(next.top || next.left || next.right || next.bottom || next.special) continue;
+
+        //         curr.special = true;
+
+        //         renderPipeline.splice(i + 1, 1);
+        //         i--;
+        //     }
+        // }
+
+        // rendered = renderPipeline.map(renderGlyph).join("");
     }
 
 
