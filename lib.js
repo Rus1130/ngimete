@@ -1116,7 +1116,7 @@ function script(s, type = 0){
     }
 
     const VOWEL_A = "ᨔ"
-    const VOWEL_Á = "ᨖ"
+    const VOWEL_AA = "ᨖ"
     const VOWEL_LONG_MARKER = "ᨑ"
     const PRENASAL_MARKER = "ᨌ"
 
@@ -1134,6 +1134,69 @@ function script(s, type = 0){
                 } else {
                     prerenderPipeline.push(structuredClone(curr));
                 }
+            }
+        }
+
+
+        const renderPipeline = [];
+
+        for(let i = 0; i < prerenderPipeline.length; i++){
+            const curr = prerenderPipeline[i];
+            const prev = renderPipeline[renderPipeline.length - 1];
+
+            if(curr.raw){
+                renderPipeline.push(curr);
+                continue;
+            }
+
+            const hasAnySlot = curr.top || curr.bottom || curr.left || curr.right;
+
+            if(curr.vowel && hasAnySlot && prev && !prev.raw && !prev.merged && !curr.special){
+
+                const slotBlocked = (curr.top && prev.top) || (curr.bottom && prev.bottom) ||
+                                    (curr.left && prev.left) || (curr.right && prev.right);
+
+
+                if(!slotBlocked){
+                    prev.top = prev.top || curr.top;
+                    prev.bottom = prev.bottom || curr.bottom;
+                    prev.left = prev.left || curr.left;
+                    prev.right = prev.right || curr.right;
+                    prev.merged = true;
+
+                    if(curr.base === VOWEL_AA){
+                        renderPipeline.push({
+                            raw: true,
+                            base: VOWEL_LONG_MARKER
+                        })
+                    }
+                } else {
+                    renderPipeline.push(curr);
+                }
+            } else {
+                renderPipeline.push(curr);
+            }
+        }
+
+        const ALLOW_REPEATED_CONSONANT_MERGE = true;
+
+        if(ALLOW_REPEATED_CONSONANT_MERGE) for(let i = 0; i < renderPipeline.length - 1; i++){
+            let curr = renderPipeline[i];
+            let next = renderPipeline[i + 1];
+
+            if(
+                next.base == curr.base && 
+                curr.special == false  && 
+                next.special == false  &&
+                curr.vowel == false    && 
+                next.vowel == false
+            ){
+                if(next.top || next.left || next.right || next.bottom || next.special) continue;
+
+                curr.special = true;
+
+                renderPipeline.splice(i + 1, 1);
+                i--;
             }
         }
 
@@ -1223,28 +1286,6 @@ function script(s, type = 0){
         //     }
 
         //     renderPipeline.push({ ...curr });
-        // }
-
-        // const ALLOW_REPEATED_CONSONANT_MERGE = true;
-
-        // if(ALLOW_REPEATED_CONSONANT_MERGE) for(let i = 0; i < renderPipeline.length - 1; i++){
-        //     let curr = renderPipeline[i];
-        //     let next = renderPipeline[i + 1];
-
-        //     if(
-        //         next.base == curr.base && 
-        //         curr.special == false  && 
-        //         next.special == false  &&
-        //         curr.vowel == false    && 
-        //         next.vowel == false
-        //     ){
-        //         if(next.top || next.left || next.right || next.bottom || next.special) continue;
-
-        //         curr.special = true;
-
-        //         renderPipeline.splice(i + 1, 1);
-        //         i--;
-        //     }
         // }
 
         // rendered = renderPipeline.map(renderGlyph).join("");
