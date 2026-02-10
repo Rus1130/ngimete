@@ -661,7 +661,7 @@ function script(s, type = 0){
         p: { base: "ᨃ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         b: { base: "ᨃ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false },
         t: { base: "ᨈ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
-        d: { base: "ᨊ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
+        d: { base: "ᨈ", top: false, bottom: true, left: false, right: false, special: false, vowel: false },
         "\uE008": { base: "ᨇ", top: false, bottom: false, left: false, right: false, special: false, vowel: false }, // gy/ky
         k: { base: "ᨍ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         g: { base: "ᨍ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false },
