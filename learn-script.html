@@ -42,7 +42,9 @@
 <head>
     <div class="stats">
         correct: <span id="correct">0</span><br>
-        incorrect: <span id="incorrect">0</span>
+        incorrect: <span id="incorrect">0</span><br><br>
+        <span>type shift + e for ə</span><br>
+        <span>type shift + a for ā</span><br>
     </div>
 
     <div class="container">
@@ -62,6 +64,30 @@
     let incorrectAmnt = 0;
 
 
+    function insertAtCaret(el, text) {
+        el.focus();
+
+        let sel = window.getSelection();
+        if (!sel || sel.rangeCount === 0) return;
+
+        let range = sel.getRangeAt(0);
+
+        // keep the caret inside your input element
+        if (!el.contains(range.startContainer)) return;
+
+        range.deleteContents();
+
+        const node = document.createTextNode(text);
+        range.insertNode(node);
+
+        // move caret to the end of the inserted text
+        range.setStartAfter(node);
+        range.collapse(true);
+
+        sel.removeAllRanges();
+        sel.addRange(range);
+    }
+
     while(dict.ready != true){
         await new Promise(resolve => setTimeout(resolve, 10));
     }
@@ -70,7 +96,7 @@
         const word = dict.randomWord(["Vowel Sounds", "Consonant Sounds", "Connecting Letters", "Phrases", "Onomatopoeia", "Grammar"], true)
 
         const display = word.script["Standard"].toString("high", true, ["script"]);
-        const answer = word.value.Standard
+        const answer = word.script["Standard"].toString("high", true, ["ortho"]);
 
         textElement.textContent = display;
         textElement.dataset.answer = answer;
@@ -91,6 +117,9 @@
             inputElement.style.border = '1px black solid';
         }, 500);
     }
+
+    const schwa = "ə";
+    const a_macron = "ā";
 
     function incorrect(){
         inputElement.style.border = '3px red solid';
@@ -113,11 +142,19 @@
     }
 
     submitButton.addEventListener('click', submit);
-    inputElement.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
+
+    inputElement.addEventListener('keydown', function (e) {
+        if (e.key === "E") {
+            e.preventDefault();
+            insertAtCaret(inputElement, schwa);
+
+        } else if (e.key === "A") {
+            e.preventDefault();
+            insertAtCaret(inputElement, a_macron);
+
+        } else if (e.key === 'Enter') {
             e.preventDefault();
             submit();
         }
     });
-
 </script>
