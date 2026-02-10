@@ -1,0 +1,123 @@
+<style>
+
+    input:focus, button:focus, div[contenteditable]:focus {
+        outline: none;
+    }
+
+    #text {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    #input {
+        font-size: 20px;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #000;
+        min-width: 300px;
+    }
+
+    #submit {
+        font-size: 18px;
+        padding: 5px 20px;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+
+    .stats {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 14px;
+    }
+
+
+</style>
+<head>
+    <div class="stats">
+        correct: <span id="correct">0</span><br>
+        incorrect: <span id="incorrect">0</span>
+    </div>
+
+    <div class="container">
+        <div id="text"></div>
+        <div id="input" contenteditable="plaintext-only"></div>
+        <button id="submit">Submit</button>
+    </div>
+</head>
+<body>
+
+</body>
+<script defer type="module">
+    import { dict } from './dictionary.js';
+
+
+    let correctAmnt = 0;
+    let incorrectAmnt = 0;
+
+
+    while(dict.ready != true){
+        await new Promise(resolve => setTimeout(resolve, 10));
+    }
+
+    function getRandomWord() {
+        const word = dict.randomWord(["Vowel Sounds", "Consonant Sounds", "Connecting Letters", "Phrases", "Onomatopoeia", "Grammar"], true)
+
+        const display = word.script["Standard"].toString("high", true, ["script"]);
+        const answer = word.value.Standard
+
+        textElement.textContent = display;
+        textElement.dataset.answer = answer;
+    } 
+
+    const textElement = document.getElementById('text');
+    const inputElement = document.getElementById('input');
+    const submitButton = document.getElementById('submit');
+
+    getRandomWord();
+
+    inputElement.focus();
+
+    function correct(){
+        inputElement.style.border = '3px green solid';
+        correctAmnt++;
+        setTimeout(() => {
+            inputElement.style.border = '1px black solid';
+        }, 500);
+    }
+
+    function incorrect(){
+        inputElement.style.border = '3px red solid';
+        incorrectAmnt++;
+        console.log(textElement.dataset.answer, "(", textElement.textContent, ")");
+        setTimeout(() => {
+            inputElement.style.border = '1px black solid';
+        }, 500);
+    }
+
+    function submit(){
+        if(inputElement.textContent == textElement.dataset.answer) correct();
+        else incorrect();
+
+        document.getElementById("correct").textContent = correctAmnt;
+        document.getElementById("incorrect").textContent = incorrectAmnt;
+
+        getRandomWord();
+        inputElement.textContent = '';
+    }
+
+    submitButton.addEventListener('click', submit);
+    inputElement.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            submit();
+        }
+    });
+
+</script>
