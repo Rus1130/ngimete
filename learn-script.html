@@ -92,14 +92,36 @@
         await new Promise(resolve => setTimeout(resolve, 10));
     }
 
-    function getRandomWord() {
+    function potentialWord(){
         const word = dict.randomWord(["Vowel Sounds", "Consonant Sounds", "Connecting Letters", "Phrases", "Onomatopoeia", "Grammar"], true)
 
         const display = word.script["Standard"].toString("high", true, ["script"]);
         const answer = word.script["Standard"].toString("high", true, ["ortho"]);
 
-        textElement.textContent = display;
-        textElement.dataset.answer = answer;
+        return {display, answer};
+    }
+
+    const cache = new Set();
+
+    function getRandomWord() {
+        let word;
+        while (!word || cache.has(word.answer)) {
+            word = potentialWord();
+        }
+        cache.add(word.answer);
+        // if its longer than 10 words, remove the oldest one
+        if (cache.size > 50) {
+            cache.delete(cache.values().next().value);
+        }
+        textElement.textContent = word.display;
+        textElement.dataset.answer = word.answer;
+        // const word = dict.randomWord(["Vowel Sounds", "Consonant Sounds", "Connecting Letters", "Phrases", "Onomatopoeia", "Grammar"], true)
+
+        // const display = word.script["Standard"].toString("high", true, ["script"]);
+        // const answer = word.script["Standard"].toString("high", true, ["ortho"]);
+
+        // textElement.textContent = display;
+        // textElement.dataset.answer = answer;
     } 
 
     const textElement = document.getElementById('text');
