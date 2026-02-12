@@ -45,13 +45,12 @@
         incorrect: <span id="incorrect">0</span><br><br>
         <span>type shift + e for ə</span><br>
         <span>type shift + a for ā</span><br>
-        <span>press enter inside the text box to submit, or press the "submit" button</span>
+        <span>press enter inside the text box to submit</span>
     </div>
 
     <div class="container">
         <div id="text"></div>
         <div id="input" contenteditable="plaintext-only"></div>
-        <button id="submit">Submit</button>
     </div>
 </head>
 <body>
@@ -127,7 +126,6 @@
 
     const textElement = document.getElementById('text');
     const inputElement = document.getElementById('input');
-    const submitButton = document.getElementById('submit');
 
     getRandomWord();
 
@@ -163,8 +161,6 @@
         getRandomWord();
         inputElement.textContent = '';
     }
-
-    submitButton.addEventListener('click', submit);
 
     inputElement.addEventListener('keydown', function (e) {
         if (e.key === "E") {
