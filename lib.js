@@ -562,6 +562,8 @@ function ipa(input) {
 
     s = s.replaceAll("är", "Q");
 
+    s = s.replaceAll('"', "");
+
     s = applyRules(s, ORTHO_RULES);
 
     s = s
@@ -1291,7 +1293,18 @@ function script(s, type = 0){
         // rendered = renderPipeline.map(renderGlyph).join("");
     }
 
+    // find all quotation marks, and replace them with paired «»
 
+    let inQuotes = false;
+    rendered.split("").forEach((char, index) => {
+        if(char === "\""){
+            rendered = rendered.substring(0, index) + (inQuotes ? " »" : "« ") + rendered.substring(index + 1);
+            inQuotes = !inQuotes;
+        }
+    })
+
+
+    rendered = rendered.replaceAll('"', "")
     rendered = rendered.replace(/([^ ])ᨌ/g, "$1");
     rendered = rendered.replace(/ /g, "\u2002"); // en space
     return rendered.replace(/ ᨟$/g, "")
