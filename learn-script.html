@@ -45,13 +45,12 @@
         incorrect: <span id="incorrect">0</span><br><br>
         <span>type shift + e for ə</span><br>
         <span>type shift + a for ā</span><br>
-        <span>press enter inside the text box to submit, or press the "submit" button</span>
+        <span>press enter inside the text box to submit</span>
     </div>
 
     <div class="container">
         <div id="text"></div>
         <div id="input" contenteditable="plaintext-only"></div>
-        <button id="submit">Submit</button>
     </div>
 </head>
 <body>
@@ -93,19 +92,40 @@
         await new Promise(resolve => setTimeout(resolve, 10));
     }
 
-    function getRandomWord() {
+    function potentialWord(){
         const word = dict.randomWord(["Vowel Sounds", "Consonant Sounds", "Connecting Letters", "Phrases", "Onomatopoeia", "Grammar"], true)
 
         const display = word.script["Standard"].toString("high", true, ["script"]);
         const answer = word.script["Standard"].toString("high", true, ["ortho"]);
 
-        textElement.textContent = display;
-        textElement.dataset.answer = answer;
+        return {display, answer};
+    }
+
+    const cache = new Set();
+
+    function getRandomWord() {
+        let word;
+        while (!word || cache.has(word.answer)) {
+            word = potentialWord();
+        }
+        cache.add(word.answer);
+        // if its longer than 10 words, remove the oldest one
+        if (cache.size > 50) {
+            cache.delete(cache.values().next().value);
+        }
+        textElement.textContent = word.display;
+        textElement.dataset.answer = word.answer;
+        // const word = dict.randomWord(["Vowel Sounds", "Consonant Sounds", "Connecting Letters", "Phrases", "Onomatopoeia", "Grammar"], true)
+
+        // const display = word.script["Standard"].toString("high", true, ["script"]);
+        // const answer = word.script["Standard"].toString("high", true, ["ortho"]);
+
+        // textElement.textContent = display;
+        // textElement.dataset.answer = answer;
     } 
 
     const textElement = document.getElementById('text');
     const inputElement = document.getElementById('input');
-    const submitButton = document.getElementById('submit');
 
     getRandomWord();
 
@@ -141,8 +161,6 @@
         getRandomWord();
         inputElement.textContent = '';
     }
-
-    submitButton.addEventListener('click', submit);
 
     inputElement.addEventListener('keydown', function (e) {
         if (e.key === "E") {
