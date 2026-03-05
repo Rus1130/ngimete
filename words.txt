@@ -65,8 +65,8 @@ ati alo'a/ati äwa	grandmother	Nouns
 yam pula/yam närla	drying rack	Nouns
 kaha pula/kaha näla	wood storage	Nouns
 seve	a selfish person	Nouns
-nggawi'i	water god	Religious Terms
-vovi'i	fire god	Religious Terms
+ngawi'i/nggawi'i	god of water	Religious Terms
+vovi'i	god of fire	Religious Terms
 dom	head	Nouns about Bones, Limbs, Body Parts, and Death
 gám	arm	Nouns about Bones, Limbs, Body Parts, and Death
 ke	hand	Nouns about Bones, Limbs, Body Parts, and Death
@@ -278,8 +278,8 @@ nápa	to remember 	Verbs
 mem	communication, message	Nouns
 suntu	ocean/sea	Nouns
 kóme	shark	Nouns
-lowi'i	pit god	Religious Terms
-kehibi'i	mountain god	Religious Terms
+lowi'i	god of the pit	Religious Terms
+kehibi'i	god of the mountains	Religious Terms
 ká'ono	whole, all, entire	Adjectives
 máte	world, earth	Nouns
 sú'ufe	to cook	Verbs
@@ -349,7 +349,7 @@ nahá	to retrieve	Verbs
 naha	to put on, to adorn	Verbs
 miwa	to be able to	Verbs
 müta	to stop, to halt, to prevent (something) before it happens	Verbs
-ngolo	to follow	Verbs
+ngolo	to follow (someone/something)	Verbs
 nggolo	(usually nominal) water current	Nouns
 nggave	to deconstruct, to deassemble	Verbs
 a'i'o	shit	Nouns
@@ -412,7 +412,7 @@ kuniyo	to embark	Reflexive Verbs
 bátsiyo	to welcome	Reflexive Verbs
 kyelu	(foreign) script, writing	Nouns
 seyaya	to list	Verbs
-nagyu	to fetch, to grab	Verbs
+nagyu	to fetch, to grab (someone)	Verbs
 seyayaso	to register one's self, to sign up	Reflexive Verbs
 ndaoba	basement, cellar	Verbs
 báli	porch, foyer	Verbs
@@ -530,7 +530,7 @@ vékye	to bring (as a side effect, unintentionally)	Verbs
 ndásana	to pass/walk/go through	Verbs
 nandda	easy	Adjectives
 fén	to latch onto (something), to hold onto	Verbs
-kilu	roof, top, cover	Verbs
+kilu	roof, top, cover	Nouns
 sumpin	sibling	Nouns
 wónde	to love like family	Verbs
 móse	to quit, to give up	Verbs
@@ -694,7 +694,7 @@ salumala	oyster	Nouns
 hükaka	the action of doing something taboo	Verbs
 tulatsa	to suspect	Verbs
 wandda'an	to wag (a tail)	Abstracted Verbs
-melëtsa	board game	Nouns
+mëlëtsa/melëtsa	board game	Nouns
 tsahäs	the northern lands, resting place of kehibi'i	Religious Terms
 nanalohí	goodbye	Phrases
 máfëtär	safely, securely	Miscellaneous
@@ -707,7 +707,7 @@ mëte	any spoken communication/language, type(s) of native ngimëte orthography	
 sowa	to inhabit, to live (somewhere)	Verbs
 ndá	through, between somewhere	Miscellaneous
 migu	to ask, to inquire, to question	Verbs
-pawana	belonging to a past, recent, time	Adjectives
+pawana	belonging to a past time	Adjectives
 kone'e	during (temporal preposition)	Miscellaneous
 mowa	wealthy, rich	Adjectives
 vese te/vefe te	a job	Nouns
@@ -740,7 +740,7 @@ yule	to press down the fingers	Verbs
 yuleyo	to grip	Reflexive Verbs
 yuleyu'an	to be forced to play a musical instrument	Abstracted Verbs
 mewu	someone/somebody	Nouns
-kusákasá/sísi	the sound of the leaves of a falling tree shaking	Onomatopoeia
+sísi	the sound of the leaves of a falling tree shaking	Onomatopoeia
 gagu	fool	Nouns
 féyu	to toggle a lever or switch, to lock (a door)	Verbs
 towa	to jump	Verbs
@@ -759,10 +759,25 @@ huliyan	artist	Nouns
 sísin	to rustle, to shake	Verbs
 sísingu	foliage	Nouns
 damüyodepa	interjection to get somebody's attention; semi formal	Phrases
-dásapa	interjection before getting past someone; semi formal	Phrases
+dasápa	interjection before getting past someone; semi formal	Phrases
 hohiho	to do the mochi thing	Verbs
 hohiho'an	to be forced to do the repetitive labour by an elder family member	Abstracted Verbs
 hohihoyo	to cartwheel, to do acrobatics	Reflexive Verbs
 yua	pejorative intensifier	Miscellaneous
-proper noun	sati'i	god of the weather	Religious Terms
-proper noun	tíki'i	god of animals	Religious Terms
+sati'i	god of the weather	Religious Terms
+tíki'i	god of animals	Religious Terms
+ngingiəle	to "jump" someone	Verbs
+ngátona	to crush	Verbs
+king	anvil	Nouns
+sóhonu/sóvohu	to follow (a rule)	Verbs
+vaenas	wrestler	Nouns
+lolo	measure word	Miscellaneous
+kye	foreign	Adjectives
+shiliyompá	buttock	Nouns about Bones, Limbs, Body Parts, and Death
+nawa'ü	opponent, adversary	Nouns
+tae'e	to touch a person	Verbs
+gígu/gígubum	knee	Nouns about Bones, Limbs, Body Parts, and Death
+gámgu/gámgubum	elbow	Nouns about Bones, Limbs, Body Parts, and Death
+kon	to hit, to strike	Verbs
+fúne	cloth	Nouns
+misse	to allow, to permit	Verbs
