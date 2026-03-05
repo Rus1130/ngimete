@@ -391,6 +391,8 @@ const ORTHO_RULES = [
     { re: /\!/g, to: "." },
 
     // prenasalization
+    { re: /sh/g, to: "H" }, // sh
+    { re: /ss/g, to: "H" }, // ss
     { re: /nd/g, to: "D" }, // ⁿd
     { re: /mb/g, to: "B" }, // ᵐb
     { re: /ngg/g, to: "G" }, // ᵑg
@@ -433,12 +435,13 @@ const remap = [
     { re: /S/g, to: "t͡s" },
     { re: /M/g, to: "mb" },
     { re: /N/g, to: "nd" },
+    { re: /H/g, to: "x" },
     { re: /\.\./g, to: "" },
 ]
 
 const GROUPS = {
     "V": "aeiouɑəyAEIOUQ",
-    "C": "bdfghklmnpstvwjcŋʔSBDG",
+    "C": "bdfghklmnpstvwjcŋʔSBDGH",
     "N": "mnŋ",
     "F": "fpbts",
     "T": "Ss",
@@ -736,6 +739,9 @@ function script(s, type = 0){
             { base: "ᨄ", top: false, bottom: false, left: false, right: false, special: false, vowel: false }, // n
             { base: "ᨊ", top: false, bottom: false, left: false, right: false, special: false, vowel: false } // d
         ] },
+        "\uE00C": {
+            base: "ᨐ", top: false, bottom: false, left: false, right: false, special: false, vowel: false,
+        },
 
         // punctuation
         "(": { raw: true, base: "（" },
@@ -975,6 +981,12 @@ function script(s, type = 0){
                 { base: "ᨈ", mod: false, top: true, bottom: false },
             ],
         },
+        "\uE00C": { // sh/ss
+            base: "ᨐ",
+            mod: false,
+            top: false,
+            bottom: false,
+        },
 
 
         // "p": "ᨃ",
@@ -1031,6 +1043,8 @@ function script(s, type = 0){
         "ky": "\uE008", // C
         "är": "\uE00A", // Q
         "'": "\uE00B", // Z
+        "sh": "\uE00C", // H
+        "ss": "\uE00C", // H
         ",": " ᨞",
         ".": " ᨟",
         "?": " ᨟",
