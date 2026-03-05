@@ -781,3 +781,13 @@ gámgu/gámgubum	elbow	Nouns about Bones, Limbs, Body Parts, and Death
 kon	to hit, to strike	Verbs
 fúne	cloth	Nouns
 misse	to allow, to permit	Verbs
+esibine	to surrender	Verbs
+shune	to win	Verbs
+yole	to recieve	Verbs
+tapi	bowl	Nouns
+ngawuyam/nggawuyam	soup	Nouns
+hama	wrestling match	Nouns
+tokingi	to challenge	Verbs
+nu'á	divided by	Numerals
+tembete	total amount	Nouns
+sümewe	to offer	Verbs
