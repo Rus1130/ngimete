@@ -791,3 +791,4 @@ tokingi	to challenge	Verbs
 nu'á	divided by	Numerals
 tembete	total amount	Nouns
 sümewe	to offer	Verbs
+kyali	bell	Nouns
