@@ -1,0 +1,68 @@
+<style>
+    button:focus, input:focus, select:focus, textarea:focus, [contenteditable]:focus {
+        outline:none;
+    }
+
+    .back-to-main {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+    }
+
+    label {
+        user-select: none;
+    }
+
+    button {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 3px 8px;
+        cursor: pointer;
+        font-size: 12px;
+    }
+</style>
+<head>
+    <meta property="og:title" content="Differences">
+    <meta property="og:description" content="">
+    <meta property="og:url" content="https://rus1130.github.io/projects/ngimete/differences">
+</head>
+<body>
+    <div class="back-to-main">
+        <button onclick="location.href='index.html'" style="padding: 4px;">Back to main page</button>
+    </div>
+    
+</body>
+<script type="module">
+import { Writer, ConlangContent } from './lib.js';
+import { dict } from './dictionary.js';
+
+dict.waitForDictLoad().then(() => {
+
+    let total = 0;
+
+    const arrangedWords = dict.getAllWords().map(w => {
+
+        const excludedCategories = ["Onomotopoeia", "Grammar", "Phrases", "Consonant Sounds", "Vowel Sounds", "Connecting Letters"];
+
+        if(excludedCategories.includes(w.category)) return null;
+
+        return [w.script.Standard, w.script["A'atsilwi"]]
+    });
+
+    const differences = [];
+
+    arrangedWords.forEach(wordset => {
+        if(wordset == null) return;
+        total++;
+        if(wordset[0].toString(undefined, undefined, ["ortho", "ipa"]) !=
+        wordset[1].toString(undefined, undefined, ["ortho", "ipa"])){
+            differences.push(wordset);
+        }
+    })
+
+    console.log(differences.length / total * 100 + "%")
+    console.log(differences.map(w => `${w[0].toString(undefined, undefined, ["ortho"])} - ${w[1].toString(undefined, undefined, ["ortho"])}`).join("\n"));
+})
+    
+    
+</script>
