@@ -1,5 +1,5 @@
 ngawu/nggawu	water, rain	Nouns
-bawë/mbawë	bird(s)	Nouns
+bawë/mbawë	bird(s)	Irregular Plural Nouns
 ngingi	monkey(s)/cannibal(s)	Cannibals and Mutants
 né	fire	Nouns
 yam	foodstuff(s)	Irregular Plural Nouns
@@ -231,8 +231,8 @@ kahalala	stick/twig	Nouns
 peleli'i	god of knowledge 	Religious Terms
 gola	fat, obese	Adjectives
 gola ngingi	large ngingi	Cannibals and Mutants
-vovi'nona/vona	man	Nouns
-nggawi'nona/nggona	woman	Nouns
+vovo'ona/vona	man	Nouns
+nggawa'ona/nggona	woman	Nouns
 kasë ngawu	oil	Nouns
 á'á yepwá/ágo	midnight	Nouns
 apeya	nice, good	Adjectives
@@ -280,7 +280,7 @@ suntu	ocean/sea	Nouns
 kóme	shark	Nouns
 lowi'i	god of the pit	Religious Terms
 kehibi'i	god of the mountains	Religious Terms
-ká'ono	whole, all, entire	Adjectives
+ká'ono	whole, all, entire	Miscellaneous
 máte	world, earth	Nouns
 sú'ufe	to cook	Verbs
 yani	soup	Nouns
@@ -515,7 +515,7 @@ mbendi	difficult	Adjectives
 téyi	thank you	Phrases
 kona/kone	to carry, to bring	Verbs
 witsunddenddu	to prevent (something), to block (an action)	Verbs
-kewes	a dangerous place, "Hell"	Nouns
+kewes	a dangerous place, "Hell"	Religious Terms
 ngewus	clan, tribe	Nouns
 kéle	to strike up (an informal) conversation	Verbs
 sétwi	to flirt	Verbs
@@ -642,8 +642,8 @@ ongome	cloud	Nouns
 ühela	axe	Nouns
 veka	ocean wave(s)	Irregular Plural Nouns
 daga	table	Nouns
-sema	after	Miscellanous
-sengki	before	Miscellanous
+sema	after	Miscellaneous
+sengki	before	Miscellaneous
 népiki	sunrise	Nouns
 nétoki	sunset	Nouns
 boha	passive agressive "ani"	Nouns
@@ -792,3 +792,10 @@ nu'á	divided by	Numerals
 tembete	total amount	Nouns
 sümewe	to offer	Verbs
 kyali	bell	Nouns
+ndoko	every	Miscellaneous
+mipakili	roots (of a plant)	Irregular Plural Nouns
+noniwus	ancestor(s)	Irregular Plural Nouns
+moonrise	pwápiki	Nouns
+moonset	pwátoki	Nouns
+to resist	kulunge/kulungge	Verbs
+afterlife	nonewus	Nouns
