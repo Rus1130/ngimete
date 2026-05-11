@@ -803,3 +803,10 @@ fotsi	to approach	Verbs
 mandda'an	to alert, to warn	Abstracted Verbs
 fehe	fast	Adjectives
 í'imepe	the ngimëte religion	Nouns
+wéte	"dumb", divine ignorance	Adjectives
+yátane	flesh	Nouns
+migyo	slow	Adjectives
+migyo'an	to be bored	Abstracted Verbs
+migyo'an-ya	bored	Adjectives
+seve-ya	lonely	Adjectives
+tsefese-le	existence	Nouns
