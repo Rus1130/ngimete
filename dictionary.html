@@ -28,10 +28,9 @@
 
     #input {
         height: 14pt;
-    }
-    #input {
         resize: none;
-        overflow-y: hidden;
+        overflow: hidden;
+        white-space: pre;
     }
     #output {
         max-height: 100%;
@@ -152,245 +151,334 @@
     </div>
 </body>
 <script type="module">
-import { dict } from './dictionary.js';
+    import { dict } from './dictionary.js';
 
-document.addEventListener('copy', (e) => {
-    const selection = document.getSelection().toString();
-    const cleaned = selection.replace(/\t/g, '');
+    document.addEventListener('copy', (e) => {
+        const selection = document.getSelection().toString();
+        const cleaned = selection.replace(/\t/g, '');
 
-    e.clipboardData.setData('text/plain', cleaned);
-    e.preventDefault(); // required to override the default behavior
-});
-
-const dropdown = document.getElementById("exclude-categories-dropdown");
-const excludeCategoriesButton = document.getElementById("exclude-categories-button");
-const dropbtn = dropdown.querySelector(".dropbtn");
-const categoryToggleButton = document.getElementById("category-toggle");
-const resetCategorysButton = document.getElementById("reset-categories");
-
-const input = document.getElementById("input");
-const output = document.getElementById("output");
-const button = document.getElementById("popout");
-const dialectCheckboxes = document.querySelectorAll('input[name="dialect"]');
-
-const params = new URLSearchParams(window.location.search);
-
-const excludedCategoriesParam = params.get("e");
-const removeNav = Boolean(params.get("n"));
-const removeCategoryColumn = params.get("c") === "true";
-const dialectOverride = params.get("d");
-
-if (params.get("b") === "false") button.style.display = "none";
-
-if (removeNav) {
-    document.getElementById("nav").style.display = "none";
-    document.getElementById("container").style.maxHeight = "100%";
-}
-
-function getSelectedDialects() {
-    if (dialectOverride) return [dialectOverride];
-
-    return Array.from(dialectCheckboxes)
-        .filter(d => d.checked)
-        .map(d => d.value);
-}
-
-const defaultExcludedCategories = ["Consonant Sounds", "Vowel Sounds", "Connecting Letters", "Grammar", "Tenses"];
-
-while(dict.ready === false) {
-    await new Promise(r => setTimeout(r, 50));
-}
-
-// Generate category checkboxes dynamically from dictionary
-async function generateCategoryCheckboxes() {
-
-    const container = document.getElementById("exclude-categories");
-    container.innerHTML = "";
-
-    const categories = dict.practiceOrder
-
-    categories.forEach(category => {
-        const id = `exclude-${category.replace(/\s+/g, "-")}`;
-
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.name = "exclude-category";
-        checkbox.value = category;
-        checkbox.id = id;
-        
-        if(defaultExcludedCategories.includes(category)) checkbox.checked = true;
-
-        const label = document.createElement("label");
-        label.htmlFor = id;
-        label.textContent = category;
-
-        const wrapper = document.createElement("div");
-        wrapper.appendChild(checkbox);
-        wrapper.appendChild(label);
-
-        container.appendChild(wrapper);
-
-        // Shift+Click behavior: check all other checkboxes
-        checkbox.addEventListener("click", (e) => {
-            // get how many checkboxes are checked
-            updateCheckedBoxText();
-
-            if (e.shiftKey) {
-                const allCheckboxes = container.querySelectorAll('input[name="exclude-category"]');
-                allCheckboxes.forEach(cb => {
-                    if (cb !== checkbox) cb.checked = true;
-                });
-                e.target.checked = false;
-                updateCheckedBoxText();
-            }
-        });
+        e.clipboardData.setData('text/plain', cleaned);
+        e.preventDefault(); // required to override the default behavior
     });
 
-    // Update dictionary when a checkbox is toggled
-    container.querySelectorAll('input[name="exclude-category"]').forEach(cb =>
-        cb.addEventListener("input", updateDictionary)
-    );
-}
+    const dropdown = document.getElementById("exclude-categories-dropdown");
+    const excludeCategoriesButton = document.getElementById("exclude-categories-button");
+    const dropbtn = dropdown.querySelector(".dropbtn");
+    const categoryToggleButton = document.getElementById("category-toggle");
+    const resetCategorysButton = document.getElementById("reset-categories");
 
-function getDialectCheckboxes() {
-    return document.querySelectorAll('input[name="dialect"]');
-}
+    const input = document.getElementById("input");
+    const output = document.getElementById("output");
+    const button = document.getElementById("popout");
+    const dialectCheckboxes = document.querySelectorAll('input[name="dialect"]');
 
-function enforceAtLeastOneDialect() {
-    const dialectCheckboxes = getDialectCheckboxes();
-    const checked = Array.from(dialectCheckboxes).filter(cb => cb.checked);
+    const params = new URLSearchParams(window.location.search);
 
-    if (checked.length === 1) {
-        checked[0].disabled = true;
-    } else {
-        dialectCheckboxes.forEach(cb => cb.disabled = false);
-    }
-}
+    const excludedCategoriesParam = params.get("e");
+    const removeNav = Boolean(params.get("n"));
+    const removeCategoryColumn = params.get("c") === "true";
+    const dialectOverride = params.get("d");
 
+    if (params.get("b") === "false") button.style.display = "none";
 
-function updateCheckedBoxText(){
-    const container = document.getElementById("exclude-categories");
-    const checkedBoxes = container.querySelectorAll('input[name="exclude-category"]:checked').length;
-
-    if(checkedBoxes === 0) excludeCategoriesButton.innerText = "Select Categories ▼";
-    else excludeCategoriesButton.innerText = `${checkedBoxes} Catagor${checkedBoxes == 1 ? "y" : "ies"} Excluded ▼`;
-}
-
-function getExcludedCategories(letterChecked) {
-    const categories = [];
-
-    // Excluded categories from URL
-    if (excludedCategoriesParam) {
-        categories.push(...excludedCategoriesParam.split("$"));
+    if (removeNav) {
+        document.getElementById("nav").style.display = "none";
+        document.getElementById("container").style.maxHeight = "100%";
     }
 
-    // Excluded categories from nav checkboxes
-    const checkedBoxes = document.querySelectorAll('input[name="exclude-category"]:checked');
-    checkedBoxes.forEach(cb => categories.push(cb.value));
+    function getSelectedDialects() {
+        if (dialectOverride) return [dialectOverride];
 
-    return categories;
-}
+        return Array.from(dialectCheckboxes)
+            .filter(d => d.checked)
+            .map(d => d.value);
+    }
 
-const scriptConsonantVowelFix = {
-    p: "ᨃ",
-    b: "ᨃᨘ",
-    t: "ᨈ",
-    d: "ᨊ",
-    "gy or ky": "ᨇ",
-    k: "ᨍ",
-    g: "ᨍᨘ",
-    "'": "ᨀ",
-    mb: "ᨌᨃᨛ",
-    nd: "ᨌᨈᨛ",
-    ngg: "ᨌᨍᨛ",
-    m: "ᨅ",
-    n: "ᨄ",
-    ng: "ᨋ",
-    f: "ᨂ",
-    v: "ᨂᨘ",
-    s: "ᨆ",
-    h: "ᨀᨘ",
-    ts: "ᨉ",
-    w: "ᨏ",
-    y: "ᨒ",
-    l: "ᨓ",
-    mbb: "ᨅᨃᨘ",
-    ndd: "ᨄᨊ",
-    i: "ᨔᨗ",
-    ü: "ᨔᨗᨛ",
-    í: "ᨖᨗ",
-    u: "ᨔᨗᨚ",
-    ú: "ᨖᨗᨚ",
-    e: "ᨔᨙ",
-    é: "ᨖᨙ",
-    ë: "ᨔᨛ",
-    o: "ᨔᨚ",
-    ó: "ᨖᨚ",
-    a: "ᨔ",
-    á: "ᨖ",
-    ä: "ᨔᨘ",
-    är: "ᨖᨘ"
-}
+    const defaultExcludedCategories = ["Consonant Sounds", "Vowel Sounds", "Connecting Letters", "Grammar", "Tenses"];
 
-const scriptConnectingLetterFix = {
-    "letter group V": "N/A",
-    "letter group C": "N/A",
-    "letter group C1": "N/A",
-    "letter group A": "N/A",
-    "letter group D": "N/A",
-    "letter group P": "N/A",
-    "ā": "ᨔᨎ",
-    "ə": "ᨎ",
-    "c": "ᨎ",
-    "z": "ᨎ"
-}
+    while(dict.ready === false) {
+        await new Promise(r => setTimeout(r, 50));
+    }
 
-function generateTable(results) {
-    const hasCategory = !removeCategoryColumn;
+    // Generate category checkboxes dynamically from dictionary
+    async function generateCategoryCheckboxes() {
 
-    let table = `
-        <tr style="position: sticky; top: 0px; background-color: white; user-select: none;">
-            <td style="width: 50px; font-weight: bold;">#</td>
-            <th>Word</th>
-            <th>Definition</th>
-            <th>Script</th>
-            ${hasCategory ? "<th>Category</th>" : ""}
-        </tr>
-    `;
+        const container = document.getElementById("exclude-categories");
+        container.innerHTML = "";
 
-    if (results.length === 0) {
-        table += `<tr><td colspan='${hasCategory ? 4 : 3}'>No results found</td></tr>`;
+        const categories = dict.practiceOrder
+
+        categories.forEach(category => {
+            const id = `exclude-${category.replace(/\s+/g, "-")}`;
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.name = "exclude-category";
+            checkbox.value = category;
+            checkbox.id = id;
+            
+            if(defaultExcludedCategories.includes(category)) checkbox.checked = true;
+
+            const label = document.createElement("label");
+            label.htmlFor = id;
+            label.textContent = category;
+
+            const wrapper = document.createElement("div");
+            wrapper.appendChild(checkbox);
+            wrapper.appendChild(label);
+
+            container.appendChild(wrapper);
+
+            // Shift+Click behavior: check all other checkboxes
+            checkbox.addEventListener("click", (e) => {
+                // get how many checkboxes are checked
+                updateCheckedBoxText();
+
+                if (e.shiftKey) {
+                    const allCheckboxes = container.querySelectorAll('input[name="exclude-category"]');
+                    allCheckboxes.forEach(cb => {
+                        if (cb !== checkbox) cb.checked = true;
+                    });
+                    e.target.checked = false;
+                    updateCheckedBoxText();
+                }
+            });
+        });
+
+        // Update dictionary when a checkbox is toggled
+        container.querySelectorAll('input[name="exclude-category"]').forEach(cb =>
+            cb.addEventListener("input", updateDictionary)
+        );
+    }
+
+    function getDialectCheckboxes() {
+        return document.querySelectorAll('input[name="dialect"]');
+    }
+
+    function enforceAtLeastOneDialect() {
+        const dialectCheckboxes = getDialectCheckboxes();
+        const checked = Array.from(dialectCheckboxes).filter(cb => cb.checked);
+
+        if (checked.length === 1) {
+            checked[0].disabled = true;
+        } else {
+            dialectCheckboxes.forEach(cb => cb.disabled = false);
+        }
+    }
+
+
+    function updateCheckedBoxText(){
+        const container = document.getElementById("exclude-categories");
+        const checkedBoxes = container.querySelectorAll('input[name="exclude-category"]:checked').length;
+
+        if(checkedBoxes === 0) excludeCategoriesButton.innerText = "Select Categories ▼";
+        else excludeCategoriesButton.innerText = `${checkedBoxes} Catagor${checkedBoxes == 1 ? "y" : "ies"} Excluded ▼`;
+    }
+
+    function getExcludedCategories(letterChecked) {
+        const categories = [];
+
+        // Excluded categories from URL
+        if (excludedCategoriesParam) {
+            categories.push(...excludedCategoriesParam.split("$"));
+        }
+
+        // Excluded categories from nav checkboxes
+        const checkedBoxes = document.querySelectorAll('input[name="exclude-category"]:checked');
+        checkedBoxes.forEach(cb => categories.push(cb.value));
+
+        return categories;
+    }
+
+    const scriptConsonantVowelFix = {
+        p: "ᨃ",
+        b: "ᨃᨘ",
+        t: "ᨈ",
+        d: "ᨊ",
+        "gy or ky": "ᨇ",
+        k: "ᨍ",
+        g: "ᨍᨘ",
+        "'": "ᨀ",
+        mb: "ᨌᨃᨛ",
+        nd: "ᨌᨈᨛ",
+        ngg: "ᨌᨍᨛ",
+        m: "ᨅ",
+        n: "ᨄ",
+        ng: "ᨋ",
+        f: "ᨂ",
+        v: "ᨂᨘ",
+        s: "ᨆ",
+        h: "ᨀᨘ",
+        ts: "ᨉ",
+        w: "ᨏ",
+        y: "ᨒ",
+        l: "ᨓ",
+        mbb: "ᨅᨃᨘ",
+        ndd: "ᨄᨊ",
+        i: "ᨔᨗ",
+        ü: "ᨔᨗᨛ",
+        í: "ᨖᨗ",
+        u: "ᨔᨗᨚ",
+        ú: "ᨖᨗᨚ",
+        e: "ᨔᨙ",
+        é: "ᨖᨙ",
+        ë: "ᨔᨛ",
+        o: "ᨔᨚ",
+        ó: "ᨖᨚ",
+        a: "ᨔ",
+        á: "ᨖ",
+        ä: "ᨔᨘ",
+        är: "ᨖᨘ"
+    }
+
+    const scriptConnectingLetterFix = {
+        "letter group V": "N/A",
+        "letter group C": "N/A",
+        "letter group C1": "N/A",
+        "letter group A": "N/A",
+        "letter group D": "N/A",
+        "letter group P": "N/A",
+        "ā": "ᨔᨎ",
+        "ə": "ᨎ",
+        "c": "ᨎ",
+        "z": "ᨎ"
+    }
+
+    function generateTable(results) {
+        const hasCategory = !removeCategoryColumn;
+
+        let table = `
+            <tr style="position: sticky; top: 0px; background-color: white; user-select: none;">
+                <td style="width: 50px; font-weight: bold;">#</td>
+                <th>Word</th>
+                <th>Definition</th>
+                <th>Script</th>
+                ${hasCategory ? "<th>Category</th>" : ""}
+            </tr>
+        `;
+
+        if (results.length === 0) {
+            table += `<tr><td colspan='${hasCategory ? 4 : 3}'>No results found</td></tr>`;
+            return table;
+        }
+
+        const noDefIdentifier = "";
+
+        for (let i = 0; i < results.length; i++) {
+            const result = results[i];
+
+            const definition = result.key
+                .replaceAll(">", "&gt;")
+                .replaceAll("<", "&lt;");
+
+            // old
+            // let preTerm = [...new Set(Object.values(result.value))];
+
+            // new
+            let preTerm = new Set(Object.values(result.value));
+            preTerm = [...preTerm].filter(s => s !== noDefIdentifier);
+
+            // †
+            // ‡
+
+            const standardIdentifier = "†";
+            const aatsilwiIdentifier = "‡";
+
+            const term = preTerm.join(" / ")
+                .replaceAll(">", "&gt;")
+                .replaceAll("<", "&lt;");
+
+            let scripts = [];
+
+            const checkedDialects = Array.from(
+                document.querySelectorAll('input[name="dialect"]:checked')
+            ).map(cb => cb.value);
+
+            if (checkedDialects.includes("Standard")) {
+                scripts.push(result.script["Standard"].toString(1, undefined, ["script"]));
+            }
+
+            if (checkedDialects.includes("A'atsilwi")) {
+                scripts.push(result.script["A'atsilwi"].toString(0, undefined, ["script"]));
+            }
+
+            // new
+            let scriptCell = new Set(scripts);
+            scriptCell = [...scriptCell].filter(s => s !== noDefIdentifier && s != null).join(" / ");
+            
+            //.join(" / ");
+
+            // old
+            // const scriptCell = [...new Set(scripts)].join(" / ");
+
+            // this now works properly in a for loop
+            if (term === "" && scriptCell === "") {
+                continue;
+            }
+
+            const categoryCell = hasCategory ? `<td>${result.category}</td>` : "";
+
+            if (result.category === "Consonant Sounds" || result.category === "Vowel Sounds") {
+                scriptCell = scriptConsonantVowelFix[result.key];
+            }
+
+            if (result.category === "Connecting Letters") {
+                scriptCell = scriptConnectingLetterFix[result.key];
+            }
+
+            let postFix = "";
+            let specificity = '';
+
+            // new
+            if (result.value["Standard"] === noDefIdentifier && result.value["A'atsilwi"] !== noDefIdentifier) {
+                postFix = aatsilwiIdentifier;
+                specificity = "A&apos;atsilwi only";
+            } else if (result.value["Standard"] !== noDefIdentifier && result.value["A'atsilwi"] === noDefIdentifier) {
+                postFix = standardIdentifier;
+                specificity = "Standard only";
+            }
+
+            table += `
+                <tr>
+                    <td>${i + 1}.</td>
+                    <td>${definition}${postFix.length > 0 ? `<span class='dialect-specifier' title='${specificity}'>${postFix}</span>` : ""}</td>
+                    <td>${term}</td>
+                    <td>${scriptCell}</td>
+                    ${categoryCell}
+                </tr>
+            `;
+        }
+
         return table;
     }
 
-    const noDefIdentifier = "";
+    function generateTableHeader(hasCategory) {
+        return `
+            <tr style="position: sticky; top: 0px; background-color: white; user-select: none;">
+                <td style="width: 50px; font-weight: bold;">#</td>
+                <th>Word</th>
+                <th>Definition</th>
+                <th>Script</th>
+                ${hasCategory ? "<th>Category</th>" : ""}
+            </tr>
+        `;
+    }
 
-    for (let i = 0; i < results.length; i++) {
-        const result = results[i];
+    function generateTableRow(result, index, hasCategory) {
+        const noDefIdentifier = "";
 
         const definition = result.key
             .replaceAll(">", "&gt;")
             .replaceAll("<", "&lt;");
 
-        // old
-        // let preTerm = [...new Set(Object.values(result.value))];
-
-        // new
-        let preTerm = new Set(Object.values(result.value));
-        preTerm = [...preTerm].filter(s => s !== noDefIdentifier);
-
-        // †
-        // ‡
-
-        const standardIdentifier = "†";
-        const aatsilwiIdentifier = "‡";
+        let preTerm = [...new Set(Object.values(result.value))]
+            .filter(s => s !== noDefIdentifier);
 
         const term = preTerm.join(" / ")
             .replaceAll(">", "&gt;")
             .replaceAll("<", "&lt;");
 
-        let scripts = [];
-
+        const scripts = [];
         const checkedDialects = Array.from(
             document.querySelectorAll('input[name="dialect"]:checked')
         ).map(cb => cb.value);
@@ -403,21 +491,11 @@ function generateTable(results) {
             scripts.push(result.script["A'atsilwi"].toString(0, undefined, ["script"]));
         }
 
-        // new
-        let scriptCell = new Set(scripts);
-        scriptCell = [...scriptCell].filter(s => s !== noDefIdentifier && s != null).join(" / ");
-        
-        //.join(" / ");
+        let scriptCell = [...new Set(scripts)]
+            .filter(s => s !== noDefIdentifier)
+            .join(" / ");
 
-        // old
-        // const scriptCell = [...new Set(scripts)].join(" / ");
-
-        // this now works properly in a for loop
-        if (term === "" && scriptCell === "") {
-            continue;
-        }
-
-        const categoryCell = hasCategory ? `<td>${result.category}</td>` : "";
+        if (term === "" && scriptCell === "") return null;
 
         if (result.category === "Consonant Sounds" || result.category === "Vowel Sounds") {
             scriptCell = scriptConsonantVowelFix[result.key];
@@ -427,22 +505,12 @@ function generateTable(results) {
             scriptCell = scriptConnectingLetterFix[result.key];
         }
 
-        let postFix = "";
-        let specificity = '';
+        const categoryCell = hasCategory ? `<td>${result.category}</td>` : "";
 
-        // new
-        if (result.value["Standard"] === noDefIdentifier && result.value["A'atsilwi"] !== noDefIdentifier) {
-            postFix = aatsilwiIdentifier;
-            specificity = "A&apos;atsilwi only";
-        } else if (result.value["Standard"] !== noDefIdentifier && result.value["A'atsilwi"] === noDefIdentifier) {
-            postFix = standardIdentifier;
-            specificity = "Standard only";
-        }
-
-        table += `
+        return `
             <tr>
-                <td>${i + 1}.</td>
-                <td>${definition}${postFix.length > 0 ? `<span class='dialect-specifier' title='${specificity}'>${postFix}</span>` : ""}</td>
+                <td>${index + 1}.</td>
+                <td>${definition}</td>
                 <td>${term}</td>
                 <td>${scriptCell}</td>
                 ${categoryCell}
@@ -450,161 +518,97 @@ function generateTable(results) {
         `;
     }
 
-    return table;
-}
+    async function updateDictionary() {
+        const container = document.getElementById("container");
 
-function generateTableHeader(hasCategory) {
-    return `
-        <tr style="position: sticky; top: 0px; background-color: white; user-select: none;">
-            <td style="width: 50px; font-weight: bold;">#</td>
-            <th>Word</th>
-            <th>Definition</th>
-            <th>Script</th>
-            ${hasCategory ? "<th>Category</th>" : ""}
-        </tr>
-    `;
-}
+        const swap = document.getElementById("swap").checked;
+        const regexSearch = document.getElementById("regex-search").checked;
 
-function generateTableRow(result, index, hasCategory) {
-    const noDefIdentifier = "";
+        const dialects = getSelectedDialects();
 
-    const definition = result.key
-        .replaceAll(">", "&gt;")
-        .replaceAll("<", "&lt;");
+        const options = {
+            swap,
+            excludedCategories: getExcludedCategories(),
+            ...(regexSearch && { regexSearch: true }),
+            ...(dialects.length !== 2 && { dialect: dialects[0] })
+        };
 
-    let preTerm = [...new Set(Object.values(result.value))]
-        .filter(s => s !== noDefIdentifier);
+        await dict.waitForDictLoad();
 
-    const term = preTerm.join(" / ")
-        .replaceAll(">", "&gt;")
-        .replaceAll("<", "&lt;");
+        const searchResult = dict.wordSearch(input.value, options);
 
-    const scripts = [];
-    const checkedDialects = Array.from(
-        document.querySelectorAll('input[name="dialect"]:checked')
-    ).map(cb => cb.value);
-
-    if (checkedDialects.includes("Standard")) {
-        scripts.push(result.script["Standard"].toString(1, undefined, ["script"]));
+        output.innerHTML = generateTable(searchResult.results);
     }
 
-    if (checkedDialects.includes("A'atsilwi")) {
-        scripts.push(result.script["A'atsilwi"].toString(0, undefined, ["script"]));
-    }
-
-    let scriptCell = [...new Set(scripts)]
-        .filter(s => s !== noDefIdentifier)
-        .join(" / ");
-
-    if (term === "" && scriptCell === "") return null;
-
-    if (result.category === "Consonant Sounds" || result.category === "Vowel Sounds") {
-        scriptCell = scriptConsonantVowelFix[result.key];
-    }
-
-    if (result.category === "Connecting Letters") {
-        scriptCell = scriptConnectingLetterFix[result.key];
-    }
-
-    const categoryCell = hasCategory ? `<td>${result.category}</td>` : "";
-
-    return `
-        <tr>
-            <td>${index + 1}.</td>
-            <td>${definition}</td>
-            <td>${term}</td>
-            <td>${scriptCell}</td>
-            ${categoryCell}
-        </tr>
-    `;
-}
-
-async function updateDictionary() {
-    const container = document.getElementById("container");
-
-    const swap = document.getElementById("swap").checked;
-    const regexSearch = document.getElementById("regex-search").checked;
-
-    const dialects = getSelectedDialects();
-
-    const options = {
-        swap,
-        excludedCategories: getExcludedCategories(),
-        ...(regexSearch && { regexSearch: true }),
-        ...(dialects.length !== 2 && { dialect: dialects[0] })
-    };
-
-    await dict.waitForDictLoad();
-
-    const searchResult = dict.wordSearch(input.value, options);
-
-    output.innerHTML = generateTable(searchResult.results);
-}
-
-// --- Event Listeners ---
-[...document.querySelectorAll('input[type="checkbox"]'), input].forEach(el => {
-    el.addEventListener("input", (e) => {
-        if (e.key === "Enter") e.preventDefault();
-        updateDictionary();
-    });
-});
-
-document.addEventListener("input", (e) => {
-    if (e.target.matches('input[name="dialect"]')) {
-        enforceAtLeastOneDialect();
-        updateDictionary();
-    }
-});
-
-button.addEventListener("click", () => dict.openDictionary("window"));
-
-
-dropbtn.addEventListener("click", () => {
-    dropdown.classList.toggle("show");
-});
-
-categoryToggleButton.addEventListener("click", () => {
-    const checkboxes = dropdown.querySelectorAll('input[name="exclude-category"]');
-    const allChecked = Array.from(checkboxes).every(cb => cb.checked);
-
-    checkboxes.forEach(cb => {
-        cb.checked = !allChecked;
+    // --- Event Listeners ---
+    [...document.querySelectorAll('input[type="checkbox"]'), input].forEach(el => {
+        el.addEventListener("input", (e) => {
+            if (e.key === "Enter") e.preventDefault();
+            updateDictionary();
+        });
     });
 
-    updateDictionary();
-    updateCheckedBoxText();
-});
-
-resetCategorysButton.addEventListener("click", () => {
-    const checkboxes = dropdown.querySelectorAll('input[name="exclude-category"]');
-
-    checkboxes.forEach(cb => {
-        if (defaultExcludedCategories.includes(cb.value)) {
-            cb.checked = true;
-        } else {
-            cb.checked = false;
+    document.addEventListener("input", (e) => {
+        if (e.target.matches('input[name="dialect"]')) {
+            enforceAtLeastOneDialect();
+            updateDictionary();
         }
     });
 
-    updateDictionary();
-    updateCheckedBoxText();
-});
+    button.addEventListener("click", () => dict.openDictionary("window"));
 
-// Close dropdown if clicked outside
-window.addEventListener("click", (e) => {
-    if (!dropdown.contains(e.target)) {
-        if(e.target !== categoryToggleButton) dropdown.classList.remove("show");
-    }
-});
 
-input.addEventListener("keydown", (e) => {
-    if(e.key === "Enter") e.preventDefault();
-});
+    dropbtn.addEventListener("click", () => {
+        dropdown.classList.toggle("show");
+    });
 
-// --- Initial Load ---
-generateCategoryCheckboxes();
-setTimeout(() => {
-    updateDictionary();
-    updateCheckedBoxText();
-}, 250);
+    categoryToggleButton.addEventListener("click", () => {
+        const checkboxes = dropdown.querySelectorAll('input[name="exclude-category"]');
+        const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+
+        checkboxes.forEach(cb => {
+            cb.checked = !allChecked;
+        });
+
+        updateDictionary();
+        updateCheckedBoxText();
+    });
+
+    resetCategorysButton.addEventListener("click", () => {
+        const checkboxes = dropdown.querySelectorAll('input[name="exclude-category"]');
+
+        checkboxes.forEach(cb => {
+            if (defaultExcludedCategories.includes(cb.value)) {
+                cb.checked = true;
+            } else {
+                cb.checked = false;
+            }
+        });
+
+        updateDictionary();
+        updateCheckedBoxText();
+    });
+
+    // Close dropdown if clicked outside
+    window.addEventListener("click", (e) => {
+        if (!dropdown.contains(e.target)) {
+            if(e.target !== categoryToggleButton) dropdown.classList.remove("show");
+        }
+    });
+
+    input.addEventListener("keydown", (e) => {
+        if(e.key === "Enter") e.preventDefault();
+    });
+
+    // input.addEventListener("input", () => {
+    //     console.log(input.scrollWidth)
+    //     input.style.width = Math.max(155, input.scrollWidth) + "px";
+    // });
+
+    // --- Initial Load ---
+    generateCategoryCheckboxes();
+    setTimeout(() => {
+        updateDictionary();
+        updateCheckedBoxText();
+    }, 250);
 </script>
