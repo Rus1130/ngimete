@@ -123,7 +123,7 @@ pelele	to learn	Verbs
 mëmë	to translate	Verbs
 yáni	to think	Verbs
 ngálowi/ngärlowi	to mangle	dont add
-ngátiwi	to annihilate	dont add
+ngátiwi	to destroy, to ruin, to annihilate	Verbs
 kúnu	to involve, to gather (around)	Verbs
 yíse	to love	Verbs
 tsuti	to wander	Verbs
@@ -250,12 +250,12 @@ kalahala	polite "mbaba mboko"	Nouns
 hühä	exhaustion	Nouns
 ima'on	to knock (someone) unconscious 	Superabstracted Verbs
 ngaowi'on	to defend (from attack)	Superabstracted Verbs
-mbigye	treasure (informal)	Nouns
+mbigye	treasure	Nouns
 angtiwí'o	ridiculous	Adjectives
 ndálohí	the passage of time	Nouns
 ndálohí máfëtär	pass (the days) safely	Phrases
 ka ati alo'a napa'an yam pula/ka ati äwa napa'an yam näla	did you have to waste all the food by eating it when you weren't hungry?"	Phrases
-ndálohí kama	to pull an all nighter	dont add
+ndálohí kama	to stay awake the whole night	Phrases
 kehibó	(usually high elevation, snow tipped) mountain(s)	Irregular Plural Nouns
 mbitsë	land	Nouns
 kehibwá	low elevation mountain(s)	Irregular Plural Nouns
@@ -299,8 +299,8 @@ witsundehohan ya	hungry	dont add
 buntse/mbuntse	strange	Adjectives
 vovi	fire	dont add
 noni'i	human god, the first god	Religious Terms
-kaoki ken	peepnis	Nouns about Bones, Limbs, Body Parts, and Death
-galu ken yá	voogigna	Nouns about Bones, Limbs, Body Parts, and Death
+kaoki ken	male reproductive organ	Nouns about Bones, Limbs, Body Parts, and Death
+galu ken yá	female reproductive organ	Nouns about Bones, Limbs, Body Parts, and Death
 ábe	human(s)	dont add
 kole	comitative	dont add
 u'u	animal	dont add
@@ -365,7 +365,7 @@ panta	task, quest	Nouns
 ngána	river	Nouns
 ani	friend, bro (informal)	Nouns
 simbbärnta	journey, adventure	Nouns
-kyesi	above, up	Miscellaneous
+kyesi	above, up, over	Miscellaneous
 saha	breath	Nouns
 íne	birth	Nouns
 peye	face	Nouns
@@ -380,7 +380,7 @@ népi	sun	dont add
 ápwa	moon	dont add
 hana	to enjoy, to like	Verbs
 mogü	to hate, to despise	Verbs
-niba	below, down	Miscellaneous
+niba	below, down, under	Miscellaneous
 gabu	frog	Nouns
 kekyene	iteration, version, edition	Nouns
 fesúa	to help	Verbs
@@ -481,7 +481,7 @@ mundda	immediately, now, at this moment	Miscellaneous
 halóhëlu	as soon as possible	Phrases
 fóvaki	stealthy, sneaky	Adjectives
 fusa	plain(s), meadow(s)	Irregular Plural Nouns
-gëlütu	cave	Nouns
+gëlütu	cave(s)	Nouns
 teyíyofo	pity	Nouns
 teye	a short person	Nouns
 ngopo'an	to act/serve as/take the role of	Abstracted Verbs
@@ -794,7 +794,7 @@ sümewe	to offer	Verbs
 kyali	bell	Nouns
 ndoko	every	Miscellaneous
 mipakili	roots (of a plant)	Irregular Plural Nouns
-noniwus	ancestor(s)	Irregular Plural Nouns
+noniwus	ancestor(s), "those who came before"	Irregular Plural Nouns
 pwápiki	moonrise	Nouns
 pwátoki	moonset	Nouns
 kulunge/kulungge	to resist	Verbs
@@ -810,3 +810,27 @@ migyo'an	to be bored	Abstracted Verbs
 migyo'an-ya	bored	Adjectives
 seve-ya	lonely	Adjectives
 tsefese-le	existence	Nouns
+nga-ya	endless	Adjectives
+kihe	to carve	Verbs
+gëtü	cavern	Nouns
+gelohí	vast	Adjectives
+balabala	to confuse	Verbs
+balabala-ya	confusing	Adjectives
+ungke	tunnel	Nouns
+ki'ile	ceiling	Nouns
+nágyu	to reach	Verbs
+káhus	the holy tree	Religious Terms
+yá'us	holy sustenance	Religious Terms
+mite	inside	Miscellaneous
+twana	wall(s)	Irregular Plural Nouns
+yáni'on	to obsess over	Superabstracted Verbs
+u'u	creature	Nouns
+seneka	iron	Nouns
+kopena	to spread	Verbs
+kála	pit	Nouns
+némenge	to be known as	Verbs
+sowa-ya	living, mortal	Adjectives
+ndwéte	among	Miscellaneous
+sümewe'an	to decide	Abstracted Verbs
+lén	infinite	Nouns
+tuwu	year	Nouns
