@@ -178,6 +178,16 @@ dict.addWord("Tenses",
     new Word("inanimate hesternal", "pamo"),
     new Word("inanimate hodiernal", "bomo"),
     new Word("inanimate gnomic", "ndomó"),
+
+    // divine
+    new Word("divine far past", "ina'a"),
+    new Word("divine near past", "ina"),
+    new Word("divine present", "inwa"),
+    new Word("divine near future", "i'a"),
+    new Word("divine far future", "ni'a"),
+    new Word("divine hesternal", "iye"),
+    new Word("divine hodiernal", "oye"),
+    new Word("divine gnomic", "iní"),
 )
 
 dict.addWord("Grammar",

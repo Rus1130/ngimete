@@ -834,3 +834,5 @@ ndwéte	among	Miscellaneous
 sümewe'an	to decide	Abstracted Verbs
 lén	infinite	Nouns
 tuwu	year	Nouns
+vovi	divine fire	Religious Terms
+indigye	to have meaning, to matter	Verbs
