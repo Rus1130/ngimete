@@ -45,7 +45,7 @@ nggala tapu yá	fish scale(s)	Irregular Plural Nouns
 tsi'i	berry(s)	Irregular Plural Nouns
 noa tsi'i	poisonous berry(s)	Irregular Plural Nouns
 ewu	health/blood	Nouns
-ná	hunger	Nouns
+na	hunger	Nouns
 alu	sky/air	Nouns
 tapu	turtle (shell/hide)	Nouns
 kaha tsi'an te	wood mover	Nouns
@@ -610,7 +610,7 @@ naohé	riverbed(s)	Irregular Plural Nouns
 sífi	flour, powder, processed grain	Nouns
 núba	stream, small offshoot	Nouns
 naopü	lakebed(s)	Irregular Plural Nouns
-na	surface, plane	Nouns
+ná	surface, plane	Nouns
 mika	color	Nouns
 fufo	to wring out (a wet cloth), to straighten out/flatten out a piece of (dry) textile	Verbs
 naka	isolated, remote	Adjectives
@@ -772,12 +772,12 @@ king	anvil	Nouns
 sóhonu/sóvohu	to follow (a rule)	Verbs
 vaenas	wrestler	Nouns
 lolo	measure word	Miscellaneous
-kye	foreign	Adjectives
-shiliyompá	buttock	Nouns about Bones, Limbs, Body Parts, and Death
+kye/kyepa	foreign	Adjectives
+shiliyompá/shalayambabala	buttock	Nouns about Bones, Limbs, Body Parts, and Death
 nawa'ü	opponent, adversary	Nouns
 tae'e	to touch a person	Verbs
 gígu/gígubum	knee	Nouns about Bones, Limbs, Body Parts, and Death
-gámgu/gámgubum	elbow	Nouns about Bones, Limbs, Body Parts, and Death
+gámgu/gánggubum	elbow	Nouns about Bones, Limbs, Body Parts, and Death
 kon	to hit, to strike	Verbs
 fúne	cloth	Nouns
 misse	to allow, to permit	Verbs
@@ -787,14 +787,14 @@ yole	to recieve	Verbs
 tapi	bowl	Nouns
 ngawuyam/nggawuyam	soup	Nouns
 hama	wrestling match	Nouns
-tokingi	to challenge	Verbs
+tokingi/totokongo	to challenge	Verbs
 nu'á	divided by	Numerals
 tembete	total amount	Nouns
 sümewe	to offer	Verbs
 kyali	bell	Nouns
 ndoko	every	Miscellaneous
 mipakili	roots (of a plant)	Irregular Plural Nouns
-noniwus	ancestor(s), "those who came before"	Irregular Plural Nouns
+noniwus/netasís	ancestor(s), "those who came before"	Irregular Plural Nouns
 pwápiki	moonrise	Nouns
 pwátoki	moonset	Nouns
 kulunge/kulungge	to resist	Verbs
@@ -819,8 +819,8 @@ balabala-ya	confusing	Adjectives
 ungke	tunnel	Nouns
 ki'ile	ceiling	Nouns
 nágyu	to reach	Verbs
-káhus	the holy tree	Religious Terms
-yá'us	holy sustenance	Religious Terms
+káhus/kás	the holy tree	Religious Terms
+yá'us/kas	holy sustenance	Religious Terms
 mite	inside	Miscellaneous
 twana	wall(s)	Irregular Plural Nouns
 yáni'on	to obsess over	Superabstracted Verbs
@@ -836,3 +836,10 @@ lén	infinite	Nouns
 tuwu	year	Nouns
 vovi	divine fire	Religious Terms
 indigye	to have meaning, to matter	Verbs
+sinte	to control the direction of (something), to pilot, to sail	Verbs
+tefi	to be away (from a place)	Verbs
+ko'e	to be away (from home)	Verbs
+nátas	The Recitations	Religious Terms
+pwa'a	chapter	Nouns
+tápalili	verse	Nouns
+da	between numbers	Numerals
