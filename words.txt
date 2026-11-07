@@ -421,7 +421,7 @@ ndo	to open	Verbs
 veseyo/vefeyo	to exert/strain one's self	Reflexive Verbs
 wawáso	to trip, to miswalk	Reflexive Verbs
 imaso	to collapse into sleep, to faint	Reflexive Verbs
-eme'an	to be obliged to (perform an action)	Abstracted Verbs
+eme'an	to be forced to do	Abstracted Verbs
 emeso	to take charge, to assume leadership	Reflexive Verbs
 ndawiso	to exercise/workout	Reflexive Verbs
 timbba	to clean, to wash	Verbs
@@ -551,8 +551,8 @@ engoya	dark red (dried blood)	Adjectives
 géya/génta	brown (rot)	Adjectives
 saga	light brown (debarked tree)	Adjectives
 wisiya/wisiyu	green (leaf)	Adjectives
-ngaya/nggaya	light blue (rain)	Adjectives
-mepüya/mepüfu	sky blue (lake blue)	Adjectives
+ngaya/nggaya	light blue (lake)	Adjectives
+mepüya/mepüfu	sky blue (sky)	Adjectives
 súsë	dark blue (ocean)	Adjectives
 yaya	orange/yellow (sun)	Adjectives
 néya/néfë	orange-red (fire)	Adjectives
@@ -843,3 +843,7 @@ nátas	The Recitations	Religious Terms
 pwa'a	chapter	Nouns
 tápalili	verse	Nouns
 da	between numbers	Numerals
+lí	about, approximately	Miscellaneous
+fone	size	Nouns
+ndawi fene te	horse	Nouns
+kyete	foreign language, language other than ngimëte	Nouns
