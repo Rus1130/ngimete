@@ -319,7 +319,6 @@ function ortho(s){
     const D = ["g", "p", "y"]
     const P = ["o", "i", "u"]
 
-
     for(let i = 0; i < s.length; i++){
 
         if(s[i] == "-"){
@@ -440,7 +439,7 @@ const remap = [
 ]
 
 const GROUPS = {
-    "V": "aeiouɑəyAEIOUQ",
+    "V": "aeiouɑəyAEIOUQ",  
     "C": "bdfghklmnpstvwjcŋʔSBDGH",
     "N": "mnŋ",
     "F": "fpbts",
@@ -450,7 +449,7 @@ const GROUPS = {
 const SYLLABLES = [
     `kid`, // special case for "kid"
     "FwV", // (f/p/b/t)w(vowel)
-    `TVl(?![${GROUPS.V}])`, // (s/ts)Vl 
+    `TVl(?![${GROUPS.V}])`, // (s/ts)-vowel-l not followed by vowel
     `CVN(?![${GROUPS.V}])`, // consonant-vowel-nasal not followed by vowel
     `CVN(?=[${GROUPS.C}])`, // consonant-vowel-nasal followed by consonant
     `(C)Vs(?![${GROUPS.V}])`, // (consonant)-vowel-s not followed by vowel
