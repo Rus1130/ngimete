@@ -119,7 +119,7 @@ tiwi	to rise	Verbs
 lowi	to lower	Verbs
 ngaowi	to attack/fight	Verbs
 nggala le	to fish	Verbs
-pelele	to learn	Verbs
+pelele/peleyo	to learn	Verbs
 mëmë	to translate	Verbs
 yáni	to think	Verbs
 ngálowi/ngärlowi	to mangle	dont add
@@ -847,3 +847,4 @@ lí	about, approximately	Miscellaneous
 fone	size	Nouns
 ndawi fene te	horse	Nouns
 kyete	foreign language, language other than ngimëte	Nouns
+suna	to arrive	Verbs
