@@ -652,7 +652,7 @@ const mods = {
  * @param {number} type 0 = normal; 1 = merged
  * @returns 
  */
-function script(s, type = 0){
+function script(s){
     const old_s = String(s);
 
     s = 
@@ -1056,86 +1056,86 @@ function script(s, type = 0){
 
     let rendered = ""
 
-    if(type == 0){
-        if(NEW_KEPWAMETE){
+    // if(type == 0){
+    //     if(NEW_KEPWAMETE){
 
-            let pipeline = [];
+    //         let pipeline = [];
 
-            for(let i = 0; i < s.length; i++){
-                let char = s[i];
-
-
-                if(kepwamete_script_map[char] != undefined){
-                    if(kepwamete_script_map[char].multi) pipeline.push(...kepwamete_script_map[char].parts);
-                    else pipeline.push(kepwamete_script_map[char]);
-                } else {
-
-                    if(char == " ") {
-                        pipeline.push({ raw: true, base: "\u2002" });
-                        continue;
-                    }
-
-                    pipeline.push({ raw: true, base: char });
-                }
-            }
-
-            for(let i = 0; i < pipeline.length; i++){
-                let current = pipeline[i];
-                let next = pipeline[i + 1];
-
-                if(current.raw) {
-                    rendered += renderGlyph({
-                        base: current.base,
-                        raw: true
-                    })
-                    continue;
-                }
-
-                const renderable = { 
-                    base: current.base,
-                    top: current.top,
-                    bottom: current.bottom,
-                    left: false,
-                    right: false,
-                    special: false,
-                    raw: current.raw
-                }
+    //         for(let i = 0; i < s.length; i++){
+    //             let char = s[i];
 
 
-                if(current.mod){
-                    if(next?.base == current.base){
-                        renderable.right = true;
-                        renderable.left = false;
-                    } else {
-                        renderable.right = false;
-                        renderable.left = true;
-                    }
-                }
+    //             if(kepwamete_script_map[char] != undefined){
+    //                 if(kepwamete_script_map[char].multi) pipeline.push(...kepwamete_script_map[char].parts);
+    //                 else pipeline.push(kepwamete_script_map[char]);
+    //             } else {
+
+    //                 if(char == " ") {
+    //                     pipeline.push({ raw: true, base: "\u2002" });
+    //                     continue;
+    //                 }
+
+    //                 pipeline.push({ raw: true, base: char });
+    //             }
+    //         }
+
+    //         for(let i = 0; i < pipeline.length; i++){
+    //             let current = pipeline[i];
+    //             let next = pipeline[i + 1];
+
+    //             if(current.raw) {
+    //                 rendered += renderGlyph({
+    //                     base: current.base,
+    //                     raw: true
+    //                 })
+    //                 continue;
+    //             }
+
+    //             const renderable = { 
+    //                 base: current.base,
+    //                 top: current.top,
+    //                 bottom: current.bottom,
+    //                 left: false,
+    //                 right: false,
+    //                 special: false,
+    //                 raw: current.raw
+    //             }
 
 
-                rendered += renderGlyph(renderable);
-            }
+    //             if(current.mod){
+    //                 if(next?.base == current.base){
+    //                     renderable.right = true;
+    //                     renderable.left = false;
+    //                 } else {
+    //                     renderable.right = false;
+    //                     renderable.left = true;
+    //                 }
+    //             }
 
-            return rendered;
-        }
 
-        for(let i = 0; i < s.length; i++){
-            let char = s[i];
-            const renderable = script_map[char];
-            if(renderable != undefined){
-                rendered += renderGlyph(renderable);
-            } else {
-                rendered += char;
-            }
-        }
-    }
+    //             rendered += renderGlyph(renderable);
+    //         }
+
+    //         return rendered;
+    //     }
+
+    //     for(let i = 0; i < s.length; i++){
+    //         let char = s[i];
+    //         const renderable = script_map[char];
+    //         if(renderable != undefined){
+    //             rendered += renderGlyph(renderable);
+    //         } else {
+    //             rendered += char;
+    //         }
+    //     }
+    // }
 
     const VOWEL_A = "ᨔ"
     const VOWEL_AA = "ᨖ"
     const VOWEL_LONG_MARKER = "ᨑ"
     const PRENASAL_MARKER = "ᨌ"
 
-    if (type == 1) {
+    // if (type == 1) {
         const prerenderPipeline = [];
 
         for(let i = 0; i < s.length; i++){
@@ -1304,7 +1304,7 @@ function script(s, type = 0){
         // }
 
         // rendered = renderPipeline.map(renderGlyph).join("");
-    }
+    // }
 
     // find all quotation marks, and replace them with paired «»
 
@@ -1330,8 +1330,8 @@ export class ConlangContent {
 
         this.ipa = s.map(ipa).map(line => line.replaceAll("[]", ""));
         this.ortho = s.map(ortho)
-        this.script_low = s.map(line => script(ortho(line), 0));
-        this.script_high = s.map(line => script(ortho(line), 1));
+        this.script = s.map(line => script(ortho(line)));
+        //this.script_high = s.map(line => script(ortho(line), 1));
     }
 
     /**
@@ -1341,12 +1341,9 @@ export class ConlangContent {
      * @param {String[]} includedCategories  - categories to include: "ortho", "script", "ipa"
      * @returns 
      */
-    toString(scriptType = 0, prettyOutput = false, includedCategories = ["ortho", "script", "ipa"]) {
-        if(ConlangContent.toStringInfo) console.info(`ConlangContent.toString scriptType<Number>, prettyOutput<Boolean>, includedCategories<String[]>. If scriptType is "low" it will use "0", if "high" it will use "1". Default includedCategories are all three.`);
+    toString(prettyOutput = false, includedCategories = ["ortho", "script", "ipa"]) {
+        if(ConlangContent.toStringInfo) console.info(`ConlangContent.toString prettyOutput<Boolean>, includedCategories<String[]>. Default includedCategories are all three.`);
         let lines = [];
-
-        if(scriptType == "low") scriptType = 0;
-        if(scriptType == "high") scriptType = 1;
 
         // Helper to check if a category is included
         const include = (cat) => includedCategories.includes(cat);
@@ -1354,13 +1351,13 @@ export class ConlangContent {
         if (prettyOutput) {
             for (let i = 0; i < this.ipa.length; i++) {
                 if (include("ortho")) lines.push(this.ortho[i]);
-                if (include("script")) lines.push(scriptType === 0 ? this.script_low[i] : this.script_high[i]);
+                if (include("script")) lines.push(this.script[i]);
                 if (include("ipa")) lines.push(this.ipa[i].replaceAll("[]", ""));
                 lines.push(""); // Add a blank line between entries
             }
         } else {
             if (include("ortho")) lines.push(this.ortho.join("\n"));
-            if (include("script")) lines.push((scriptType === 0 ? this.script_low : this.script_high).join("\n"));
+            if (include("script")) lines.push(this.script.join("\n"));
             if (include("ipa")) lines.push(this.ipa.map(line => line.replaceAll("[]", "")).join("\n"));
         }
 

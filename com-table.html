@@ -1,3 +1,4 @@
+
 <style>
     table {
         border-collapse: collapse;
@@ -44,54 +45,44 @@
     }
 
     button:focus, input:focus, select:focus, textarea:focus, [contenteditable]:focus {
-        outline:none;
+        outline: none;
     }
 
     select, option {
         cursor: pointer;
     }
-    
 </style>
+
 <head>
     <meta property="og:title" content="">
     <meta property="og:description" content="">
     <meta property="og:url" content="">
     <meta name="google" content="notranslate">
 </head>
+
 <body>
     <div class="back-to-main">
         <button onclick="location.href='index.html'" style="padding: 4px;">Back to main page</button>
     </div>
+
     <div>
-        Dialect: 
-        <select id="dialect-select">
-            <option value="Standard" selected>Standard</option>
-            <option value="A'atsilwi">A'atsilwi</option>
-        </select><br>
-        Sort: 
+        Sort:
         <select id="sort-select">
             <option value="comparison" selected>Comparison</option>
             <option value="alphabet">Alphabetical</option>
         </select><br>
+
         character begins word:
         <input type="checkbox" id="onset-checkbox">
     </div>
-        Click a cell to copy its content to clipboard.
-</body>
-<script type="module">
 
+    Click a cell to copy its content to clipboard.
+</body>
+
+<script type="module">
     import { ConlangContent } from './lib.js';
 
     ConlangContent.toStringInfo = false;
-
-    const dialectSelect = document.getElementById("dialect-select");
-
-    dialectSelect.addEventListener("change", () => {
-        // Regenerate table with new dialect
-        document.body.removeChild(document.getElementById("combination-table"));
-        const combinations = generate2DCombinations();
-        createTable(combinations);
-    });
 
     function isOnset() {
         return document.getElementById("onset-checkbox").checked;
@@ -100,33 +91,31 @@
     const onsetCheckbox = document.getElementById("onset-checkbox");
 
     onsetCheckbox.addEventListener("change", () => {
-        // Remove old table
         const oldTable = document.getElementById("combination-table");
         if (oldTable) oldTable.remove();
 
-        // Regenerate combinations and table
         const combinations = generate2DCombinations();
         createTable(combinations);
     });
-    
-    const consonants_alphabet_sort =   ["Ø", "'", "b", "d",  "f", "g", "gy", "h", "k", "ky",  "l", "m", "mb", "n", "nd", "ng", "ngg", "p",  "s", "sh", "ss", "t", "ts", "v", "w", "y"];
-    const consonants_comparison_sort = ["Ø", "p", "b", "mb", "t", "d", "nd", "k", "g", "ngg", "f", "v", "s",  "ts", "'", "h",  "ky",  "gy", "m", "n", "ng", "w", "y", "l", "sh", "ss"];
 
-    const vowels_alphabet_sort = ["Ø","a","á","ä","är","e","é","ë","i","í","o","ó","u","ú","ü"];
-    const vowels_comparison_sort = ["Ø","a","á","ä","är","e","é","ë","i","í","o","ó","u","ú","ü"];
+    const consonants_alphabet_sort = ["Ø", "'", "b", "d", "f", "g", "gy", "h", "k", "ky", "l", "m", "mb", "n", "nd", "ng", "ngg", "p", "s", "sh", "ss", "t", "ts", "v", "w", "y"];
+    const consonants_comparison_sort = ["Ø", "p", "b", "mb", "t", "d", "nd", "k", "g", "ngg", "f", "v", "s", "ts", "'", "h", "ky", "gy", "m", "n", "ng", "w", "y", "l", "sh", "ss"];
 
-    // ["Ø", "i","ü","í","u","ú","e","é","ë","o","ó","a","á","ä","är"];
+    const vowels_alphabet_sort = ["Ø", "a", "á", "ä", "är", "e", "é", "ë", "i", "í", "o", "ó", "u", "ú", "ü"];
+    const vowels_comparison_sort = ["Ø", "a", "á", "ä", "är", "e", "é", "ë", "i", "í", "o", "ó", "u", "ú", "ü"];
 
-    function clearCellHovers(){
+    function clearCellHovers() {
         const old = document.querySelectorAll(".cell-hover-path");
         old.forEach(el => el.classList.remove("cell-hover-path"));
     }
 
     function dialectContent(cc, singleType) {
-        let str = dialectSelect.value == "Standard" ? cc.toString("high", undefined, [singleType]) : cc.toString("low", undefined, [singleType])
-        if(!isOnset() && str != null && dialectSelect.value == "Standard") {
+        let str = cc.toString(undefined, [singleType]);
+
+        if (!isOnset() && str != null) {
             str = str.replaceAll("ᨌ", "");
         }
+
         return str;
     }
 
@@ -137,18 +126,15 @@
     sortSelect.addEventListener("change", () => {
         currentSort = sortSelect.value;
 
-        // Remove old table
         const oldTable = document.getElementById("combination-table");
         if (oldTable) oldTable.remove();
 
-        // Regenerate combinations and table
         const combinations = generate2DCombinations();
         createTable(combinations);
     });
 
-
     function getConsonants() {
-        if(currentSort == "alphabet") {
+        if (currentSort == "alphabet") {
             return consonants_alphabet_sort;
         } else if (currentSort == "comparison") {
             return consonants_comparison_sort;
@@ -156,26 +142,26 @@
     }
 
     function getVowels() {
-        if(currentSort == "alphabet") {
+        if (currentSort == "alphabet") {
             return vowels_alphabet_sort;
         } else if (currentSort == "comparison") {
             return vowels_comparison_sort;
         }
     }
 
-
     function generate2DCombinations() {
         const results = [];
 
         for (const onset of getConsonants()) {
             const row = [];
+
             for (const vowel of getVowels()) {
                 let cc = new ConlangContent((onset + vowel).replaceAll("Ø", ""));
-
                 let script = dialectContent(cc, "script");
 
                 row.push(cc);
             }
+
             results.push(row);
         }
 
@@ -186,15 +172,13 @@
         const table = document.createElement("table");
         table.id = "combination-table";
 
-        table.addEventListener("mouseleave", (e) => {
+        table.addEventListener("mouseleave", () => {
             clearCellHovers();
         });
 
-        // header row (vowels)
         const thead = document.createElement("thead");
         const headerRow = document.createElement("tr");
 
-        // empty top-left corner
         const empty = document.createElement("th");
         headerRow.appendChild(empty);
 
@@ -203,12 +187,11 @@
 
         for (const v of vowels) {
             const th = document.createElement("th");
-            th.textContent = "-"+v;
+            th.textContent = "-" + v;
 
-            th.addEventListener("mouseenter", (e) => {
+            th.addEventListener("mouseenter", () => {
                 clearCellHovers();
 
-                // Highlight entire column
                 for (let rowIdx = 0; rowIdx < consonants.length; rowIdx++) {
                     document.getElementById(`cell-${rowIdx}-${vowels.indexOf(v)}`).classList.add("cell-hover-path");
                 }
@@ -220,20 +203,17 @@
         thead.appendChild(headerRow);
         table.appendChild(thead);
 
-        // body rows
         const tbody = document.createElement("tbody");
 
         for (let i = 0; i < consonants.length; i++) {
             const row = document.createElement("tr");
 
-            // consonant label
             const th = document.createElement("th");
             th.textContent = consonants[i] + "-";
 
-            th.addEventListener("mouseenter", (e) => {
+            th.addEventListener("mouseenter", () => {
                 clearCellHovers();
 
-                // Highlight entire row
                 for (let col = 0; col < vowels.length; col++) {
                     document.getElementById(`cell-${i}-${col}`).classList.add("cell-hover-path");
                 }
@@ -244,33 +224,26 @@
             for (let j = 0; j < matrix[i].length; j++) {
                 const cellValue = matrix[i][j];
                 const td = document.createElement("td");
-                td.textContent = dialectContent(cellValue, "script");
-                td.title = dialectContent(cellValue, "ortho")
 
-                // Unique ID using i and j
+                td.textContent = dialectContent(cellValue, "script");
+                td.title = dialectContent(cellValue, "ortho");
+
                 td.id = `cell-${i}-${j}`;
                 td.className = "cell";
 
-                // Hover event
-                td.addEventListener("mouseenter", (e) => {
+                td.addEventListener("mouseenter", () => {
                     clearCellHovers();
 
-                    // Row and column indices
-                    const x = i;
-                    const y = j;
-
-                    // Highlight row
                     for (let col = 0; col <= j; col++) {
                         document.getElementById(`cell-${i}-${col}`).classList.add("cell-hover-path");
                     }
 
-                    // Highlight column up to hovered cell
                     for (let rowIdx = 0; rowIdx <= i; rowIdx++) {
                         document.getElementById(`cell-${rowIdx}-${j}`).classList.add("cell-hover-path");
                     }
                 });
 
-                td.addEventListener("click", (e) => {
+                td.addEventListener("click", () => {
                     navigator.clipboard.writeText(dialectContent(cellValue, "script"));
                 });
 
@@ -285,6 +258,5 @@
     }
 
     const combinations = generate2DCombinations();
-
     createTable(combinations);
 </script>

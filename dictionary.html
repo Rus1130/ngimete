@@ -395,11 +395,11 @@
             ).map(cb => cb.value);
 
             if (checkedDialects.includes("Standard")) {
-                scripts.push(result.script["Standard"].toString(1, undefined, ["script"]));
+                scripts.push(result.script["Standard"].toString(undefined, ["script"]));
             }
 
             if (checkedDialects.includes("A'atsilwi")) {
-                scripts.push(result.script["A'atsilwi"].toString(0, undefined, ["script"]));
+                scripts.push(result.script["A'atsilwi"].toString(undefined, ["script"]));
             }
 
             // new
@@ -484,11 +484,11 @@
         ).map(cb => cb.value);
 
         if (checkedDialects.includes("Standard")) {
-            scripts.push(result.script["Standard"].toString(1, undefined, ["script"]));
+            scripts.push(result.script["Standard"].toString(undefined, ["script"]));
         }
 
         if (checkedDialects.includes("A'atsilwi")) {
-            scripts.push(result.script["A'atsilwi"].toString(0, undefined, ["script"]));
+            scripts.push(result.script["A'atsilwi"].toString(undefined, ["script"]));
         }
 
         let scriptCell = [...new Set(scripts)]
