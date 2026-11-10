@@ -147,7 +147,7 @@ function handleButton(button, categories){
         if (!value) return;
 
         const cc = new ConlangContent(value);
-        navigator.clipboard.writeText(cc.toString(scriptTypeCheckbox.checked ? "low" : "high", prettyOutputCheckbox.checked, categories));
+        navigator.clipboard.writeText(cc.toString(prettyOutputCheckbox.checked, categories));
         button.innerText = "copied!";
         setTimeout(() => button.innerText = ogText, 2000);
     });

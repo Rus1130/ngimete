@@ -773,16 +773,16 @@ sóhonu/sóvohu	to follow (a rule)	Verbs
 vaenas	wrestler	Nouns
 lolo	measure word	Miscellaneous
 kye/kyepa	foreign	Adjectives
-shiliyompá/shalayambabala	buttock	Nouns about Bones, Limbs, Body Parts, and Death
+hiliyompá/halayambabala	buttock	Nouns about Bones, Limbs, Body Parts, and Death
 nawa'ü	opponent, adversary	Nouns
 tae'e	to touch a person	Verbs
 gígu/gígubum	knee	Nouns about Bones, Limbs, Body Parts, and Death
 gámgu/gánggubum	elbow	Nouns about Bones, Limbs, Body Parts, and Death
 kon	to hit, to strike	Verbs
 fúne	cloth	Nouns
-misse	to allow, to permit	Verbs
+mihe	to allow, to permit	Verbs
 esibine	to surrender	Verbs
-shune	to win	Verbs
+hune	to win	Verbs
 yole	to recieve	Verbs
 tapi	bowl	Nouns
 ngawuyam/nggawuyam	soup	Nouns
