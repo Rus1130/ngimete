@@ -95,8 +95,8 @@
     function potentialWord(){
         const word = dict.randomWord(["Vowel Sounds", "Consonant Sounds", "Connecting Letters", "Phrases", "Onomatopoeia", "Grammar"], true)
 
-        const display = word.script["Standard"].toString("high", true, ["script"]);
-        const answer = word.script["Standard"].toString("high", true, ["ortho"]);
+        const display = word.script["Standard"].toString(true, ["script"]);
+        const answer = word.script["Standard"].toString(true, ["ortho"]);
 
         return {display, answer};
     }
