@@ -72,10 +72,6 @@
         <input type="checkbox" id="pretty-mode" checked>
         Pretty output
     </label>
-    <label for="script-type">
-        <input type="checkbox" id="script-type">
-        kepwámëte
-    </label>
 </body>
 <script type="module">
 import { Writer, ConlangContent } from './lib.js';
@@ -92,7 +88,6 @@ const output = document.getElementById("out");
 // const orthoIPAButton = document.getElementById("ortho-ipa");
 // const scriptButton = document.getElementById("script");
 const prettyOutputCheckbox = document.getElementById("pretty-mode");
-const scriptTypeCheckbox = document.getElementById("script-type");
 
 const allButton = document.getElementById("all");
 const orthoButton = document.getElementById("ortho");
@@ -111,13 +106,6 @@ input.textContent = random.value["Standard"]
 //input.textContent = "ngawu mbawë ngingi túwus á'á tsi'i nggala gyelu kyesi ndawi mbaba ngguso tsa'an ábao pifwe tuha welebing fetsimwa fesúa witsunggá'o fwí kewes fwígiwes tembbe us simbbärnta a'atsilwi ipalas esiya benise witsumbbenise'o imaso emeso fesúaso"
 
 //input.textContent = "kyawasana ndálohí gúhäsa máfëtär sebesikya kekéne ëvënefu sipilana lohíyam naoneno mótsiyo witsunddenddu yu'úla hükaka"
-//scriptTypeCheckbox.checked = false;
-
-if(localStorage.getItem("ngimete-kepwamete-output") === "true"){
-    scriptTypeCheckbox.checked = true;
-} else {
-    scriptTypeCheckbox.checked = false;
-}
 
 console.log(random.key);
 updateOutput();
@@ -144,16 +132,13 @@ function updateOutput() {
 
     const cc = new ConlangContent(value);
     
-    setOutputText(cc.toString(scriptTypeCheckbox.checked ? "low" : "high", prettyOutputCheckbox.checked, ["ortho", "script", "ipa"]));
-
-    localStorage.setItem("ngimete-kepwamete-output", scriptTypeCheckbox.checked);
+    setOutputText(cc.toString(prettyOutputCheckbox.checked, ["ortho", "script", "ipa"]));
 }
 
 input.addEventListener("input", setInputHeight);
 input.addEventListener("input", updateOutput);
 
 prettyOutputCheckbox.addEventListener("change", updateOutput);
-scriptTypeCheckbox.addEventListener("change", updateOutput);
 
 function handleButton(button, categories){
     const ogText = button.innerText;

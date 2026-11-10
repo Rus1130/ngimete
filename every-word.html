@@ -32,9 +32,9 @@
 
         if(wordscript === undefined) return;
 
-        const ipa = wordscript.toString("high", true, ["ipa"]);
-        const term = wordscript.toString("high", true, ["ortho"]);
-        const script = wordscript.toString("high", true, ["script"]);
+        const ipa = wordscript.toString(true, ["ipa"]);
+        const term = wordscript.toString(true, ["ortho"]);
+        const script = wordscript.toString(true, ["script"]);
 
         document.body.insertAdjacentHTML('beforeend', `<div>${ipa} - ${term} - ${script}</div>`);
     });
