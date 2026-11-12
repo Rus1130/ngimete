@@ -1,17 +1,4 @@
 <style>
-    div {
-        display: inline-block;
-        border: 1px solid black;
-    }
-    .bar {
-        height: 500px;
-        width: 1200px;
-    }
-
-    .pie {
-        height: 500px;
-        width: 500px;
-    }
 </style>
 <head>
     <meta property="og:title" content="ngimëte Statistics">
@@ -95,8 +82,8 @@
             if (isVowel(t)) lastVowel = i;
         });
 
-        return lastVowel !== -1 && lastVowel < tokens.length - 1
-            ? tokens.slice(lastVowel + 1).join("")
+        return lastVowel !== -1
+            ? tokens.slice(lastVowel + (lastVowel === tokens.length - 1 ? 0 : 1)).join("")
             : "";
     }
 
@@ -236,21 +223,21 @@
 
 
         new BarChart(`#standard-letter-distrib`,{width:1200,height:500})
-        .setData("Standard Dialect Letter Distribution","Letter","Frequency",100,4, standardKeys, standardValues);
+        .setData("Standard Dialect Letter Distribution","Letter","Frequency",100, 3, standardKeys, standardValues);
 
         new BarChart("#aatsilwi-letter-distrib", {width:1200, height:500})
-        .setData("A'atsilwi Dialect Letter Distribution","Letter","Frequency",100,4, aatsilwiKeys, aatsilwiValues);
+        .setData("A'atsilwi Dialect Letter Distribution","Letter","Frequency",100, 3, aatsilwiKeys, aatsilwiValues);
 
         new BarChart("#standard-onset", {width:1200, height:500})
-        .setData("Standard Dialect Onset Distribution","Onset","Frequency",100,4, onsetsStandardKeys, onsetsStandardValues);
+        .setData("Standard Dialect Onset Distribution","Onset","Frequency",100, 9, onsetsStandardKeys, onsetsStandardValues);
 
         new BarChart("#aatsilwi-onset", {width:1200, height:500})
         .setData("A'atsilwi Dialect Onset Distribution","Onset","Frequency",100,4, onsetsAatsilwiKeys, onsetsAatsilwiValues);
 
-        new BarChart("#standard-coda", {width:500, height:500})
+        new BarChart("#standard-coda", {width:1200, height:500})
         .setData("Standard Dialect Coda Distribution","Coda","Frequency",100, 4, codaStandardKeys, codaStandardValues);
 
-        new BarChart("#aatsilwi-coda", {width:500, height:500})
+        new BarChart("#aatsilwi-coda", {width:1200, height:500})
         .setData("A'atsilwi Dialect Coda Distribution","Coda","Frequency",100, 4, codaAatsilwiKeys, codaAatsilwiValues);
 
         let pieChart = new PieChart("#categories", {
