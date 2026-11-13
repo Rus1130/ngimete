@@ -65,7 +65,7 @@ ati alo'a/ati äwa	grandmother	Nouns
 yam pula/yam närla	drying rack	Nouns
 kaha pula/kaha näla	wood storage	Nouns
 seve	a selfish person	Nouns
-ngawi'i/nggawi'i	god of water	Religious Terms
+nggawi'i	god of rain	Religious Terms
 vovi'i	god of fire	Religious Terms
 dom	head	Nouns about Bones, Limbs, Body Parts, and Death
 gám	arm	Nouns about Bones, Limbs, Body Parts, and Death
@@ -231,8 +231,8 @@ kahalala	stick/twig	Nouns
 peleli'i	god of knowledge 	Religious Terms
 gola	fat, obese	Adjectives
 gola ngingi	large ngingi	Cannibals and Mutants
-vovo'ona/vona	man	Nouns
-nggawa'ona/nggona	woman	Nouns
+vovóna/vona	man	Nouns
+ngawóna/nggona	woman	Nouns
 kasë ngawu	oil	Nouns
 á'á yepwá/ágo	midnight	Nouns
 apeya	nice, good	Adjectives
@@ -764,7 +764,7 @@ hohiho	to do the mochi thing	Verbs
 hohiho'an	to be forced to do the repetitive labour by an elder family member	Abstracted Verbs
 hohihoyo	to cartwheel, to do acrobatics	Reflexive Verbs
 yua	pejorative intensifier	Miscellaneous
-sati'i	god of the weather	Religious Terms
+sati'i	god of the sky	Religious Terms
 tíki'i	god of animals	Religious Terms
 ngingiəle	to "jump" someone	Verbs
 ngátona	to crush	Verbs
@@ -848,3 +848,4 @@ fone	size	Nouns
 ndawi fene te	horse	Nouns
 kyete	foreign language, language other than ngimëte	Nouns
 suna	to arrive	Verbs
+súsi'i	god of water	Religious Terms
