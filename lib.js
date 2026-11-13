@@ -204,9 +204,7 @@ export class Dictionary {
             "#nf": group(["ng", "ngg", "m", "n", "nd(?!d)", "mb(?!b)"]),
             "#n": group(["ng(?!g)", "m", "n"]),
         }
-
-        console.log(regexShorthand["#n"])
-
+        
         const expandedSearchTerm = searchTerm.replace(
             new RegExp(Object.keys(regexShorthand).join("|"), "g"),
             match => regexShorthand[match]

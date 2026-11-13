@@ -1,0 +1,93 @@
+<style>
+    button:focus, input:focus, select:focus, textarea:focus, [contenteditable]:focus {
+        outline:none;
+    }
+
+    textarea {
+        resize: none;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<head>
+    <meta property="og:title" content="Proto ngimëte typer">
+    <meta property="og:description" content="">
+    <meta property="og:url" content="">
+    <meta name="theme-color" content="">
+    <meta property="og:image" content="">
+</head>
+<body>
+    <textarea id="text"></textarea>
+</body>
+<script>
+    const textarea = document.getElementById("text");
+
+    const lowTone = "\u030F";
+    const midTone = "\u0304";
+    const highTone = "\u030B";
+    const nasal = "\u0303";
+    const voiceless = "\u0325";
+
+    function insertAtCaret(el, text) {
+        const start = el.selectionStart;
+        const end = el.selectionEnd;
+
+        el.setRangeText(text, start, end, "end");
+    }
+
+    const keyRemaps = {
+        "q": "ɑ",
+        "z": "æ",
+        "j": "ɐ",
+        "y": "ə",
+        "c": "ɛ",
+        "shift+:": "ː",
+        "[": "ꜜ",
+        "]": "ꜛ",
+        "/": voiceless,
+        "`": nasal,
+
+        "shift+!": "₁",
+        "shift+@": "₂",
+        "shift+#": "₃",
+        "shift+$": "₄",
+        "shift+%": "₅",
+        "shift+x": "ₓ",
+        "shift+a": "ₐ",
+        "shift+e": "ₑ",
+        "shift+i": "ᵢ",
+        "shift+o": "ₒ",
+        "shift+u": "ᵤ",
+
+        "alt+1": highTone,
+        "alt+2": midTone,
+        "alt+3": lowTone,
+
+        "ctrl+shift+!": "˥",
+        "ctrl+shift+@": "˧",
+        "ctrl+shift+#": "˩",
+    }
+
+
+    textarea.focus();
+
+
+    textarea.addEventListener("keydown", (event) => {
+        const key = event.key.toLowerCase();
+        const shift = event.shiftKey;
+        const ctrl = event.ctrlKey;
+        const alt = event.altKey;
+
+        let keyCombo = "";
+        if (ctrl) keyCombo += "ctrl+";
+        if (shift) keyCombo += "shift+";
+        if (alt) keyCombo += "alt+";
+        keyCombo += key;
+
+        if (keyRemaps[keyCombo]) {
+            event.preventDefault();
+            insertAtCaret(textarea, keyRemaps[keyCombo]);
+        }
+    });
+    
+</script>
