@@ -402,14 +402,8 @@
                 scripts.push(result.script["A'atsilwi"].toString(undefined, ["script"]));
             }
 
-            // new
             let scriptCell = new Set(scripts);
             scriptCell = [...scriptCell].filter(s => s !== noDefIdentifier && s != null).join(" / ");
-            
-            //.join(" / ");
-
-            // old
-            // const scriptCell = [...new Set(scripts)].join(" / ");
 
             // this now works properly in a for loop
             if (term === "" && scriptCell === "") {

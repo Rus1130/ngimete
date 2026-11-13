@@ -110,42 +110,42 @@
                 dict.dict[set].forEach((word) => {
 
                     const standardSyllables = getSyllables(word.script["Standard"]);
-
                     const aatsilwiSyllables = getSyllables(word.script["A'atsilwi"]);
 
-                    standardSyllables.forEach((syllable) => {
-                        if (!syllable) return;
-
-                        const onset = extractOnset(syllable);
-                        const coda  = extractCoda(syllable);
-
-                        const ipa = word.script["Standard"].toString(undefined, undefined , ["ipa"]);
-
-                        if (onset) {
-                            addToMap(onsetsStandard, onset, `[${syllable}] in ${ipa}`);
+                    const sets = {
+                        standard: {
+                            syllables: standardSyllables,
+                            onsets: onsetsStandard,
+                            codas: codasStandard
+                        },
+                        aatsilwi: {
+                            syllables: aatsilwiSyllables,
+                            onsets: onsetsAatsilwi,
+                            codas: codasAatsilwi
                         }
+                    }
 
-                        if (coda) {
-                            addToMap(codasStandard, coda, `[${syllable}] in ${ipa}`);
-                        }
-                    });
 
-                    aatsilwiSyllables.forEach((syllable) => {
-                        if (!syllable) return;
+                    for (const dialect in sets) {
+                        const { syllables, onsets, codas } = sets[dialect];
 
-                        const onset = extractOnset(syllable);
-                        const coda  = extractCoda(syllable);
+                        syllables.forEach((syllable) => {
+                            if (!syllable) return;
 
-                        const ipa = word.script["A'atsilwi"].toString(undefined, undefined , ["ipa"]);
+                            const onset = extractOnset(syllable);
+                            const coda  = extractCoda(syllable);
 
-                        if (onset) {
-                            addToMap(onsetsAatsilwi, onset, `[${syllable}] in ${ipa}`);
-                        }
+                            const ipa = word.script[dialect === "standard" ? "Standard" : "A'atsilwi"].toString(undefined, ["ipa"]);
 
-                        if (coda) {
-                            addToMap(codasAatsilwi, coda, `[${syllable}] in ${ipa}`);
-                        }
-                    });
+                            if (onset) {
+                                addToMap(onsets, onset, `[${syllable}] in ${ipa}`);
+                            }
+
+                            if (coda) {
+                                addToMap(codas, coda, `[${syllable}] in ${ipa}`);
+                            }
+                        });
+                    }
 
                     if(categoriesDistribution[set]) categoriesDistribution[set]++;
                     else categoriesDistribution[set] = 1;

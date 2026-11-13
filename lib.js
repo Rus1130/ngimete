@@ -9,6 +9,24 @@ export class Dictionary {
      */
     ready = null;
 
+    static levenshtein(a, b) {
+        const dp = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+
+        for (let j = 0; j <= b.length; j++) dp[0][j] = j;
+
+        for (let i = 1; i <= a.length; i++) {
+            for (let j = 1; j <= b.length; j++) {
+                dp[i][j] = Math.min(
+                    dp[i - 1][j] + 1,
+                    dp[i][j - 1] + 1,
+                    dp[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)
+                );
+            }
+        }
+
+        return dp[a.length][b.length];
+    }
+
 
     constructor(categories) {
         for(let i = 0; i < arguments.length; i++){
@@ -161,64 +179,67 @@ export class Dictionary {
 
         let results = [];
 
-        if(swap == false){
-            if(category == undefined) {
-                for(let i = 0; i < this.practiceOrder.length; i++){
-                    let cat = this.practiceOrder[i];
-                    this.dict[cat].forEach(word => {
-                        if (regexSearch ? new RegExp(searchTerm, "i").test(word.key) : word.key.includes(searchTerm)) {
-                            let word_ = new Word(word.key, ...Object.values(word.value));
-                            word_.category = cat;
-                            results.push(word_);
-                        }
-                    })
+        // class RegExGroup {
+        //     constructor(patterns) {
+        //         this.patterns = "(" + patterns.join("|") + ")";
+        //     }
+        // }
+
+        function group(array){
+            array = array.map(x => x = "(" + x + ")");
+            return "(" + array.join("|") + ")";
+        }
+
+        const regexShorthand = {
+            "#vs": group(["a", "e", "i", "o", "u", "ä", "ë", "ü"]),
+            "#vl": group(["á", "é", "í", "ó", "ú", "är"]),
+
+            "#cu": group(["ky", "gy", "p", "t", "k", "f", "s", "h"]),
+            "#cv": group(["b", "d", "g(?!y)", "m", "n", "v", "w", "y", "l", "'"]),
+
+            "#c": group(["p", "b", "t", "d", "k", "g", "'", "m", "n", "f", "v", "s", "h", "w", "y", "l"]),
+            "#v": group(["a", "e", "i", "o", "u", "á", "é", "í", "ó", "ú", "(är)", "ä", "ë", "ü"]),
+
+            "#pn": group(["ngg", "nd(?!d)", "mb(?!b)"]),
+            "#nf": group(["ng", "ngg", "m", "n", "nd(?!d)", "mb(?!b)"]),
+            "#n": group(["ng(?!g)", "m", "n"]),
+        }
+
+        console.log(regexShorthand["#n"])
+
+        const expandedSearchTerm = searchTerm.replace(
+            new RegExp(Object.keys(regexShorthand).join("|"), "g"),
+            match => regexShorthand[match]
+        );
+
+        const regex = regexSearch
+            ? new RegExp(expandedSearchTerm, "i")
+            : null;
+
+        const categories = category ? [category] : this.practiceOrder;
+
+        if (category && !this.dict[category]) {
+            return new Error(`Category "${category}" does not exist in the dictionary.`);
+        }
+
+        for (const cat of categories) {
+            this.dict[cat].forEach(word => {
+                const values = swap
+                    ? dialect == undefined
+                        ? Object.values(word.value)
+                        : [word.value[dialect]]
+                    : [word.key];
+
+                const matches = values.some(value =>
+                    regex ? regex.test(value) : value.includes(searchTerm)
+                );
+
+                if (matches) {
+                    const word_ = new Word(word.key, ...Object.values(word.value));
+                    word_.category = cat;
+                    results.push(word_);
                 }
-            } else {
-                if(this.dict[category] == undefined) return new WordSearchResult(searchTerm, []);
-                this.dict[category].forEach(word => {
-                    if (regexSearch ? new RegExp(searchTerm, "i").test(word.key) : word.key.includes(searchTerm)) {
-                        let word_ = new Word(word.key, ...Object.values(word.value))
-                        word_.category = category;
-                        results.push(word_);
-                    }
-                })
-            }
-        } else {
-            if (!category) {
-                for (let i = 0; i < this.practiceOrder.length; i++) {
-                    let cat = this.practiceOrder[i];
-                    this.dict[cat].forEach(word => {
-                        if (dialect == undefined 
-                            ? regexSearch 
-                                ? Object.values(word.value).some(value => new RegExp(searchTerm, "i").test(value)) 
-                                : Object.values(word.value).some(value => value.includes(searchTerm)) 
-                            : regexSearch
-                                ? new RegExp(searchTerm, "i").test(word.value[dialect])
-                                : word.value[dialect].includes(searchTerm)
-                        ) {
-                            let word_ = new Word(word.key, ...Object.values(word.value));
-                            word_.category = cat;
-                            results.push(word_);
-                        }
-                    });
-                }
-            } else {
-                if (!this.dict[category]) return new WordSearchResult(searchTerm, []);
-                this.dict[category].forEach(word => {
-                    if (dialect == undefined
-                        ? regexSearch
-                            ? Object.values(word.value).some(value => new RegExp(searchTerm, "i").test(value))
-                            : Object.values(word.value).some(value => value.includes(searchTerm))
-                        : regexSearch
-                            ? new RegExp(searchTerm, "i").test(word.value[dialect])
-                            : word.value[dialect].includes(searchTerm)
-                        ) {
-                        let word_ = new Word(word.key, ...Object.values(word.value));
-                        word_.category = category;
-                        results.push(word_);
-                    }
-                });
-            }
+            });
         }
 
         if(dialect != undefined){
@@ -233,6 +254,12 @@ export class Dictionary {
         }
 
         results = results.filter(x => !excludedCategories.includes(x.category));
+
+
+        results.sort((a, b) =>
+            Dictionary.levenshtein(searchTerm, a.key) -
+            Dictionary.levenshtein(searchTerm, b.key)
+        );
 
         return new WordSearchResult(searchTerm, results, excludedCategories);
     }
@@ -1042,257 +1069,91 @@ function script(s){
 
     let rendered = ""
 
-    // if(type == 0){
-    //     if(NEW_KEPWAMETE){
-
-    //         let pipeline = [];
-
-    //         for(let i = 0; i < s.length; i++){
-    //             let char = s[i];
-
-
-    //             if(kepwamete_script_map[char] != undefined){
-    //                 if(kepwamete_script_map[char].multi) pipeline.push(...kepwamete_script_map[char].parts);
-    //                 else pipeline.push(kepwamete_script_map[char]);
-    //             } else {
-
-    //                 if(char == " ") {
-    //                     pipeline.push({ raw: true, base: "\u2002" });
-    //                     continue;
-    //                 }
-
-    //                 pipeline.push({ raw: true, base: char });
-    //             }
-    //         }
-
-    //         for(let i = 0; i < pipeline.length; i++){
-    //             let current = pipeline[i];
-    //             let next = pipeline[i + 1];
-
-    //             if(current.raw) {
-    //                 rendered += renderGlyph({
-    //                     base: current.base,
-    //                     raw: true
-    //                 })
-    //                 continue;
-    //             }
-
-    //             const renderable = { 
-    //                 base: current.base,
-    //                 top: current.top,
-    //                 bottom: current.bottom,
-    //                 left: false,
-    //                 right: false,
-    //                 special: false,
-    //                 raw: current.raw
-    //             }
-
-
-    //             if(current.mod){
-    //                 if(next?.base == current.base){
-    //                     renderable.right = true;
-    //                     renderable.left = false;
-    //                 } else {
-    //                     renderable.right = false;
-    //                     renderable.left = true;
-    //                 }
-    //             }
-
-
-    //             rendered += renderGlyph(renderable);
-    //         }
-
-    //         return rendered;
-    //     }
-
-    //     for(let i = 0; i < s.length; i++){
-    //         let char = s[i];
-    //         const renderable = script_map[char];
-    //         if(renderable != undefined){
-    //             rendered += renderGlyph(renderable);
-    //         } else {
-    //             rendered += char;
-    //         }
-    //     }
-    // }
-
     const VOWEL_A = "ᨔ"
     const VOWEL_AA = "ᨖ"
     const VOWEL_LONG_MARKER = "ᨑ"
     const PRENASAL_MARKER = "ᨌ"
 
-    // if (type == 1) {
-        const prerenderPipeline = [];
+    const prerenderPipeline = [];
 
-        for(let i = 0; i < s.length; i++){
-            const curr = script_map[s[i]];
-            if(curr == undefined){
-                prerenderPipeline.push({ raw: true, base: s[i] });
+    for(let i = 0; i < s.length; i++){
+        const curr = script_map[s[i]];
+        if(curr == undefined){
+            prerenderPipeline.push({ raw: true, base: s[i] });
+        } else {
+            if(curr.multi){
+                let copy = structuredClone(curr);
+                prerenderPipeline.push(...copy.parts);
             } else {
-                if(curr.multi){
-                    let copy = structuredClone(curr);
-                    prerenderPipeline.push(...copy.parts);
-                } else {
-                    prerenderPipeline.push(structuredClone(curr));
-                }
+                prerenderPipeline.push(structuredClone(curr));
             }
         }
+    }
 
 
-        const renderPipeline = [];
+    const renderPipeline = [];
 
-        for(let i = 0; i < prerenderPipeline.length; i++){
-            const curr = prerenderPipeline[i];
-            const prev = renderPipeline[renderPipeline.length - 1];
+    for(let i = 0; i < prerenderPipeline.length; i++){
+        const curr = prerenderPipeline[i];
+        const prev = renderPipeline[renderPipeline.length - 1];
 
-            if(curr.raw){
-                renderPipeline.push(curr);
-                continue;
-            }
+        if(curr.raw){
+            renderPipeline.push(curr);
+            continue;
+        }
 
-            const hasAnySlot = curr.top || curr.bottom || curr.left || curr.right;
+        const hasAnySlot = curr.top || curr.bottom || curr.left || curr.right;
 
-            if(curr.vowel && hasAnySlot && prev && !prev.raw && !prev.merged && !curr.special){
+        if(curr.vowel && hasAnySlot && prev && !prev.raw && !prev.merged && !curr.special){
 
-                const slotBlocked = (curr.top && prev.top) || (curr.bottom && prev.bottom) ||
-                                    (curr.left && prev.left) || (curr.right && prev.right);
+            const slotBlocked = (curr.top && prev.top) || (curr.bottom && prev.bottom) ||
+                                (curr.left && prev.left) || (curr.right && prev.right);
 
 
-                if(!slotBlocked){
-                    prev.top = prev.top || curr.top;
-                    prev.bottom = prev.bottom || curr.bottom;
-                    prev.left = prev.left || curr.left;
-                    prev.right = prev.right || curr.right;
-                    prev.merged = true;
+            if(!slotBlocked){
+                prev.top = prev.top || curr.top;
+                prev.bottom = prev.bottom || curr.bottom;
+                prev.left = prev.left || curr.left;
+                prev.right = prev.right || curr.right;
+                prev.merged = true;
 
-                    if(curr.base === VOWEL_AA){
-                        renderPipeline.push({
-                            raw: true,
-                            base: VOWEL_LONG_MARKER
-                        })
-                    }
-                } else {
-                    renderPipeline.push(curr);
+                if(curr.base === VOWEL_AA){
+                    renderPipeline.push({
+                        raw: true,
+                        base: VOWEL_LONG_MARKER
+                    })
                 }
             } else {
                 renderPipeline.push(curr);
             }
+        } else {
+            renderPipeline.push(curr);
         }
+    }
 
-        const ALLOW_REPEATED_CONSONANT_MERGE = true;
+    const ALLOW_REPEATED_CONSONANT_MERGE = true;
 
-        if(ALLOW_REPEATED_CONSONANT_MERGE) for(let i = 0; i < renderPipeline.length - 1; i++){
-            let curr = renderPipeline[i];
-            let next = renderPipeline[i + 1];
+    if(ALLOW_REPEATED_CONSONANT_MERGE) for(let i = 0; i < renderPipeline.length - 1; i++){
+        let curr = renderPipeline[i];
+        let next = renderPipeline[i + 1];
 
-            if(
-                next.base == curr.base && 
-                curr.special == false  && 
-                next.special == false  &&
-                curr.vowel == false    && 
-                next.vowel == false
-            ){
-                if(next.top || next.left || next.right || next.bottom || next.special) continue;
+        if(
+            next.base == curr.base && 
+            curr.special == false  && 
+            next.special == false  &&
+            curr.vowel == false    && 
+            next.vowel == false
+        ){
+            if(next.top || next.left || next.right || next.bottom || next.special) continue;
 
-                curr.special = true;
+            curr.special = true;
 
-                renderPipeline.splice(i + 1, 1);
-                i--;
-            }
+            renderPipeline.splice(i + 1, 1);
+            i--;
         }
+    }
 
-        rendered = renderPipeline.map(renderGlyph).join("");
-
-        //rendered = prerenderPipeline.map(renderGlyph).join("");
-
-
-        // let renderPipeline = [];
-
-        // // Helper to deep copy glyphs
-        // const copy = (g) => g?.multi ? { ...g, parts: g.parts.map(p => ({ ...p })) } : { ...g };
-
-        // for (let i = 0; i < s.length; i++) {
-        //     const char = s[i];
-        //     const curr = script_map[char];
-        //     const prev = renderPipeline[renderPipeline.length - 1];
-
-        //     // Handle first character or non-existent mapping
-        //     if (i == 0 || !curr) {
-        //         renderPipeline.push(curr ? copy(curr) : { raw: true, base: char });
-        //         continue;
-        //     }
-
-        //     if (curr.merged == undefined) curr.merged = false;
-
-        //     // Push if previous is raw, multi, or special cases
-        //     if (prev?.raw || curr.multi || curr.special || 
-        //         curr.base == VOWEL_LONG_MARKER || curr.base == PRENASAL_MARKER) {
-        //         renderPipeline.push(curr.multi ? copy(curr) : { ...curr });
-        //         continue;
-        //     }
-
-        //     // Try to merge vowels with diacritics
-        //     const currHasDiacritics = curr.top || curr.bottom || curr.left || curr.right || curr.special;
-
-
-        //     if (curr.vowel && currHasDiacritics) {
-        //         const target = findMergeTarget(renderPipeline);
-
-        //         if (!target || target.glyph.merged) {
-        //             renderPipeline.push({ ...curr });
-        //             continue;
-        //         }
-
-
-        //         const { glyph: prev, index } = target;
-        //         const slotBlocked = (curr.top && prev.top) || (curr.bottom && prev.bottom) ||
-        //                             (curr.left && prev.left) || (curr.right && prev.right) ||
-        //                             (curr.special && prev.special);
-
-        //         if (!slotBlocked) {
-        //             if (prev.multi) {
-        //                 const lastIdx = prev.parts.length - 1;
-        //                 const lastPart = prev.parts[lastIdx];
-
-
-        //                 const _glyph = {
-        //                     ...lastPart,
-        //                     top: lastPart.top || curr.top,
-        //                     bottom: lastPart.bottom || curr.bottom,
-        //                     left: lastPart.left || curr.left,
-        //                     right: lastPart.right || curr.right,
-        //                     special: lastPart.special || curr.special,
-        //                     vowel: false,
-        //                     merged: true,
-        //                 }
-
-        //                 prev.parts[lastIdx] = _glyph;
-        //             } else {
-        //                 const _glyph = {
-        //                     base: prev.base,
-        //                     top: prev.top || curr.top,
-        //                     bottom: prev.bottom || curr.bottom,
-        //                     left: prev.left || curr.left,
-        //                     right: prev.right || curr.right,
-        //                     special: prev.special || curr.special,
-        //                     vowel: false,
-        //                     merged: true,
-        //                 }
-
-        //                 renderPipeline[index] = _glyph;
-        //             }
-                    
-        //             continue;
-        //         }
-        //     }
-
-        //     renderPipeline.push({ ...curr });
-        // }
-
-        // rendered = renderPipeline.map(renderGlyph).join("");
-    // }
-
-    // find all quotation marks, and replace them with paired «»
+    rendered = renderPipeline.map(renderGlyph).join("");
 
     let inQuotes = false;
     rendered.split("").forEach((char, index) => {
