@@ -42,7 +42,7 @@ dict.waitForDictLoad().then(() => {
 
     const arrangedWords = dict.getAllWords().map(w => {
 
-        const excludedCategories = ["Onomotopoeia", "Grammar", "Phrases", "Consonant Sounds", "Vowel Sounds", "Connecting Letters"];
+        const excludedCategories = ["Onomotopoeia", "Grammar", "Phrases", "Consonant Sounds", "Vowel Sounds", "Connecting Letters", "Archaic"];
 
         if(excludedCategories.includes(w.category)) return null;
 
