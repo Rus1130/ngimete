@@ -36,11 +36,11 @@
     }
 
     const keyRemaps = {
-        "q": "ɑ",
-        "z": "æ",
-        "j": "ɐ",
-        "y": "ə",
-        "c": "ɛ",
+        "alt+q": "ɑ",
+        "alt+z": "æ",
+        "alt+a": "ɐ",
+        "alt+x": "ə",
+        "alt+e": "ɛ",
         "shift+:": "ː",
         "[": "ꜜ",
         "]": "ꜛ",
@@ -52,12 +52,12 @@
         "shift+#": "₃",
         "shift+$": "₄",
         "shift+%": "₅",
-        "shift+x": "ₓ",
-        "shift+a": "ₐ",
-        "shift+e": "ₑ",
-        "shift+i": "ᵢ",
-        "shift+o": "ₒ",
-        "shift+u": "ᵤ",
+        "shift+X": "ₓ",
+        "shift+A": "ₐ",
+        "shift+E": "ₑ",
+        "shift+I": "ᵢ",
+        "shift+O": "ₒ",
+        "shift+U": "ᵤ",
 
         "alt+1": highTone,
         "alt+2": midTone,
@@ -68,15 +68,13 @@
         "ctrl+shift+#": "˩",
     }
 
-
-    textarea.focus();
-
-
     textarea.addEventListener("keydown", (event) => {
-        const key = event.key.toLowerCase();
+        const key = event.key;
         const shift = event.shiftKey;
         const ctrl = event.ctrlKey;
         const alt = event.altKey;
+
+        console.log(event)
 
         let keyCombo = "";
         if (ctrl) keyCombo += "ctrl+";
@@ -88,6 +86,10 @@
             event.preventDefault();
             insertAtCaret(textarea, keyRemaps[keyCombo]);
         }
+    });
+
+    requestAnimationFrame(() => {
+        textarea.focus();
     });
     
 </script>
