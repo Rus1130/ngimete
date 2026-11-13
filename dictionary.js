@@ -24,7 +24,8 @@ let setNames = [
     "Cannibals and Mutants",
     "Religious Terms",
     "Phrases",
-    "Onomatopoeia"
+    "Onomatopoeia",
+    "Archaic"
 ];
 
 const dict = new Dictionary(...setNames);

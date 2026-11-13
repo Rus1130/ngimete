@@ -289,21 +289,21 @@ onta	to return (home, origin)	Verbs
 mate'an	to retreat	Abstracted Verbs
 onta'an	to defeat	Abstracted Verbs
 pese/pefe	colorful, fragrant	Adjectives
-ek	where	dont add
-ngi	person	dont add
-u	lative	dont add
-wulë	hello	dont add
-tsi	to go	dont add
-witsundehohan ya	hungry	dont add
-ë	and	dont add
+ek	where	Archaic
+ngi	person	Archaic
+u	lative	Archaic
+wulë	hello	Archaic
+tsi	to go	Archaic
+witsundehohan ya	hungry	Archaic
+ë	and	Archaic
 buntse/mbuntse	strange	Adjectives
-vovi	fire	dont add
+vovi	fire	Archaic
 noni'i	human god, the first god	Religious Terms
-kaoki ken	male reproductive organ	Nouns about Bones, Limbs, Body Parts, and Death
-galu ken yá	female reproductive organ	Nouns about Bones, Limbs, Body Parts, and Death
-ábe	human(s)	dont add
-kole	comitative	dont add
-u'u	animal	dont add
+kaoki ken	penis	Nouns about Bones, Limbs, Body Parts, and Death
+galu ken yá	vagina	Nouns about Bones, Limbs, Body Parts, and Death
+ábe	human(s)	Archaic
+kole	comitative	Archaic
+u'u	animal	Archaic
 keloyani	lower body	Nouns about Bones, Limbs, Body Parts, and Death
 ketiyani	upper body	Nouns about Bones, Limbs, Body Parts, and Death
 kaoloyani	lower skeleton	Nouns about Bones, Limbs, Body Parts, and Death
@@ -376,8 +376,8 @@ kuni mem te	messenger	Nouns
 fóse	absence	Nouns
 kálakü	nose-spitter (insult towards A'atsilwi speakers)	Nouns
 fogaäpüha	grunt-screecher (insult towards Standard speakers)	Nouns
-népi	sun	dont add
-ápwa	moon	dont add
+népi	sun	Archaic
+ápwa	moon	Archaic
 hana	to enjoy, to like	Verbs
 mogü	to hate, to despise	Verbs
 niba	below, down, under	Miscellaneous
