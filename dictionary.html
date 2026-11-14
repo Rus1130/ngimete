@@ -35,9 +35,18 @@
     #output {
         max-height: 100%;
     }
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+    }
+
     #container {
-        overflow: auto;
-        max-height: calc(100% - 102px);
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: calc(100% - 102px);
     }
 
     #corner {
@@ -55,11 +64,6 @@
 
     input[type="checkbox"]:focus, #input:focus, button:focus {
         outline: none;
-    }
-
-    body {
-        overflow-y: hidden;
-        font-family: "Arial";
     }
 
     /* Dropdown container */
