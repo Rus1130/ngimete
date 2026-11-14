@@ -198,6 +198,26 @@
             .map(d => d.value);
     }
 
+    const regexSearch = document.getElementById("regex-search");
+    const swapTarget = document.getElementById("swap");
+
+
+    regexSearch.addEventListener("change", () => {
+        localStorage.setItem("ngimete-dictionary-regex", regexSearch.checked);
+    });
+
+    swapTarget.addEventListener("change", () => {
+        localStorage.setItem("ngimete-dictionary-swap", swapTarget.checked);
+    });
+
+
+    if(localStorage.getItem("ngimete-dictionary-regex") === "true") {
+        regexSearch.checked = true;
+    }
+    if(localStorage.getItem("ngimete-dictionary-swap") === "true") {
+        swapTarget.checked = true;
+    }
+
     const defaultExcludedCategories = ["Consonant Sounds", "Vowel Sounds", "Connecting Letters", "Grammar", "Tenses", "Archaic"];
 
     while(dict.ready === false) {
