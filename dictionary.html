@@ -173,7 +173,7 @@
 
     const input = document.getElementById("input");
     const output = document.getElementById("output");
-    const button = document.getElementById("popout");
+    const popoutButton = document.getElementById("popout");
     const dialectCheckboxes = document.querySelectorAll('input[name="dialect"]');
 
     const params = new URLSearchParams(window.location.search);
@@ -183,7 +183,7 @@
     const removeCategoryColumn = params.get("c") === "true";
     const dialectOverride = params.get("d");
 
-    if (params.get("b") === "false") button.style.display = "none";
+    if (params.get("b") === "false") popoutButton.style.display = "none";
 
     if (removeNav) {
         document.getElementById("nav").style.display = "none";
@@ -553,7 +553,10 @@
         }
     });
 
-    button.addEventListener("click", () => dict.openDictionary("window"));
+    popoutButton.addEventListener("click", () => {
+        document.body.innerHTML = `<div style="margin: 2px;">Popped out dictionary window. If you close the popped out window, you will need to refresh this page to use the dictionary again.</div>`;
+        dict.openDictionary("window")
+    });
 
 
     dropbtn.addEventListener("click", () => {
