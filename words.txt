@@ -518,8 +518,8 @@ witsunddenddu	to prevent (something), to block (an action)	Verbs
 kewes	a dangerous place, "Hell"	Religious Terms
 ngewus	clan, tribe	Nouns
 kéle	to strike up (an informal) conversation	Verbs
-sétwi	to flirt	Verbs
-sétwi'an	to unintentionally flirt (go with the flow)	Abstracted Verbs
+sétswi	to flirt	Verbs
+sétswi'an	to unintentionally flirt (go with the flow)	Abstracted Verbs
 konayo/koneyo	to persevere	Reflexive Verbs
 kéleyo	to introduce (oneself)	Verbs
 kéle'an	to participate in small talk out of politeness (despite not wanting to)	Abstracted Verbs
@@ -820,9 +820,9 @@ ungke	tunnel	Nouns
 ki'ile	ceiling	Nouns
 nágyu	to reach	Verbs
 káhus/kás	the holy tree	Religious Terms
-yá'us/kas	holy sustenance	Religious Terms
+yá'us/yáhus	holy sustenance	Religious Terms
 mite	inside	Miscellaneous
-twana	wall(s)	Irregular Plural Nouns
+tswana	wall(s)	Irregular Plural Nouns
 yáni'on	to obsess over	Superabstracted Verbs
 u'u	creature	Nouns
 seneka	iron	Nouns
@@ -830,7 +830,7 @@ kopena	to spread	Verbs
 kála	pit	Nouns
 némenge	to be known as	Verbs
 sowa-ya	living, mortal	Adjectives
-ndwéte	among	Miscellaneous
+ndéte	among	Miscellaneous
 sümewe'an	to decide	Abstracted Verbs
 lén	infinite	Nouns
 tuwu	year	Nouns

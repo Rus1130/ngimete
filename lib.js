@@ -464,13 +464,13 @@ const GROUPS = {
     "V": "aeiouɑəyAEIOUQ",  
     "C": "bdfghklmnpstvwjcŋʔSBDG",
     "N": "mnŋ",
-    "F": "fpbts",
+    "F": "pbfvshtS",
     "T": "Ss",
 };
 
 const SYLLABLES = [
     `kid`, // special case for "kid"
-    "FwV", // (f/p/b/t)w(vowel)
+    "FwV", // (p/b/f/v/s/h/ts)w(vowel)
     `TVl(?![${GROUPS.V}])`, // (s/ts)-vowel-l not followed by vowel
     `CVN(?![${GROUPS.V}])`, // consonant-vowel-nasal not followed by vowel
     `CVN(?=[${GROUPS.C}])`, // consonant-vowel-nasal followed by consonant
