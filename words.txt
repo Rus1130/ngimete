@@ -410,7 +410,7 @@ tsefeseyo	to suffer	Reflexive Verbs
 witsunde'oso/witsundde'oso	to tidy one's appearance	Reflexive Verbs
 kuniyo	to embark	Reflexive Verbs
 bátsiyo	to welcome	Reflexive Verbs
-kyelu	(foreign) script, writing	Nouns
+kyelu	foreign script, writing	Nouns
 seyaya	to list	Verbs
 nagyu	to fetch, to grab (someone)	Verbs
 seyayaso	to register one's self, to sign up	Reflexive Verbs
@@ -700,10 +700,7 @@ nanalohí	goodbye	Phrases
 máfëtär	safely, securely	Miscellaneous
 nana/naná	bye bye, see you	Phrases
 gupi	worm(s)	Irregular Plural Nouns
-gupimëte	a'atsilwi script (worm writing)	Nouns
-kehimëte	main ngimëte script (mountain script)	Nouns
-kepwámëte	a'atsilwi version of the main ngimëte script (low mountain script)	Nouns
-mëte	any spoken communication/language, type(s) of native ngimëte orthography	Nouns
+mëte	any spoken communication/language	Nouns
 sowa	to inhabit, to live (somewhere)	Verbs
 ndá	through, between somewhere	Miscellaneous
 migu	to ask, to inquire, to question	Verbs
@@ -849,3 +846,7 @@ ndawi fene te	horse	Nouns
 kyete	foreign language, language other than ngimëte	Nouns
 suna	to arrive	Verbs
 súsi'i	god of water	Religious Terms
+kalapanai	the taboo action of chopping a head off it's body	Verbs
+kames	holy forest; trees/forest set aside near the chieftains house to preserve writings on	Religious Terms
+mëlu	native forms of writing	Nouns
+kahamëlu	tree writing	Irregular Plural Nouns
