@@ -404,82 +404,6 @@ function applyRules(str, rules) {
     return str;
 }
 
-const ORTHO_RULES = [
-    // multigraphs first
-    { re: /mbb/g, to: "M" }, // m.b
-    { re: /ndd/g, to: "N" }, // n.d
-    { re: /gy|ky/g, to: "c" },
-    { re: /ts/g, to: "S" }, // t͡s
-    { re: /y/g, to: "j" },
-    { re: /\?/g, to: "." },
-    { re: /\!/g, to: "." },
-
-    // prenasalization
-    { re: /nd/g, to: "D" }, // ⁿd
-    { re: /mb/g, to: "B" }, // ᵐb
-    { re: /ngg/g, to: "G" }, // ᵑg
-    { re: /ng/g, to: "ŋ" },
-    { re: /M/g, to: "mb" },
-    { re: /N/g, to: "nd" },
-
-    // glottal
-    { re: /'/g, to: "ʔ" },
-
-    // vowels
-    { re: /a/g, to: "a" },
-    { re: /e/g, to: "e" },
-    { re: /i/g, to: "i" },
-    { re: /o/g, to: "o" },
-    { re: /u/g, to: "u" },
-    { re: /á/g, to: "A" }, // aː
-    { re: /é/g, to: "E" }, // eː
-    { re: /í/g, to: "I" }, // iː
-    { re: /ó/g, to: "O" }, // oː
-    { re: /ú/g, to: "U" }, // uː
-
-    { re: /ä/g, to: "ɑ" },
-    { re: /ë/g, to: "ə" },
-    { re: /ü/g, to: "y" },
-
-    { re: /\.\./g, to: "." },
-];
-
-const remap = [
-    { re: /A/g, to: "aː" },
-    { re: /E/g, to: "eː" },
-    { re: /I/g, to: "iː" },
-    { re: /O/g, to: "oː" },
-    { re: /U/g, to: "uː" },
-    { re: /Q/g, to: "ɑː" },
-    { re: /B/g, to: "ᵐb" },
-    { re: /D/g, to: "ⁿd" },
-    { re: /G/g, to: "ᵑɡ" },
-    { re: /S/g, to: "t͡s" },
-    { re: /M/g, to: "mb" },
-    { re: /N/g, to: "nd" },
-    { re: /\.\./g, to: "" },
-]
-
-const GROUPS = {
-    "V": "aeiouɑəyAEIOUQ",  
-    "C": "bdfghklmnpstvwjcŋʔSBDG",
-    "N": "mnŋ",
-    "F": "pbfvshtS",
-    "T": "Ss",
-};
-
-const SYLLABLES = [
-    `kid`, // special case for "kid"
-    "FwV", // (p/b/f/v/s/h/ts)w(vowel)
-    `TVl(?![${GROUPS.V}])`, // (s/ts)-vowel-l not followed by vowel
-    `CVN(?![${GROUPS.V}])`, // consonant-vowel-nasal not followed by vowel
-    `CVN(?=[${GROUPS.C}])`, // consonant-vowel-nasal followed by consonant
-    `(C)Vs(?![${GROUPS.V}])`, // (consonant)-vowel-s not followed by vowel
-    `VN(?=[${GROUPS.C}])`, // vowel-nasal followed by consonant
-    "CV",
-    "V",
-];
-
 function syllabifyWord(word, groups, templates) {
     const compiled = templates
         .map(t => compileTemplate(t, groups))
@@ -511,24 +435,175 @@ function syllabifyWord(word, groups, templates) {
     return out.join(".");
 }
 
-const diphthongs = [
-    "ao",
-    "eo",
-    "oa",
-    "ie",
-    "ae",
-    "ua",
-    "ai",
-    "ia"
-]
+export class ngimeteContent {
 
-const non_syllabic_diacritic = "̯";
+    static non_syllabic_diacritic = "̯";
+
+    static diphthongs = [
+        "ao",
+        "eo",
+        "oa",
+        "ie",
+        "ae",
+        "ua",
+        "ai",
+        "ia"
+    ]
+
+    static diphthongPremap = Object.fromEntries(
+        ngimeteContent.diphthongs.map((value, index) => [
+            value,
+            String.fromCodePoint(0xE000 + index)
+        ])
+    );
+
+    static dipthongRemap = Object.fromEntries(
+        Object.entries(this.diphthongPremap).map(([value, character]) => [
+            character,
+            value
+        ])
+    );
+
+    static groups = {
+        "V": "aeiouɑəyAEIOUQ",  
+        "C": "bdfghklmnpstvwjcŋʔSBDG",
+        "N": "mnŋ",
+        "Z": "pbfvshtS",
+        "T": "Ss",
+        "J": "mnŋs",
+        "W": Object.values(ngimeteContent.diphthongPremap).join(""),
+    };
+
+    static validSyllableShapes = {
+        I: [
+            "V",
+            "CV",
+            "ZwV",
+        ],
+        II: [
+            "W",
+            "CW",
+            "ZwW",
+        ],
+        III: [
+            "CVJ",
+            "ZwVJ",
+        ],
+        IV: [
+            "CWJ",
+            "ZwWJ",
+        ]
+    }
+
+    static syllables = [
+        `kid`, // special case for "kid"
+        "ZwV", // (p/b/f/v/s/h/ts)w(vowel)
+        `TVl(?![${ngimeteContent.groups.V}])`, // (s/ts)-vowel-l not followed by vowel
+        `CVN(?![${ngimeteContent.groups.V}])`, // consonant-vowel-nasal not followed by vowel
+        `CVN(?=[${ngimeteContent.groups.C}])`, // consonant-vowel-nasal followed by consonant
+        `(C)Vs(?![${ngimeteContent.groups.V}])`, // (consonant)-vowel-s not followed by vowel
+        `VN(?=[${ngimeteContent.groups.C}])`, // vowel-nasal followed by consonant
+        "CV",
+        "V",
+    ];
+
+
+    static preMap = [
+        // multigraphs first
+        { re: /mbb/g, to: "M" }, // m.b
+        { re: /ndd/g, to: "N" }, // n.d
+        { re: /gy|ky/g, to: "c" },
+        { re: /ts/g, to: "S" }, // t͡s
+        { re: /y/g, to: "j" },
+        { re: /\?/g, to: "." },
+        { re: /\!/g, to: "." },
+
+        // prenasalization
+        { re: /nd/g, to: "D" }, // ⁿd
+        { re: /mb/g, to: "B" }, // ᵐb
+        { re: /ngg/g, to: "G" }, // ᵑg
+        { re: /ng/g, to: "ŋ" },
+        { re: /M/g, to: "mb" },
+        { re: /N/g, to: "nd" },
+
+        // glottal
+        { re: /'/g, to: "ʔ" },
+
+        // vowels
+        { re: /a/g, to: "a" },
+        { re: /e/g, to: "e" },
+        { re: /i/g, to: "i" },
+        { re: /o/g, to: "o" },
+        { re: /u/g, to: "u" },
+        { re: /á/g, to: "A" }, // aː
+        { re: /é/g, to: "E" }, // eː
+        { re: /í/g, to: "I" }, // iː
+        { re: /ó/g, to: "O" }, // oː
+        { re: /ú/g, to: "U" }, // uː
+
+        { re: /ä/g, to: "ɑ" },
+        { re: /ë/g, to: "ə" },
+        { re: /ü/g, to: "y" },
+
+        { re: /\.\./g, to: "." },
+    ];
+
+    static postMap = [
+        { re: /A/g, to: "aː" },
+        { re: /E/g, to: "eː" },
+        { re: /I/g, to: "iː" },
+        { re: /O/g, to: "oː" },
+        { re: /U/g, to: "uː" },
+        { re: /Q/g, to: "ɑː" },
+        { re: /B/g, to: "ᵐb" },
+        { re: /D/g, to: "ⁿd" },
+        { re: /G/g, to: "ᵑɡ" },
+        { re: /S/g, to: "t͡s" },
+        { re: /M/g, to: "mb" },
+        { re: /N/g, to: "nd" },
+        { re: /\.\./g, to: "" },
+    ]
+
+    static allValidSyllables = Object.fromEntries(
+        Object.entries(ngimeteContent.validSyllableShapes).map(([type, shapes]) => [
+            type,
+            shapes.flatMap(shape => {
+                const expand = (str, index = 0) => {
+                    if (index >= str.length) return [""];
+
+                    const group = ngimeteContent.groups[str[index]] ?? str[index];
+
+                    return [...group].flatMap(char =>
+                        expand(str, index + 1).map(rest => char + rest)
+                    );
+                };
+
+                return expand(shape).map(syllable => {
+                    syllable = syllable.replace(
+                        /[\uE000-\uF8FF]/g,
+                        char => ngimeteContent.dipthongRemap[char] ?? char
+                    );
+
+                    ngimeteContent.postMap.forEach(({ re, to }) => {
+                        syllable = syllable.replace(re, to);
+                    });
+
+                    return syllable;
+                });
+            })
+        ])
+    );
+
+    constructor(){
+        throw new Error("This class is not meant to me created.")
+    }
+}
 
 const IPA_FIXES = [
     { re: /n/g, to: "n̪" },
     { re: /g/g, to: "ɡ" },
-    ...diphthongs.map(d => {
-        return { re: new RegExp(d.split("").join("\\."), "g"), to: d[0] + d[1] + non_syllabic_diacritic }
+    ...ngimeteContent.diphthongs.map(d => {
+        return { re: new RegExp(d.split("").join("\\."), "g"), to: d[0] + d[1] + ngimeteContent.non_syllable_diacritic }
     })
 ];
 
@@ -588,11 +663,11 @@ function ipa(input) {
 
     s = s.replaceAll('"', "");
 
-    s = applyRules(s, ORTHO_RULES);
+    s = applyRules(s, ngimeteContent.preMap);
 
     s = s
         .split(" ")
-        .map(s => syllabifyWord(s, GROUPS, SYLLABLES))
+        .map(s => syllabifyWord(s, ngimeteContent.groups, ngimeteContent.syllables))
         .join(" ");
 
 
@@ -602,7 +677,7 @@ function ipa(input) {
         .replaceAll("...", ".")
         .replaceAll(" ..", ".");
 
-    s = applyRules(s, remap);
+    s = applyRules(s, ngimeteContent.postMap);
     
     s = s
         // .replaceAll("ɑ.r", "ɑː")
@@ -692,26 +767,6 @@ function script(s){
         k: { base: "ᨍ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
         g: { base: "ᨍ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false },
         "\uE00B": { base: "ᨀ", top: false, bottom: false, left: false, right: false, special: false, vowel: false }, // glottal
-
-        // top-bottom
-        // "\uE003": { base: "ᨃ", top: true, bottom: true,  left: false, right: false, special: false, vowel: false }, // mb
-        // "\uE004": { base: "ᨈ", top: true, bottom: true,  left: false, right: false, special: false, vowel: false }, // nd
-        // "\uE005": { base: "ᨍ", top: true, bottom: true,  left: false, right: false, special: false, vowel: false }, // ngg
-
-        // special
-        // "\uE003": { base: "ᨃ", top: false, bottom: false,  left: false, right: false, special: true, vowel: false }, // mb
-        // "\uE004": { base: "ᨈ", top: false, bottom: false,  left: false, right: false, special: true, vowel: false }, // nd
-        // "\uE005": { base: "ᨍ", top: false, bottom: false,  left: false, right: false, special: true, vowel: false }, // ngg
-
-        // og
-        // "\uE003": { base: "ᨃ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false }, // mb
-        // "\uE004": { base: "ᨈ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false }, // nd
-        // "\uE005": { base: "ᨍ", top: false, bottom: false,  left: true, right: false, special: false, vowel: false }, // ngg
-
-        // left + bottom
-        // "\uE003": { base: "ᨃ", top: false, bottom: true,  left: true, right: false, special: false, vowel: false }, // mb
-        // "\uE004": { base: "ᨈ", top: false, bottom: true,  left: true, right: false, special: false, vowel: false }, // nd
-        // "\uE005": { base: "ᨍ", top: false, bottom: true,  left: true, right: false, special: false, vowel: false }, // ngg
 
         // super special
         "\uE003": { multi: true, parts: [
@@ -999,49 +1054,7 @@ function script(s){
                 { base: "ᨈ", mod: false, top: true, bottom: false },
             ],
         },
-
-
-        // "p": "ᨃ",
-        // "b": "ᨃᨙ",
-        // "t": "ᨈ",
-        // "d": "ᨈᨙ",
-        // "\uE008": "ᨇ", // gy/ky
-        // "k": "ᨍ",
-        // "g": "ᨍᨙ",
-        // "\uE00B": "ᨔ", // glottal
-        // "\uE003": "ᨅᨘ", // mb
-        // "\uE004": "ᨄᨘ", // nd
-        // "\uE005": "ᨋᨘ", // ngg
-        // "m": "ᨅ",
-        // "n": "ᨄ",
-        // "\uE006": "ᨋ", // ng
-        // "f": "ᨂ",
-        // "v": "ᨂᨙ",
-        // "s": "ᨆ",
-        // "h": "ᨖ",
-        // "\uE007": "ᨈᨆ", // ts
-        // "w": "ᨏ",
-        // "y": "ᨑ",
-        // "l": "ᨓ",
-        // "i": "ᨑᨚ",
-        // "ü": "ᨄᨚ",
-        // "í": "ᨑᨚᨀ",
-        // "u": "ᨏᨚ",
-        // "ú": "ᨏᨚᨀ",
-        // "e": "ᨇᨚ",
-        // "é": "ᨇᨚᨀ",
-        // "ë": "ᨖᨚ",
-        // "o": "ᨆᨚ",
-        // "ó": "ᨆᨚᨀ",
-        // "a": "ᨍᨚ",
-        // "á": "ᨍᨚᨀ",
-        // "ä": "ᨔᨚ",
-        // "\uE00A": "ᨔᨚᨀ", // är
-        // "\uE002": "ᨅᨃ", // mb
-        // "\uE001": "ᨄᨊ", // nd
     }
-
-    const NEW_KEPWAMETE = true;
 
     const script_replace_list = {
         "mbb": "\uE002", // mb
