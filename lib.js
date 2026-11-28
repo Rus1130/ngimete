@@ -167,7 +167,7 @@ export class Dictionary {
      *  })
      */
     wordSearch(searchTerm, options) {
-        searchTerm = searchTerm.toLowerCase();
+        searchTerm = searchTerm;
 
         let category = options?.category || undefined;
         let dialect = options?.dialect || undefined;
@@ -181,25 +181,25 @@ export class Dictionary {
 
         let results = [];
 
-        function group(array){
-            array = array.map(x => x = "(" + x + ")");
-            return "(" + array.join("|") + ")";
-        }
+        const set = (chars, extra = []) => {
+            const alts = [...extra, ...(chars ? [`[${chars}]`] : [])];
+            return alts.length > 1 ? `(?:${alts.join("|")})` : alts[0];
+        };
 
         const regexShorthand = {
-            "#vs": group(["a", "e", "i", "o", "u", "ä", "ë", "ü"]),
-            "#vl": group(["á", "é", "í", "ó", "ú", "är"]),
+            "VS": set("aeiouäëü"),
+            "VL": set("áéíóú", ["är"]),
 
-            "#cu": group(["ky", "p", "t", "k", "f", "s", "h"]),
-            "#cv": group(["b", "d", "gy", "m", "n", "v", "w", "y", "l", "'"]),
+            "CU": set("ptkfsh", ["ky"]),
+            "CV": set("bdmnvwyl'", ["gy"]),
 
-            "#c": group(["p", "b", "t", "d", "k", "g", "'", "m", "n", "f", "v", "s", "h", "w", "y", "l", "gy", "ky"]),
-            "#v": group(["a", "e", "i", "o", "u", "á", "é", "í", "ó", "ú", "är", "ä", "ë", "ü"]),
+            "C": set("ptdkbg'mnfvshwyl", ["gy", "ky"]),
+            "V": set("aeiouáéíóúäëü", ["är"]),
 
-            "#pn": group(["ngg", "nd(?!d)", "mb(?!b)"]),
-            "#nf": group(["ng", "ngg", "m", "n", "nd(?!d)", "mb(?!b)"]),
-            "#n": group(["ng(?!g)", "m", "n"]),
-        }
+            "PN": set("", ["ngg", "nd(?!d)", "mb(?!b)"]),
+            "NF": set("mn", ["ngg", "ng", "nd(?!d)", "mb(?!b)"]),
+            "N":  set("mn", ["ng(?!g)"]),
+        };
         
         const expandedSearchTerm = searchTerm.replace(
             new RegExp(Object.keys(regexShorthand).join("|"), "g"),
@@ -209,6 +209,8 @@ export class Dictionary {
         const regex = regexSearch
             ? new RegExp(expandedSearchTerm, "i")
             : null;
+
+        console.log(regex)
 
         const categories = category ? [category] : this.practiceOrder;
 
