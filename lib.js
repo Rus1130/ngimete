@@ -179,12 +179,6 @@ export class Dictionary {
 
         let results = [];
 
-        // class RegExGroup {
-        //     constructor(patterns) {
-        //         this.patterns = "(" + patterns.join("|") + ")";
-        //     }
-        // }
-
         function group(array){
             array = array.map(x => x = "(" + x + ")");
             return "(" + array.join("|") + ")";
@@ -198,7 +192,7 @@ export class Dictionary {
             "#cv": group(["b", "d", "g(?!y)", "m", "n", "v", "w", "y", "l", "'"]),
 
             "#c": group(["p", "b", "t", "d", "k", "g", "'", "m", "n", "f", "v", "s", "h", "w", "y", "l"]),
-            "#v": group(["a", "e", "i", "o", "u", "á", "é", "í", "ó", "ú", "(är)", "ä", "ë", "ü"]),
+            "#v": group(["a", "e", "i", "o", "u", "á", "é", "í", "ó", "ú", "är", "ä", "ë", "ü"]),
 
             "#pn": group(["ngg", "nd(?!d)", "mb(?!b)"]),
             "#nf": group(["ng", "ngg", "m", "n", "nd(?!d)", "mb(?!b)"]),
@@ -334,63 +328,32 @@ export class Dictionary {
 }
 
 function ortho(s){
+    const V  = "aeiouáéíóúäëü";
+    const C  = "bdfghklmnpstvwyr";
+    const C1 = "mnsvwr";
+    const A  = "bdfhklt";
+    const D  = "gpy";
+    const P  = "oiu";
 
-    s = s.replaceAll("_", "");
+    const rules = [
+        ["a", C,  "ā"],
+        [V,   D,  "c"],
+        [P,   C,  "ə"],
+        [C,   C,  "ə"],
+        [V,   V,  "c"],
+        [V,   C1, "z"],
+        [V,   A,  "z"],
+    ];
 
-    const V = ["a", "e", "i", "o", "u", "á", "é", "í", "ó", "ú", "ä", "ë", "ü"]
-    const C = ["b", "d", "f", "g", "h", "k", "l", "m", "n", "p", "s", "t", "v", "w", "y", "r"]
-    const C1 = ["m", "n", "s", "v", "w", "r"]
-    const A = ["b", "d", "f", "h", "k", "l", "t"]
-    const D = ["g", "p", "y"]
-    const P = ["o", "i", "u"]
+    const chars = s.replaceAll("_", "").split("");
 
-    for(let i = 0; i < s.length; i++){
+    chars.forEach((ch, i) => {
+        if(ch !== "-") return;
+        const rule = rules.find(([l, r]) => l.includes(chars[i - 1]) && r.includes(chars[i + 1]));
+        if(rule) chars[i] = rule[2];
+    });
 
-        if(s[i] == "-"){
-            let left = s[i-1]
-            let right = s[i+1]
-            
-            // C-C = ə
-            // P-C = ə
-            // V-V = c
-            // V-C1 = z
-            // V-D = c
-            // V-A = z
-            // a-C = ā
-
-            if(left == "a" && C.includes(right)) {
-                s = s.substring(0, i) + "ā" + s.substring(i+1)
-                continue
-            }
-            if(V.includes(left) && D.includes(right)) {
-                s = s.substring(0, i) + "c" + s.substring(i+1)
-                continue
-            }
-            if(P.includes(left) && C.includes(right)) {
-                s = s.substring(0, i) + "ə" + s.substring(i+1)
-                continue
-            }
-            if(C.includes(left) && C.includes(right)) {
-                s = s.substring(0, i) + "ə" + s.substring(i+1)
-                continue
-            }
-            if(V.includes(left) && V.includes(right)) {
-                s = s.substring(0, i) + "c" + s.substring(i+1)
-                continue
-            }
-            if(V.includes(left) && C1.includes(right)) {
-                s = s.substring(0, i) + "z" + s.substring(i+1)
-                continue
-            }
-            if(V.includes(left) && A.includes(right)) {
-                s = s.substring(0, i) + "z" + s.substring(i+1)
-                continue
-            }
-        }
-    }
-
-    s = s.replaceAll("aā", "ā")
-    return s;
+    return chars.join("").replaceAll("aā", "ā");
 }
 
 function normalize(str) {
@@ -398,8 +361,8 @@ function normalize(str) {
 }
 
 function applyRules(str, rules) {
-    for (const { re, to } of rules) {
-        str = str.replace(re, to);
+    for (const [from, to] of Object.entries(rules)) {
+        str = str.replaceAll(from, to);
     }
     return str;
 }
@@ -439,6 +402,78 @@ export class ngimeteContent {
 
     static non_syllabic_diacritic = "̯";
 
+    static script_replace_list = {
+        "mbb": "\uE002",
+        "ndd": "\uE001",
+        "mb": "\uE003",
+        "nd": "\uE004",
+        "ngg": "\uE005",
+        "ng": "\uE006",
+        "ts": "\uE007",
+        "gy": "\uE008",
+        "ky": "\uE008",
+        "är": "\uE00A",
+        "'": "\uE00B",
+        ",": " ᨞",
+        ".": " ᨟",
+        "?": " ᨟",
+        "!": " ᨟",
+    };
+
+    static script_map = {
+        // consonants
+        p: { base: "ᨃ" },
+        b: { base: "ᨃ", bottom: true },
+        t: { base: "ᨈ" },
+        d: { base: "ᨈ", bottom: true },
+        k: { base: "ᨍ" },
+        g: { base: "ᨍ", bottom: true },
+        m: { base: "ᨅ" },
+        n: { base: "ᨄ" },
+        f: { base: "ᨂ" },
+        v: { base: "ᨂ", bottom: true },
+        s: { base: "ᨆ" },
+        h: { base: "ᨀ", bottom: true },
+        w: { base: "ᨏ" },
+        y: { base: "ᨒ" },
+        l: { base: "ᨓ" },
+
+        // placeholder symbols (see script_replace_list)
+        "\uE008": { base: "ᨇ" }, // gy/ky
+        "\uE00B": { base: "ᨀ" }, // glottal
+        "\uE006": { base: "ᨋ" }, // ng
+        "\uE007": { base: "ᨉ" }, // ts
+
+        // prenasalized
+        "\uE003": { multi: true, parts: [{ raw: true, base: "ᨌ" }, { base: "ᨃ", special: true }] }, // mb
+        "\uE004": { multi: true, parts: [{ raw: true, base: "ᨌ" }, { base: "ᨈ", special: true }] }, // nd
+        "\uE005": { multi: true, parts: [{ raw: true, base: "ᨌ" }, { base: "ᨍ", special: true }] }, // ngg
+
+        // geminate clusters
+        "\uE002": { multi: true, parts: [{ base: "ᨅ" }, { base: "ᨃ", bottom: true }] }, // m.b
+        "\uE001": { multi: true, parts: [{ base: "ᨄ" }, { base: "ᨊ" }] },               // n.d
+
+        // vowels
+        a: vowel("ᨔ"),
+        e: vowel("ᨔ", { left: true }),
+        i: vowel("ᨔ", { top: true }),
+        o: vowel("ᨔ", { right: true }),
+        u: vowel("ᨔ", { top: true, right: true }),
+        ä: vowel("ᨔ", { bottom: true }),
+        ë: vowel("ᨔ", { special: true }),
+        ü: vowel("ᨔ", { top: true, special: true }),
+        á: vowel("ᨖ"),
+        é: vowel("ᨖ", { left: true }),
+        í: vowel("ᨖ", { top: true }),
+        ó: vowel("ᨖ", { right: true }),
+        ú: vowel("ᨖ", { top: true, right: true }),
+        "\uE00A": vowel("ᨖ", { bottom: true }), // är
+
+        // punctuation
+        "(": { raw: true, base: "（" },
+        ")": { raw: true, base: "）" },
+    };
+
     static diphthongs = [
         "ao",
         "eo",
@@ -450,19 +485,8 @@ export class ngimeteContent {
         "ia"
     ]
 
-    static diphthongPremap = Object.fromEntries(
-        ngimeteContent.diphthongs.map((value, index) => [
-            value,
-            String.fromCodePoint(0xE000 + index)
-        ])
-    );
-
-    static dipthongRemap = Object.fromEntries(
-        Object.entries(this.diphthongPremap).map(([value, character]) => [
-            character,
-            value
-        ])
-    );
+    // private-use placeholder characters standing in for each diphthong (index-aligned)
+    static diphthongChars = ngimeteContent.diphthongs.map((_, i) => String.fromCodePoint(0xE000 + i));
 
     static groups = {
         "V": "aeiouɑəyAEIOUQ",  
@@ -471,7 +495,7 @@ export class ngimeteContent {
         "Z": "pbfvshtS",
         "T": "Ss",
         "J": "mnŋs",
-        "W": Object.values(ngimeteContent.diphthongPremap).join(""),
+        "W": ngimeteContent.diphthongChars.join(""),
     };
 
     static validSyllableShapes = {
@@ -501,97 +525,78 @@ export class ngimeteContent {
         `TVl(?![${ngimeteContent.groups.V}])`, // (s/ts)-vowel-l not followed by vowel
         `CVN(?![${ngimeteContent.groups.V}])`, // consonant-vowel-nasal not followed by vowel
         `CVN(?=[${ngimeteContent.groups.C}])`, // consonant-vowel-nasal followed by consonant
-        `(C)Vs(?![${ngimeteContent.groups.V}])`, // (consonant)-vowel-s not followed by vowel
+        `CVs(?![${ngimeteContent.groups.V}])`, // consonant-vowel-s not followed by vowel
         `VN(?=[${ngimeteContent.groups.C}])`, // vowel-nasal followed by consonant
         "CV",
         "V",
     ];
 
+    // orthography -> internal single-character symbols (applied in order)
+    static preMap = {
+        "mbb": "M", // m.b
+        "ndd": "N", // n.d
+        "gy": "c",
+        "ky": "c",
+        "ts": "S", // t͡s
+        "y": "j",
+        "?": ".",
+        "!": ".",
 
-    static preMap = [
-        // multigraphs first
-        { re: /mbb/g, to: "M" }, // m.b
-        { re: /ndd/g, to: "N" }, // n.d
-        { re: /gy|ky/g, to: "c" },
-        { re: /ts/g, to: "S" }, // t͡s
-        { re: /y/g, to: "j" },
-        { re: /\?/g, to: "." },
-        { re: /\!/g, to: "." },
+        "nd": "D", // ⁿd
+        "mb": "B", // ᵐb
+        "ngg": "G", // ᵑg
+        "ng": "ŋ",
+        "M": "mb",
+        "N": "nd",
 
-        // prenasalization
-        { re: /nd/g, to: "D" }, // ⁿd
-        { re: /mb/g, to: "B" }, // ᵐb
-        { re: /ngg/g, to: "G" }, // ᵑg
-        { re: /ng/g, to: "ŋ" },
-        { re: /M/g, to: "mb" },
-        { re: /N/g, to: "nd" },
+        "'": "ʔ",
 
-        // glottal
-        { re: /'/g, to: "ʔ" },
+        "á": "A", // aː
+        "é": "E", // eː
+        "í": "I", // iː
+        "ó": "O", // oː
+        "ú": "U", // uː
+        "ä": "ɑ",
+        "ë": "ə",
+        "ü": "y",
 
-        // vowels
-        { re: /a/g, to: "a" },
-        { re: /e/g, to: "e" },
-        { re: /i/g, to: "i" },
-        { re: /o/g, to: "o" },
-        { re: /u/g, to: "u" },
-        { re: /á/g, to: "A" }, // aː
-        { re: /é/g, to: "E" }, // eː
-        { re: /í/g, to: "I" }, // iː
-        { re: /ó/g, to: "O" }, // oː
-        { re: /ú/g, to: "U" }, // uː
+        "..": ".",
+    };
 
-        { re: /ä/g, to: "ɑ" },
-        { re: /ë/g, to: "ə" },
-        { re: /ü/g, to: "y" },
+    static postMap = {
+        "A": "aː",
+        "E": "eː",
+        "I": "iː",
+        "O": "oː",
+        "U": "uː",
+        "Q": "ɑː",
+        "B": "ᵐb",
+        "D": "ⁿd",
+        "G": "ᵑɡ",
+        "S": "t͡s",
+        "M": "mb",
+        "N": "nd",
+        "..": "",
+    };
 
-        { re: /\.\./g, to: "." },
-    ];
-
-    static postMap = [
-        { re: /A/g, to: "aː" },
-        { re: /E/g, to: "eː" },
-        { re: /I/g, to: "iː" },
-        { re: /O/g, to: "oː" },
-        { re: /U/g, to: "uː" },
-        { re: /Q/g, to: "ɑː" },
-        { re: /B/g, to: "ᵐb" },
-        { re: /D/g, to: "ⁿd" },
-        { re: /G/g, to: "ᵑɡ" },
-        { re: /S/g, to: "t͡s" },
-        { re: /M/g, to: "mb" },
-        { re: /N/g, to: "nd" },
-        { re: /\.\./g, to: "" },
-    ]
-
+    // every valid syllable for each type, written out as IPA
     static allValidSyllables = Object.fromEntries(
-        Object.entries(ngimeteContent.validSyllableShapes).map(([type, shapes]) => [
-            type,
-            shapes.flatMap(shape => {
-                const expand = (str, index = 0) => {
-                    if (index >= str.length) return [""];
+        Object.entries(ngimeteContent.validSyllableShapes).map(([type, shapes]) => {
+            const expand = (shape) => [...shape].reduce(
+                (acc, ch) => acc.flatMap(prefix =>
+                    [...(ngimeteContent.groups[ch] ?? ch)].map(c => prefix + c)
+                ),
+                [""]
+            );
 
-                    const group = ngimeteContent.groups[str[index]] ?? str[index];
-
-                    return [...group].flatMap(char =>
-                        expand(str, index + 1).map(rest => char + rest)
-                    );
-                };
-
-                return expand(shape).map(syllable => {
-                    syllable = syllable.replace(
-                        /[\uE000-\uF8FF]/g,
-                        char => ngimeteContent.dipthongRemap[char] ?? char
-                    );
-
-                    ngimeteContent.postMap.forEach(({ re, to }) => {
-                        syllable = syllable.replace(re, to);
-                    });
-
-                    return syllable;
-                });
-            })
-        ])
+            return [type, shapes.flatMap(expand).map(syllable => {
+                syllable = syllable.replace(
+                    /[\uE000-\uF8FF]/g,
+                    char => ngimeteContent.diphthongs[char.codePointAt(0) - 0xE000] ?? char
+                );
+                return applyRules(syllable, ngimeteContent.postMap);
+            })];
+        })
     );
 
     constructor(){
@@ -599,13 +604,17 @@ export class ngimeteContent {
     }
 }
 
-const IPA_FIXES = [
-    { re: /n/g, to: "n̪" },
-    { re: /g/g, to: "ɡ" },
-    ...ngimeteContent.diphthongs.map(d => {
-        return { re: new RegExp(d.split("").join("\\."), "g"), to: d[0] + d[1] + ngimeteContent.non_syllable_diacritic }
-    })
-];
+const IPA_FIXES = {
+    "n": "n̪",
+    "g": "ɡ",
+    // "a.o" -> "ao̯"
+    ...Object.fromEntries(
+        ngimeteContent.diphthongs.map(d => [
+            d[0] + "." + d[1],
+            d + ngimeteContent.non_syllabic_diacritic
+        ])
+    ),
+};
 
 function compileTemplate(tpl, groups) {
     let re = "^";
@@ -742,362 +751,33 @@ const mods = {
     special: "ᨛ",
 }
 
+// every glyph starts from these flags; script_map entries only list what differs
+const GLYPH_DEFAULTS = { top: false, bottom: false, left: false, right: false, special: false, vowel: false };
 
-/**
- * 
- * @param {*} s 
- * @param {number} type 0 = normal; 1 = merged
- * @returns 
- */
+// vowel glyph helper: always vowel: true
+const vowel = (base, extra) => ({ base, vowel: true, ...extra });
+
 function script(s){
-    const old_s = String(s);
-
-    s = 
-        s.replaceAll("ā", "ᨔᨎ")
+    s = s.replaceAll("ā", "ᨔᨎ")
         .replaceAll("c", "ᨎ")
         .replaceAll("ə", "ᨎ")
         .replaceAll("z", "ᨎ");
 
-    const script_map = {
-        p: { base: "ᨃ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
-        b: { base: "ᨃ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false },
-        t: { base: "ᨈ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
-        d: { base: "ᨈ", top: false, bottom: true, left: false, right: false, special: false, vowel: false },
-        "\uE008": { base: "ᨇ", top: false, bottom: false, left: false, right: false, special: false, vowel: false }, // gy/ky
-        k: { base: "ᨍ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
-        g: { base: "ᨍ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false },
-        "\uE00B": { base: "ᨀ", top: false, bottom: false, left: false, right: false, special: false, vowel: false }, // glottal
+    s = applyRules(s, ngimeteContent.script_replace_list);
 
-        // super special
-        "\uE003": { multi: true, parts: [
-            { raw: true, base: "ᨌ" },
-            { base: "ᨃ", top: false, bottom: false,  left: false, right: false, special: true, vowel: false }, // mb
-        ] },
-        "\uE004": { multi: true, parts: [
-            { raw: true, base: "ᨌ" },
-            { base: "ᨈ", top: false, bottom: false,  left: false, right: false, special: true, vowel: false }, // nd
-        ] },
-        "\uE005": { multi: true, parts: [
-            { raw: true, base: "ᨌ" },
-            { base: "ᨍ", top: false, bottom: false, left: false, right: false, special: true, vowel: false }, // ngg
-        ] },
-
-        m: { base: "ᨅ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
-        n: { base: "ᨄ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
-        "\uE006": { base: "ᨋ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false }, // ng
-        f: { base: "ᨂ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
-        v: { base: "ᨂ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false },
-        s: { base: "ᨆ", top: false, bottom: false, left: false, right: false, special: false, vowel: false },
-        h: { base: "ᨀ", top: false, bottom: true, left: false, right: false, special: false, vowel: false },
-        "\uE007": { base: "ᨉ", top: false, bottom: false, left: false, right: false, special: false, vowel: false }, // ts
-        w: { base: "ᨏ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false },
-        y: { base: "ᨒ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false },
-        l: { base: "ᨓ", top: false, bottom: false,  left: false, right: false, special: false, vowel: false },
-        i: { base: "ᨔ", top: true,  bottom: false, left: false, right: false, special: false, vowel: true  },
-        ü: { base: "ᨔ", top: true, bottom: false,  left: false, right: false, special: true, vowel: true  },
-        í: { base: "ᨖ", top: true, bottom: false,  left: false, right: false, special: false, vowel: true  },
-        u: { base: "ᨔ", top: true,  bottom: false, left: false, right: true, special: false, vowel: true  },
-        ú: { base: "ᨖ", top: true,  bottom: false, left: false, right: true, special: false, vowel: true  },
-        e: { base: "ᨔ", top: false,  bottom: false,  left: true, right: false, special: false, vowel: true  },
-        é: { base: "ᨖ", top: false,  bottom: false,  left: true, right: false, special: false, vowel: true  },
-        ë: { base: "ᨔ", top: false, bottom: false,  left: false, right: false, special: true, vowel: true  },
-        o: { base: "ᨔ", top: false,  bottom: false, left: false, right: true, special: false, vowel: true  },
-        ó: { base: "ᨖ", top: false,  bottom: false, left: false, right: true, special: false, vowel: true  },
-        a: { base: "ᨔ", top: false,  bottom: false, left: false, right: false, special: false, vowel: true  },
-        á: { base: "ᨖ", top: false,  bottom: false, left: false, right: false, special: false, vowel: true  },
-        ä: { base: "ᨔ", top: false, bottom: true,  left: false, right: false, special: false, vowel: true  },
-        "\uE00A": { base: "ᨖ", top: false, bottom: true,  left: false, right: false, special: false, vowel: true  }, // är
-        "\uE002": { multi: true, parts: [
-            { base: "ᨅ", top: false, bottom: false, left: false, right: false, special: false, vowel: false }, // m
-            { base: "ᨃ", top: false, bottom: true,  left: false, right: false, special: false, vowel: false } // b
-        ] },
-        "\uE001": { multi: true, parts: [
-            { base: "ᨄ", top: false, bottom: false, left: false, right: false, special: false, vowel: false }, // n
-            { base: "ᨊ", top: false, bottom: false, left: false, right: false, special: false, vowel: false } // d
-        ] },
-
-        // punctuation
-        "(": { raw: true, base: "（" },
-        ")": { raw: true, base: "）" },
-    }
-
-
-    const kepwamete_script_map = {
-        "p": {
-            base: "ᨃ",
-            mod: false,
-            top: false,
-            bottom: false,
-        },
-        "b": {
-            base: "ᨃ",
-            mod: false,
-            top: true,
-            bottom: false,
-        },
-        "t": {
-            base: "ᨈ",
-            mod: false,
-            top: false,
-            bottom: false,
-        },
-        "d": {
-            base: "ᨈ",
-            mod: false,
-            top: true,
-            bottom: false,
-        },
-        "\uE008": { // gy/ky
-            base: "ᨇ",
-            mod: false,
-            top: false,
-            bottom: false,
-        },
-        "k": {
-            base: "ᨍ",
-            mod: false,
-            top: false,
-            bottom: false,
-        },
-        "g": {
-            base: "ᨍ",
-            mod: false,
-            top: true,
-            bottom: false,
-        },
-        "\uE00B": { // glottal
-            base: "ᨔ",
-            mod: false,
-            top: false,
-            bottom: false,
-        },
-        "\uE003": { // mb
-            base: "ᨅ",
-            mod: false,
-            top: false,
-            bottom: true,
-        },
-        "\uE004": { // nd
-            base: "ᨄ",
-            mod: false,
-            top: false,
-            bottom: true,
-        },
-        "\uE005": { // ngg
-            base: "ᨋ",
-            mod: false,
-            top: false,
-            bottom: true,
-        },
-        "m": {
-            base: "ᨅ",
-            mod: false,
-            top: false,
-            bottom: false,
-        },
-        "n": {
-            base: "ᨄ",
-            mod: false,
-            top: false,
-            bottom: false,
-        },
-        "\uE006": { // ng
-            base: "ᨋ",
-            mod: false,
-            top: false,
-            bottom: false,
-        },
-        "f": {
-            base: "ᨂ",
-            mod: false,
-            top: false,
-            bottom: false,
-        },
-        "v": {
-            base: "ᨂ",
-            mod: false,
-            top: true,
-            bottom: false,
-        },
-        "s": {
-            base: "ᨆ",
-            mod: false,
-            top: false,
-            bottom: false,
-        },
-        "h": {
-            base: "ᨖ",
-            mod: false,
-            top: false,
-            bottom: false,
-        },
-        "\uE007": { // ts
-            multi: true,
-            parts: [
-                { base: "ᨈ", mod: false, top: false, bottom: false },
-                { base: "ᨆ", mod: false, top: false, bottom: false },
-            ],
-        },
-        "w": {
-            base: "ᨏ",
-            mod: false,
-            top: false,
-            bottom: false,
-        },
-        "y": {
-            base: "ᨒ",
-            mod: false,
-            top: false,
-            bottom: false,
-        },
-        "l": {
-            base: "ᨓ",
-            mod: false,
-            top: false,
-            bottom: false,
-        },
-        "i": {
-            base: "ᨌ",
-            mod: false,
-            top: false,
-            bottom: false,
-        },
-        "ü": {
-            base: "ᨄ",
-            mod: true,
-            top: false,
-            bottom: false,
-        },
-        "í": {
-            base: "ᨌ",
-            mod: false,
-            top: false,
-            bottom: true,
-        },
-        "u": {
-            base: "ᨏ",
-            mod: true,
-            top: false,
-            bottom: false,
-        },
-        "ú": {
-            base: "ᨏ",
-            mod: true,
-            top: false,
-            bottom: true,
-        },
-        "e": {
-            base: "ᨑ",
-            mod: false,
-            top: false,
-            bottom: false,
-        },
-        "é": {
-            base: "ᨑ",
-            mod: false,
-            top: false,
-            bottom: true,
-        },
-        "ë": {
-            base: "ᨖ",
-            mod: true,
-            top: true,
-            bottom: false,
-        },
-        "o": {
-            base: "ᨉ",
-            mod: false,
-            top: false,
-            bottom: false,
-        },
-        "ó": {
-            base: "ᨉ",
-            mod: false,
-            top: false,
-            bottom: true,
-        },
-        "a": {
-            base: "ᨀ",
-            mod: false,
-            top: false,
-            bottom: false,
-        },
-        "á": {
-            base: "ᨀ",
-            mod: false,
-            top: false,
-            bottom: true,
-        },
-        "ä": {
-            base: "ᨔ",
-            mod: true,
-            top: false,
-            bottom: false,
-        },
-        "\uE00A": { // är
-            base: "ᨔ",
-            mod: true,
-            top: false,
-            bottom: true,
-        },
-        "\uE002": { // mbb
-            multi: true,
-            parts: [
-                { base: "ᨅ", mod: false, top: false, bottom: false },
-                { base: "ᨃ", mod: false, top: true, bottom: false },
-            ],
-        },
-        "\uE001": { // ndd
-            multi: true,
-            parts: [
-                { base: "ᨄ", mod: false, top: false, bottom: false },
-                { base: "ᨈ", mod: false, top: true, bottom: false },
-            ],
-        },
-    }
-
-    const script_replace_list = {
-        "mbb": "\uE002", // mb
-        "ndd": "\uE001", // nd
-        "mb": "\uE003", // B
-        "nd": "\uE004", // D
-        "ngg": "\uE005", // G
-        "ng": "\uE006", // N
-        "ts": "\uE007", // S
-        "gy": "\uE008", // C
-        "ky": "\uE008", // C
-        "är": "\uE00A", // Q
-        "'": "\uE00B", // Z
-        ",": " ᨞",
-        ".": " ᨟",
-        "?": " ᨟",
-        "!": " ᨟",
-    }
-
-    for(const [key, value] of Object.entries(script_replace_list)){
-        s = s.replaceAll(key, value)
-    }
-
-    let rendered = ""
-
-    const VOWEL_A = "ᨔ"
     const VOWEL_AA = "ᨖ"
     const VOWEL_LONG_MARKER = "ᨑ"
-    const PRENASAL_MARKER = "ᨌ"
 
     const prerenderPipeline = [];
 
-    for(let i = 0; i < s.length; i++){
-        const curr = script_map[s[i]];
-        if(curr == undefined){
-            prerenderPipeline.push({ raw: true, base: s[i] });
+    for(const ch of s){
+        const entry = ngimeteContent.script_map[ch];
+        if(entry == undefined){
+            prerenderPipeline.push({ raw: true, base: ch });
+        } else if(entry.multi){
+            prerenderPipeline.push(...entry.parts.map(part => ({ ...GLYPH_DEFAULTS, ...part })));
         } else {
-            if(curr.multi){
-                let copy = structuredClone(curr);
-                prerenderPipeline.push(...copy.parts);
-            } else {
-                prerenderPipeline.push(structuredClone(curr));
-            }
+            prerenderPipeline.push({ ...GLYPH_DEFAULTS, ...entry });
         }
     }
 
@@ -1164,7 +844,7 @@ function script(s){
         }
     }
 
-    rendered = renderPipeline.map(renderGlyph).join("");
+    let rendered = renderPipeline.map(renderGlyph).join("");
 
     let inQuotes = false;
     rendered.split("").forEach((char, index) => {
@@ -1189,12 +869,9 @@ export class ConlangContent {
         this.ipa = s.map(ipa).map(line => line.replaceAll("[]", ""));
         this.ortho = s.map(ortho)
         this.script = s.map(line => script(ortho(line)));
-        //this.script_high = s.map(line => script(ortho(line), 1));
     }
 
     /**
-     * 
-     * @param {Number} scriptType - 0 = separate, 1 = condensed
      * @param {Boolean} prettyOutput - if true, each entry is grouped together with a blank line between entries
      * @param {String[]} includedCategories  - categories to include: "ortho", "script", "ipa"
      * @returns 
@@ -1242,13 +919,8 @@ export class Writer {
     // ᨈ ᨔᨙ ᨃᨙ ᨃᨘ ᨔᨙ
     // t  e mb b e
 
-    /**
-     * 
-     * @param {Number} type 0 = separate, 1 = condensed
-     * @returns 
-     */
-    script(type = 0){
-        return script(this.ortho(), type)
+    script(){
+        return script(this.ortho())
     }
 
     all(alternateMode = false){
