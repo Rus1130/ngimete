@@ -78,8 +78,10 @@ export class Dictionary {
                 let english = entry[1].trim();
                 let category = entry[2].trim();
         
+                other = other.map(x => x.trim());
+
                 if(!(category == "Grammar" || category == "Tenses" || category == "Phrases")){
-                    other = other.map(x => x.replaceAll(" ", "-").trim())
+                    other = other.map(x => x.replaceAll(" ", "-"));
                 }
                 this.addWord(category, new Word(english, ...other));
             });
@@ -188,10 +190,10 @@ export class Dictionary {
             "#vs": group(["a", "e", "i", "o", "u", "ä", "ë", "ü"]),
             "#vl": group(["á", "é", "í", "ó", "ú", "är"]),
 
-            "#cu": group(["ky", "gy", "p", "t", "k", "f", "s", "h"]),
-            "#cv": group(["b", "d", "g(?!y)", "m", "n", "v", "w", "y", "l", "'"]),
+            "#cu": group(["ky", "p", "t", "k", "f", "s", "h"]),
+            "#cv": group(["b", "d", "gy", "m", "n", "v", "w", "y", "l", "'"]),
 
-            "#c": group(["p", "b", "t", "d", "k", "g", "'", "m", "n", "f", "v", "s", "h", "w", "y", "l"]),
+            "#c": group(["p", "b", "t", "d", "k", "g", "'", "m", "n", "f", "v", "s", "h", "w", "y", "l", "gy", "ky"]),
             "#v": group(["a", "e", "i", "o", "u", "á", "é", "í", "ó", "ú", "är", "ä", "ë", "ü"]),
 
             "#pn": group(["ngg", "nd(?!d)", "mb(?!b)"]),
@@ -328,32 +330,63 @@ export class Dictionary {
 }
 
 function ortho(s){
-    const V  = "aeiouáéíóúäëü";
-    const C  = "bdfghklmnpstvwyr";
-    const C1 = "mnsvwr";
-    const A  = "bdfhklt";
-    const D  = "gpy";
-    const P  = "oiu";
 
-    const rules = [
-        ["a", C,  "ā"],
-        [V,   D,  "c"],
-        [P,   C,  "ə"],
-        [C,   C,  "ə"],
-        [V,   V,  "c"],
-        [V,   C1, "z"],
-        [V,   A,  "z"],
-    ];
+    s = s.replaceAll("_", "");
 
-    const chars = s.replaceAll("_", "").split("");
+    const V = ["a", "e", "i", "o", "u", "á", "é", "í", "ó", "ú", "ä", "ë", "ü"]
+    const C = ["b", "d", "f", "g", "h", "k", "l", "m", "n", "p", "s", "t", "v", "w", "y", "r"]
+    const C1 = ["m", "n", "s", "v", "w", "r"]
+    const A = ["b", "d", "f", "h", "k", "l", "t"]
+    const D = ["g", "p", "y"]
+    const P = ["o", "i", "u"]
 
-    chars.forEach((ch, i) => {
-        if(ch !== "-") return;
-        const rule = rules.find(([l, r]) => l.includes(chars[i - 1]) && r.includes(chars[i + 1]));
-        if(rule) chars[i] = rule[2];
-    });
+    for(let i = 0; i < s.length; i++){
 
-    return chars.join("").replaceAll("aā", "ā");
+        if(s[i] == "-"){
+            let left = s[i-1]
+            let right = s[i+1]
+            
+            // C-C = ə
+            // P-C = ə
+            // V-V = c
+            // V-C1 = z
+            // V-D = c
+            // V-A = z
+            // a-C = ā
+
+            if(left == "a" && C.includes(right)) {
+                s = s.substring(0, i) + "ā" + s.substring(i+1)
+                continue
+            }
+            if(V.includes(left) && D.includes(right)) {
+                s = s.substring(0, i) + "c" + s.substring(i+1)
+                continue
+            }
+            if(P.includes(left) && C.includes(right)) {
+                s = s.substring(0, i) + "ə" + s.substring(i+1)
+                continue
+            }
+            if(C.includes(left) && C.includes(right)) {
+                s = s.substring(0, i) + "ə" + s.substring(i+1)
+                continue
+            }
+            if(V.includes(left) && V.includes(right)) {
+                s = s.substring(0, i) + "c" + s.substring(i+1)
+                continue
+            }
+            if(V.includes(left) && C1.includes(right)) {
+                s = s.substring(0, i) + "z" + s.substring(i+1)
+                continue
+            }
+            if(V.includes(left) && A.includes(right)) {
+                s = s.substring(0, i) + "z" + s.substring(i+1)
+                continue
+            }
+        }
+    }
+
+    s = s.replaceAll("aā", "ā")
+    return s;
 }
 
 function normalize(str) {
@@ -398,9 +431,73 @@ function syllabifyWord(word, groups, templates) {
     return out.join(".");
 }
 
-export class ngimeteContent {
+const mods = {
+    left: "ᨙ",
+    top: "ᨗ",
+    bottom: "ᨘ",
+    right: "ᨚ",
+    special: "ᨛ",
+}
 
+// every glyph starts from these flags; script_map entries only list what differs
+const GLYPH_DEFAULTS = { top: false, bottom: false, left: false, right: false, special: false, vowel: false };
+
+// vowel glyph helper: always vowel: true
+const vowel = (base, extra) => ({ base, vowel: true, ...extra });
+
+
+export class ngimeteContent {
     static non_syllabic_diacritic = "̯";
+
+        // orthography -> internal single-character symbols (applied in order)
+    static preMap = {
+        "mbb": "M", // m.b
+        "ndd": "N", // n.d
+        "ky": "C",
+        "gy": "J",
+        "ts": "S", // t͡s
+        "y": "j",
+        "?": ".",
+        "!": ".",
+
+        "nd": "D", // ⁿd
+        "mb": "B", // ᵐb
+        "ngg": "G", // ᵑg
+        "ng": "ŋ",
+        "M": "mb",
+        "N": "nd",
+
+        "'": "ʔ",
+
+        "á": "A", // aː
+        "é": "E", // eː
+        "í": "I", // iː
+        "ó": "O", // oː
+        "ú": "U", // uː
+        "ä": "ɑ",
+        "ë": "ə",
+        "ü": "y",
+
+        "..": ".",
+    };
+
+    static postMap = {
+        "A": "aː",
+        "E": "eː",
+        "I": "iː",
+        "O": "oː",
+        "U": "uː",
+        "Q": "ɑː",
+        "C": "c",
+        "J": "ɟ",
+        "B": "ᵐb",
+        "D": "ⁿd",
+        "G": "ᵑɡ",
+        "S": "t͡s",
+        "M": "mb",
+        "N": "nd",
+        "..": "",
+    };
 
     static script_replace_list = {
         "mbb": "\uE002",
@@ -410,8 +507,8 @@ export class ngimeteContent {
         "ngg": "\uE005",
         "ng": "\uE006",
         "ts": "\uE007",
-        "gy": "\uE008",
         "ky": "\uE008",
+        "gy": "\uE009",
         "är": "\uE00A",
         "'": "\uE00B",
         ",": " ᨞",
@@ -439,8 +536,9 @@ export class ngimeteContent {
         l: { base: "ᨓ" },
 
         // placeholder symbols (see script_replace_list)
-        "\uE008": { base: "ᨇ" }, // gy/ky
-        "\uE00B": { base: "ᨀ" }, // glottal
+        "\uE008": { base: "ᨇ" }, // ky
+        "\uE009": { base: "ᨇ", bottom: true }, // gy
+        "\uE00B": { base: "ᨀ" }, // h
         "\uE006": { base: "ᨋ" }, // ng
         "\uE007": { base: "ᨉ" }, // ts
 
@@ -467,7 +565,7 @@ export class ngimeteContent {
         í: vowel("ᨖ", { top: true }),
         ó: vowel("ᨖ", { right: true }),
         ú: vowel("ᨖ", { top: true, right: true }),
-        "\uE00A": vowel("ᨖ", { bottom: true }), // är
+        "\uE00A": vowel("ᨖ", { bottom: true, special: true }), // är
 
         // punctuation
         "(": { raw: true, base: "（" },
@@ -490,7 +588,7 @@ export class ngimeteContent {
 
     static groups = {
         "V": "aeiouɑəyAEIOUQ",  
-        "C": "bdfghklmnpstvwjcŋʔSBDG",
+        "C": "bdfghklmnpstvwjCJŋʔSBDG",
         "N": "mnŋ",
         "Z": "pbfvshtS",
         "T": "Ss",
@@ -528,56 +626,8 @@ export class ngimeteContent {
         `CVs(?![${ngimeteContent.groups.V}])`, // consonant-vowel-s not followed by vowel
         `VN(?=[${ngimeteContent.groups.C}])`, // vowel-nasal followed by consonant
         "CV",
-        "V",
+        "V",    
     ];
-
-    // orthography -> internal single-character symbols (applied in order)
-    static preMap = {
-        "mbb": "M", // m.b
-        "ndd": "N", // n.d
-        "gy": "c",
-        "ky": "c",
-        "ts": "S", // t͡s
-        "y": "j",
-        "?": ".",
-        "!": ".",
-
-        "nd": "D", // ⁿd
-        "mb": "B", // ᵐb
-        "ngg": "G", // ᵑg
-        "ng": "ŋ",
-        "M": "mb",
-        "N": "nd",
-
-        "'": "ʔ",
-
-        "á": "A", // aː
-        "é": "E", // eː
-        "í": "I", // iː
-        "ó": "O", // oː
-        "ú": "U", // uː
-        "ä": "ɑ",
-        "ë": "ə",
-        "ü": "y",
-
-        "..": ".",
-    };
-
-    static postMap = {
-        "A": "aː",
-        "E": "eː",
-        "I": "iː",
-        "O": "oː",
-        "U": "uː",
-        "Q": "ɑː",
-        "B": "ᵐb",
-        "D": "ⁿd",
-        "G": "ᵑɡ",
-        "S": "t͡s",
-        "M": "mb",
-        "N": "nd",
-        "..": "",
-    };
 
     // every valid syllable for each type, written out as IPA
     static allValidSyllables = Object.fromEntries(
@@ -742,20 +792,6 @@ function findMergeTarget(renderPipeline) {
 
     return { glyph, index: i };
 }
-
-const mods = {
-    left: "ᨙ",
-    top: "ᨗ",
-    bottom: "ᨘ",
-    right: "ᨚ",
-    special: "ᨛ",
-}
-
-// every glyph starts from these flags; script_map entries only list what differs
-const GLYPH_DEFAULTS = { top: false, bottom: false, left: false, right: false, special: false, vowel: false };
-
-// vowel glyph helper: always vowel: true
-const vowel = (base, extra) => ({ base, vowel: true, ...extra });
 
 function script(s){
     s = s.replaceAll("ā", "ᨔᨎ")
@@ -954,7 +990,7 @@ export class Word {
         }
 
         if(arguments.length - 1 < Word.dialects.length){
-            this.value[Word.dialects[0]] = value;
+            this.value[Word.dialects[0]] = ortho(value);
             this.script[Word.dialects[0]] = new ConlangContent(value);
         } else {
             for(let i = 1; i < arguments.length; i++){
