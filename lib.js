@@ -210,8 +210,6 @@ export class Dictionary {
             ? new RegExp(expandedSearchTerm, "i")
             : null;
 
-        console.log(regex)
-
         const categories = category ? [category] : this.practiceOrder;
 
         if (category && !this.dict[category]) {
